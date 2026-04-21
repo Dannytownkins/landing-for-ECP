@@ -23,9 +23,9 @@
 
 @layer components {
   .text-massive {
-    font-size: clamp(3rem, 14vw, 9.5rem);
-    line-height: 0.85;
-    letter-spacing: -0.04em;
+    font-size: clamp(3rem, 16vw, 12rem);
+    line-height: 0.82;
+    letter-spacing: -0.045em;
     font-weight: 900;
     -webkit-text-stroke: 1px currentColor;
     overflow-wrap: break-word;

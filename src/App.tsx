@@ -28,8 +28,8 @@ export default function App() {
       
       <main>
         <section className="relative min-h-screen pt-24 sm:pt-32 pb-20 sm:pb-24 px-6 sm:px-8 flex items-center justify-center">
-          <div className="w-full max-w-[95rem] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-24 items-center justify-between xl:px-16">
-            <div className="lg:w-[45%] flex flex-col justify-center z-20 relative w-full">
+          <div className="w-full max-w-[110rem] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between xl:px-8">
+            <div className="lg:w-[50%] flex flex-col justify-center z-20 relative w-full">
               <div className="flex items-center gap-3 mb-6 flex-wrap">
                 <span className="px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">ENFORCEMENT MODE</span>
                 <span className="text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-SURVEIL-STATION</span>
@@ -37,7 +37,7 @@ export default function App() {
               <h1 className="font-brutalist text-massive mb-6 sm:mb-8 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                 FACTS<br/>OVER<br/><span className="text-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
               </h1>
-              <div className="max-w-md relative z-20">
+              <div className="max-w-xl relative z-20">
                 <p className="text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
                   One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
                 </p>
@@ -53,8 +53,8 @@ export default function App() {
               </div>
             </div>
           
-            <div className="lg:w-[55%] relative flex items-center justify-center mt-12 lg:mt-0 z-10 w-full px-4 sm:px-8 lg:px-0 overflow-visible">
-            <div className="relative skew-hero group cursor-pointer w-full max-w-2xl overflow-visible">
+            <div className="lg:w-[50%] relative flex items-center justify-center mt-12 lg:mt-0 z-10 w-full px-4 sm:px-8 lg:px-0 overflow-visible">
+            <div className="relative skew-hero group cursor-pointer w-full max-w-3xl overflow-visible">
 
               {/* Main screenshot — real subject under examination */}
               <div className="monitor-panel p-2 shadow-[10px_10px_0px_rgba(10,10,10,0.8)] sm:shadow-[20px_20px_0px_rgba(10,10,10,0.8)] group-hover:shadow-[15px_15px_0px_rgba(255,69,0,0.15)] sm:group-hover:shadow-[25px_25px_0px_rgba(255,69,0,0.15)] group-hover:border-safety-orange/40 border-2 sm:border-4 border-monitor-border transition-all duration-500 rounded-sm relative">
@@ -276,7 +276,7 @@ export default function App() {
           <div aria-hidden="true" className="absolute bottom-0 -right-10 md:right-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[10rem] md:text-[18rem] leading-none text-safety-orange tracking-tighter">
             PIPELINE
           </div>
-          <div className="max-w-7xl mx-auto relative z-10">
+          <div className="max-w-[100rem] mx-auto relative z-10">
             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-16">
               <span className="hidden md:block w-4 h-4 bg-safety-orange animate-pulse"></span>
               <h2 className="font-brutalist text-5xl lg:text-6xl uppercase tracking-tighter">Pipeline</h2>
@@ -284,131 +284,131 @@ export default function App() {
                 <div className="absolute right-0 top-[-15px] text-[10px] font-mono text-cream/30">METH_001_ACTIVE</div>
               </div>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="monitor-panel p-8 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+              <div className="monitor-panel p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-safety-orange font-black px-2 py-1 bg-safety-orange/10 border border-safety-orange/20">PHASE_01</div>
                   <div className="text-[10px] font-mono text-cream/20">AUTO_EXEC</div>
                 </div>
-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Acquire</h3>
-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Full screenshot capture at real viewports. Rendered DOM extraction (post-hydration for SPAs). Element coordinate mapping. Dual-device parallel acquisition — desktop and mobile in a single pass.</p>
+                <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Acquire</h3>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Full screenshot capture at real viewports. Rendered DOM extraction (post-hydration for SPAs). Element coordinate mapping. Dual-device parallel acquisition — desktop and mobile in a single pass.</p>
               </div>
 
-              <div className="monitor-panel p-8 border-t-2 border-t-brass hover:bg-monitor-border/30 transition-colors">
+              <div className="monitor-panel p-10 border-t-2 border-t-brass hover:bg-monitor-border/30 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-brass font-black px-2 py-1 bg-brass/10 border border-brass/20">PHASE_02</div>
                   <div className="text-[10px] font-mono text-cream/20">AWAIT_SIG</div>
                 </div>
-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Audit</h3>
-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Multi-agent analysis across 10 conversion-psychology clusters — Headlines, Trust, Price, Checkout, Performance, Media, Browse, SEO, Retention, Audience Fit. Findings scored against 800+ classified research entries.</p>
+                <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Audit</h3>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Multi-agent analysis across 10 conversion-psychology clusters — Headlines, Trust, Price, Checkout, Performance, Media, Browse, SEO, Retention, Audience Fit. Findings scored against 800+ classified research entries.</p>
               </div>
-              
-              <div className="monitor-panel p-8 border-t-2 border-t-cream/50 hover:bg-monitor-border/30 transition-colors">
+
+              <div className="monitor-panel p-10 border-t-2 border-t-cream/50 hover:bg-monitor-border/30 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-cream/60 font-black px-2 py-1 bg-white/5 border border-white/10">PHASE_03</div>
                   <div className="text-[10px] font-mono text-cream/20">MANUAL_REV</div>
                 </div>
-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Ethics Gate</h3>
-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Every phase checked against actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Flags dark patterns you're already running. Refuses to recommend anything we wouldn't defend in court. PASS or FAIL.</p>
+                <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Ethics Gate</h3>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Every phase checked against actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Flags dark patterns you're already running. Refuses to recommend anything we wouldn't defend in court. PASS or FAIL.</p>
               </div>
-              
-              <div className="monitor-panel p-8 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors bg-safety-orange/5">
+
+              <div className="monitor-panel p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors bg-safety-orange/5">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-safety-orange font-black px-2 py-1 bg-safety-orange/20 border border-safety-orange/40">PHASE_04</div>
                   <div className="text-[10px] font-mono text-safety-orange/80 animate-pulse">DEPLOY_RDY</div>
                 </div>
-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Priority Path</h3>
-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Findings compressed into a Priority Path — a short list of action stories, each one a group of related findings with a clear fix-first ranking. You fix stories, not symptoms. Exportable as a markdown brief, implementation-ready.</p>
+                <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Priority Path</h3>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Findings compressed into a Priority Path — a short list of action stories, each one a group of related findings with a clear fix-first ranking. You fix stories, not symptoms. Exportable as a markdown brief, implementation-ready.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-24 sm:py-32 px-6 sm:px-8 relative overflow-hidden">
+        <section className="py-16 sm:py-20 px-6 sm:px-8 relative overflow-hidden">
           {/* Blueprint grid — architectural/commission feel */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px)' }} />
           {/* Giant faint "LEVELS" word */}
-          <div aria-hidden="true" className="absolute -bottom-8 -left-4 md:left-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[10rem] md:text-[16rem] leading-none text-brass tracking-tighter">
+          <div aria-hidden="true" className="absolute -bottom-8 -left-4 md:left-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[8rem] md:text-[13rem] leading-none text-brass tracking-tighter">
             LEVELS
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 border-b border-monitor-border pb-6 sm:pb-8 gap-6 relative">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 border-b border-monitor-border pb-5 sm:pb-6 gap-5 relative">
             <div>
-              <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-4 uppercase">Operational Tiers</div>
-              <h2 className="font-brutalist text-4xl sm:text-5xl md:text-6xl uppercase leading-none">Levels of<br/>Depth</h2>
+              <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-3 uppercase">Operational Tiers</div>
+              <h2 className="font-brutalist text-3xl sm:text-4xl md:text-5xl uppercase leading-none">Levels of<br/>Depth</h2>
             </div>
-            <div className="text-right text-[10px] font-mono text-cream/30 mt-8 md:mt-0 uppercase">
+            <div className="text-right text-[10px] font-mono text-cream/30 mt-6 md:mt-0 uppercase">
               Protocol: Fixed Rate Commission<br/>
               Waitlist: Active<br/>
               Region: Global Shopify
             </div>
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-1">
-            <div className="monitor-panel p-6 sm:p-8 lg:p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
-              <div className="text-[10px] font-black text-cream/30 mb-8 uppercase tracking-widest">Commission_01</div>
-              <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Focus</h3>
-              <div className="text-3xl font-bold mb-10 text-cream/60">$397</div>
-              <div className="flex-grow space-y-4 mb-12">
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-1 max-w-6xl mx-auto">
+            <div className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
+              <div className="text-[10px] font-black text-cream/30 mb-5 uppercase tracking-widest">Commission_01</div>
+              <h3 className="font-brutalist text-3xl mb-1 uppercase group-hover:text-brass transition-colors">Focus</h3>
+              <div className="text-2xl font-bold mb-7 text-cream/60">$397</div>
+              <div className="flex-grow space-y-2 mb-8">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Scope</span> <span className="text-cream/30">1 Page</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Device</span> <span className="text-cream/30">Mobile OR Desktop</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Clusters</span> <span className="text-cream/30">All 10</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Priority Path</span> <span className="text-cream/30">Included</span>
                 </p>
               </div>
-              <button className="w-full py-4 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
+              <button className="w-full py-3 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
             </div>
-            
-            <div className="monitor-panel p-7 sm:p-9 lg:p-12 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-4 lg:-mb-4 shadow-[0_0_50px_rgba(255,69,0,0.15)] relative">
-              <div className="absolute top-0 right-0 bg-safety-orange text-white text-[9px] font-black px-4 py-1 uppercase">Recommended</div>
-              <div className="text-[10px] font-black text-safety-orange mb-8 uppercase tracking-widest">Commission_02</div>
-              <h3 className="font-brutalist text-5xl mb-1 uppercase">The Funnel</h3>
-              <div className="text-5xl font-bold mb-12">$797</div>
-              <div className="flex-grow space-y-6 mb-16">
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+
+            <div className="monitor-panel p-5 sm:p-7 lg:p-8 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-3 lg:-mb-3 shadow-[0_0_40px_rgba(255,69,0,0.15)] relative">
+              <div className="absolute top-0 right-0 bg-safety-orange text-white text-[9px] font-black px-3 py-1 uppercase">Recommended</div>
+              <div className="text-[10px] font-black text-safety-orange mb-5 uppercase tracking-widest">Commission_02</div>
+              <h3 className="font-brutalist text-4xl mb-1 uppercase">The Funnel</h3>
+              <div className="text-4xl font-bold mb-8">$797</div>
+              <div className="flex-grow space-y-3 mb-10">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Scope</span> <span className="text-safety-orange">LP + PDP + Checkout</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Device</span> <span className="text-safety-orange">Mobile + Desktop</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Cross-Page Path</span> <span className="text-safety-orange">Included</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Citations</span> <span className="text-safety-orange">Gold Tier</span>
                 </p>
               </div>
-              <button className="w-full py-6 bg-safety-orange text-white text-[11px] font-black uppercase hover:brightness-125 transition-all shadow-[0_0_30px_rgba(255,69,0,0.4)] cursor-pointer">
+              <button className="w-full py-4 bg-safety-orange text-white text-[11px] font-black uppercase hover:brightness-125 transition-all shadow-[0_0_25px_rgba(255,69,0,0.4)] cursor-pointer">
                 SECURE PRIORITY SLOT
               </button>
             </div>
-            
-            <div className="monitor-panel p-6 sm:p-8 lg:p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
-              <div className="text-[10px] font-black text-cream/30 mb-8 uppercase tracking-widest">Commission_03</div>
-              <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Full Spectrum</h3>
-              <div className="text-3xl font-bold mb-10 text-cream/60">$1,497</div>
-              <div className="flex-grow space-y-4 mb-12">
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+
+            <div className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
+              <div className="text-[10px] font-black text-cream/30 mb-5 uppercase tracking-widest">Commission_03</div>
+              <h3 className="font-brutalist text-3xl mb-1 uppercase group-hover:text-brass transition-colors">Full Spectrum</h3>
+              <div className="text-2xl font-bold mb-7 text-cream/60">$1,497</div>
+              <div className="flex-grow space-y-2 mb-8">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Scope</span> <span className="text-cream/30">Site-wide</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Device</span> <span className="text-cream/30">Mobile + Desktop</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Delta Report</span> <span className="text-cream/30">Per-Device</span>
                 </p>
-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Async Q&amp;A</span> <span className="text-cream/30">14 Days</span>
                 </p>
               </div>
-              <button className="w-full py-4 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
+              <button className="w-full py-3 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
             </div>
           </div>
         </section>
