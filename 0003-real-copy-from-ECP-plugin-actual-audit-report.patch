@@ -1,0 +1,379 @@
+From 5fbd18ad9f6bebf64d4a3ed94b663fc26a8d17e1 Mon Sep 17 00:00:00 2001
+From: Vera Aletheia <vera@veraaletheia.com>
+Date: Mon, 20 Apr 2026 18:02:58 -0700
+Subject: [PATCH 3/3] real copy from ECP plugin + actual audit report
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Replaced gemini-hallucinated placeholder copy with real data sourced from
+the ECP plugin README (Dannytownkins/ecommerce-conversion-psychology) and
+the real mobile audit report at docs/ecp/2026-04-14-637103ed/.
+
+Specific changes:
+- Hero subhead/query: "One audit. Every insight. Research-backed." +
+  "800+ classified findings across 80+ reference files from Baymard,
+  NN/g, peer-reviewed journals, and FTC enforcement actions. Every
+  recommendation cites its source. Every citation rated by evidence
+  tier." + "Not vibes. Not best practices. Actual studies, actual
+  evidence tiers, actual legal compliance."
+- Hero callouts (desktop + mobile): real cluster names and finding
+  titles pulled from the 2026-04-14 awdmods audit:
+  - Headlines & Buttons: "Hero lacks visible promise"
+  - Price & Offers: "Delivery context missing"
+  - Checkout Experience: "Fitment flow consumes decisions"
+- Ethics Gate section: grounded to actual compliance law stack (FTC
+  enforcement, CPRA, ROSCA, GDPR, WCAG 2.1) with PASS/FAIL framing
+- Audit Insight Example: now shows a real finding from the actual
+  awdmods mobile audit ("Mobile hero lacks a visible promise before
+  the fitment flow") with Headlines & Buttons cluster, HIGH severity,
+  Gold evidence tier, Mobile device, PASS ethics badge.
+- Pipeline phases renamed to match real ECP workflow:
+  Reconnaissance/Pattern-Extrac./Impact-Quantify/Protocol-Issue →
+  Acquire/Audit/Ethics-Gate/Priority-Path (matches the actual Audit,
+  Quick-scan, Build, Compare command pipeline described in the plugin)
+- Pricing tier feature lists rewritten with real ECP concepts:
+  Scope/Device/Clusters/Priority-Path/Cross-page/Citations/Async-Q&A
+  instead of the vague "Funnel Path Primary" / "Research Citations
+  Verified" placeholders
+- Footer: "One audit. Every insight. Research-backed. 800+ classified
+  findings · 80+ reference files. Built on Baymard · Nielsen Norman ·
+  CXL · FTC enforcement."
+- Footer version stamp: v1.1.0 (real plugin version)
+- Title tag: "ECP — E-Commerce Psychology Audit"
+
+Also:
+- Moved Google Fonts import from index.css (which caused postcss
+  "@import must precede all other statements" errors after tailwind
+  inlining) into index.html as a <link> tag, with preconnect hints
+  for faster font loading
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ index.html    |   5 +-
+ src/App.tsx   | 145 ++++++++++++++++++++++++++++----------------------
+ src/index.css |   1 -
+ 3 files changed, 84 insertions(+), 67 deletions(-)
+
+diff --git a/index.html b/index.html
+index 21dfe69..e39b480 100644
+--- a/index.html
++++ b/index.html
+@@ -3,7 +3,10 @@
+   <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    <title>My Google AI Studio App</title>
++    <title>ECP — E-Commerce Psychology Audit</title>
++    <link rel="preconnect" href="https://fonts.googleapis.com">
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+   </head>
+   <body>
+     <div id="root"></div>
+diff --git a/src/App.tsx b/src/App.tsx
+index 8606b5f..15022e7 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -39,12 +39,15 @@ export default function App() {
+               </h1>
+               <div className="max-w-md relative z-20">
+                 <p className="text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
+-                  We dismantle digital interfaces to expose the underlying <span className="font-bold text-cream">psychological friction</span> inhibiting your revenue.
++                  One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
++                </p>
++                <p className="text-sm font-medium text-cream/60 leading-relaxed mb-8">
++                  800+ classified findings across 80+ reference files from Baymard Institute, Nielsen Norman Group, peer-reviewed journals, and FTC enforcement actions. Every recommendation cites its source. Every citation rated by evidence tier.
+                 </p>
+                 <div className="flex gap-4">
+                   <div className="flex-[1.5] monitor-panel p-4 border-l-4 border-l-brass">
+                     <div className="text-[9px] text-brass font-black mb-1">COMMAND_QUERY</div>
+-                    <div className="text-sm font-semibold">Initiate full funnel diagnostic across 247 compliance vectors.</div>
++                    <div className="text-sm font-semibold">Not vibes. Not best practices. Actual studies, actual evidence tiers, actual legal compliance.</div>
+                   </div>
+                 </div>
+               </div>
+@@ -69,11 +72,11 @@ export default function App() {
+ 
+               {/* Callouts — OUTSIDE the panel, examiner's notes in the margin.
+                   Hidden on narrow mobile; shown from sm (640px) up. Below hero image on mobile instead. */}
+-              {/* Top-left — UI_VIOLATION */}
++              {/* Top-left — HEADLINES & BUTTONS */}
+               <div className="hidden sm:flex absolute top-[6%] -left-[12%] md:-left-[16%] lg:-left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500">
+                 <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,69,0,0.25)] whitespace-nowrap">
+-                  <span className="block text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest leading-none mb-0.5">UI_VIOLATION</span>
+-                  <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Guest checkout hidden</span>
++                  <span className="block text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest leading-none mb-0.5">HEADLINES &amp; BUTTONS</span>
++                  <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Hero lacks visible promise</span>
+                 </div>
+                 <svg className="w-16 md:w-24 h-10 md:h-14 text-safety-orange/80 -ml-1" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
+                   <path d="M0,25 L90,25" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 3" />
+@@ -81,11 +84,11 @@ export default function App() {
+                 </svg>
+               </div>
+ 
+-              {/* Mid-right — PSYCH_ANCHOR */}
++              {/* Mid-right — PRICE & OFFERS */}
+               <div className="hidden sm:flex absolute top-[38%] -right-[12%] md:-right-[16%] lg:-right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 delay-75">
+                 <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(212,175,55,0.25)] whitespace-nowrap">
+-                  <span className="block text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest leading-none mb-0.5">PSYCH_ANCHOR</span>
+-                  <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Price contrast lacking</span>
++                  <span className="block text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest leading-none mb-0.5">PRICE &amp; OFFERS</span>
++                  <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Delivery context missing</span>
+                 </div>
+                 <svg className="w-16 md:w-24 h-10 md:h-14 text-brass/80 -mr-1 transform -scale-x-100" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
+                   <path d="M0,25 L90,25" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 3" />
+@@ -93,11 +96,11 @@ export default function App() {
+                 </svg>
+               </div>
+ 
+-              {/* Bottom-left — FRICTION_PT */}
++              {/* Bottom-left — CHECKOUT EXPERIENCE */}
+               <div className="hidden sm:flex absolute bottom-[8%] -left-[12%] md:-left-[16%] lg:-left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 delay-150">
+                 <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,255,255,0.15)] whitespace-nowrap">
+-                  <span className="block text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest leading-none mb-0.5">FRICTION_PT</span>
+-                  <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Forced registration</span>
++                  <span className="block text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest leading-none mb-0.5">CHECKOUT EXPERIENCE</span>
++                  <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Fitment flow consumes decisions</span>
+                 </div>
+                 <svg className="w-16 md:w-24 h-10 md:h-14 text-cream/50 -ml-1" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
+                   <path d="M0,25 L90,25" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 3" />
+@@ -117,17 +120,17 @@ export default function App() {
+ 
+           {/* Mobile callouts — stacked BELOW hero image so they're not overlapping and not hidden */}
+           <div className="sm:hidden w-full flex flex-col gap-2 mt-6 px-2">
+-            <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3">
+-              <span className="text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest whitespace-nowrap">UI_VIOLATION</span>
+-              <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Guest checkout hidden</span>
++            <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
++              <span className="text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest whitespace-nowrap">HEADLINES &amp; BUTTONS</span>
++              <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Hero lacks visible promise</span>
+             </div>
+-            <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3">
+-              <span className="text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest whitespace-nowrap">PSYCH_ANCHOR</span>
+-              <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Price contrast lacking</span>
++            <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
++              <span className="text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest whitespace-nowrap">PRICE &amp; OFFERS</span>
++              <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Delivery context missing</span>
+             </div>
+-            <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3">
+-              <span className="text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest whitespace-nowrap">FRICTION_PT</span>
+-              <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Forced registration</span>
++            <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
++              <span className="text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest whitespace-nowrap">CHECKOUT EXPERIENCE</span>
++              <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Fitment flow consumes decisions</span>
+             </div>
+           </div>
+           </div>
+@@ -150,10 +153,10 @@ export default function App() {
+           <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px)' }} />
+ 
+           <div className="lg:col-span-4 flex flex-col justify-center relative z-10">
+-            <h2 className="font-brutalist text-7xl mb-6 leading-none">THE<br/>ETHICS<br/>GATE</h2>
+-            <p className="text-lg font-bold text-brass mb-4">Command Directive: 001</p>
++            <h2 className="font-brutalist text-5xl sm:text-6xl md:text-7xl mb-6 leading-none">THE<br/>ETHICS<br/>GATE</h2>
++            <p className="text-lg font-bold text-brass mb-4">Every audit, every phase.</p>
+             <p className="text-cream/60 leading-relaxed font-medium">
+-              We operate as a clinical research bureau. Our loyalty is to the data, not the client's ego. If your store uses predatory patterns, we will flag them for immediate termination.
++              Every phase is checked against an ethics gate built from actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Every audit ships with a PASS or FAIL verdict on the patterns regulators are now fining. We flag what you already run. We refuse to recommend anything we wouldn't defend in court.
+             </p>
+           </div>
+           <div className="lg:col-span-8">
+@@ -167,34 +170,34 @@ export default function App() {
+                 
+                 <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-10">
+                   <div className="max-w-xl">
+-                    <h3 className="font-brutalist text-4xl mb-6 uppercase">Friction Detected</h3>
++                    <h3 className="font-brutalist text-3xl sm:text-4xl mb-6 uppercase">Mobile hero lacks a visible promise before the fitment flow</h3>
+                     <p className="text-xl font-medium leading-relaxed italic text-cream/90">
+-                      "The checkout path requires three clicks to reach the payment gateway after item addition. Industry benchmarks suggest a <span className="text-safety-orange">22% drop-off</span> per unnecessary interaction."
++                      "Visitors land on the PLP and immediately hit a year/make/model stack with no positioning above it. The fitment gate consumes the <span className="text-safety-orange">first 4 seconds</span> of attention — before the brand has established what it actually does, or why a visitor should keep scrolling."
+                     </p>
+                   </div>
+                   <div className="monitor-panel p-4 min-w-[200px] border-brass/30">
+-                    <div className="text-[9px] font-black text-brass mb-2 uppercase">CITED SOURCE</div>
+-                    <div className="text-sm font-bold">Baymard Institute</div>
+-                    <div className="text-[10px] font-mono text-cream/40">Ref: Checkout-Psych-2024</div>
++                    <div className="text-[9px] font-black text-brass mb-2 uppercase">CLUSTER</div>
++                    <div className="text-sm font-bold">Headlines &amp; Buttons</div>
++                    <div className="text-[10px] font-mono text-cream/40 mt-2">Cited: Baymard · NN/g</div>
+                   </div>
+                 </div>
+-                
++
+                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-monitor-border pt-8">
+                   <div>
+-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Impact</div>
+-                    <div className="text-lg font-bold uppercase tracking-tighter">Severe</div>
++                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Severity</div>
++                    <div className="text-lg font-bold uppercase tracking-tighter">HIGH</div>
+                   </div>
+                   <div>
+-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Confidence</div>
+-                    <div className="text-lg font-bold uppercase tracking-tighter">98% Verified</div>
++                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Evidence Tier</div>
++                    <div className="text-lg font-bold uppercase tracking-tighter">Gold</div>
+                   </div>
+                   <div>
+-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Effort</div>
+-                    <div className="text-lg font-bold uppercase tracking-tighter">Low Complex</div>
++                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Device</div>
++                    <div className="text-lg font-bold uppercase tracking-tighter">Mobile</div>
+                   </div>
+                   <div>
+-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Status</div>
+-                    <div className="text-lg font-bold uppercase tracking-tighter">Actionable</div>
++                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Ethics</div>
++                    <div className="text-lg font-bold uppercase tracking-tighter text-brass">PASS</div>
+                   </div>
+                 </div>
+               </div>
+@@ -220,8 +223,8 @@ export default function App() {
+                   <div className="text-[10px] text-safety-orange font-black px-2 py-1 bg-safety-orange/10 border border-safety-orange/20">PHASE_01</div>
+                   <div className="text-[10px] font-mono text-cream/20">AUTO_EXEC</div>
+                 </div>
+-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Reconnaissance</h3>
+-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Automated crawling of all user flows. Event tracking extraction and DOM snapshotting across 14 device profiles to gather baseline data.</p>
++                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Acquire</h3>
++                <p className="text-xs text-cream/50 leading-relaxed font-mono">Full screenshot capture at real viewports. Rendered DOM extraction (post-hydration for SPAs). Element coordinate mapping. Dual-device parallel acquisition — desktop and mobile in a single pass.</p>
+               </div>
+ 
+               <div className="monitor-panel p-8 border-t-2 border-t-brass hover:bg-monitor-border/30 transition-colors">
+@@ -229,8 +232,8 @@ export default function App() {
+                   <div className="text-[10px] text-brass font-black px-2 py-1 bg-brass/10 border border-brass/20">PHASE_02</div>
+                   <div className="text-[10px] font-mono text-cream/20">AWAIT_SIG</div>
+                 </div>
+-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Pattern Extrac.</h3>
+-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Heuristic analysis of the captured UI against 247 known psychological traps, dark patterns, and cognitive friction vectors.</p>
++                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Audit</h3>
++                <p className="text-xs text-cream/50 leading-relaxed font-mono">Multi-agent analysis across 10 conversion-psychology clusters — Headlines, Trust, Price, Checkout, Performance, Media, Browse, SEO, Retention, Audience Fit. Findings scored against 800+ classified research entries.</p>
+               </div>
+               
+               <div className="monitor-panel p-8 border-t-2 border-t-cream/50 hover:bg-monitor-border/30 transition-colors">
+@@ -238,8 +241,8 @@ export default function App() {
+                   <div className="text-[10px] text-cream/60 font-black px-2 py-1 bg-white/5 border border-white/10">PHASE_03</div>
+                   <div className="text-[10px] font-mono text-cream/20">MANUAL_REV</div>
+                 </div>
+-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Impact Quantify</h3>
+-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Assigning revenue-loss probability metrics to each friction point using global anonymized checkout and registration benchmarks.</p>
++                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Ethics Gate</h3>
++                <p className="text-xs text-cream/50 leading-relaxed font-mono">Every phase checked against actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Flags dark patterns you're already running. Refuses to recommend anything we wouldn't defend in court. PASS or FAIL.</p>
+               </div>
+               
+               <div className="monitor-panel p-8 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors bg-safety-orange/5">
+@@ -247,8 +250,8 @@ export default function App() {
+                   <div className="text-[10px] text-safety-orange font-black px-2 py-1 bg-safety-orange/20 border border-safety-orange/40">PHASE_04</div>
+                   <div className="text-[10px] font-mono text-safety-orange/80 animate-pulse">DEPLOY_RDY</div>
+                 </div>
+-                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Protocol Issue</h3>
+-                <p className="text-xs text-cream/50 leading-relaxed font-mono">Generation of the final, executable action plan. Ranked by lowest technical effort to highest immediate revenue retention.</p>
++                <h3 className="text-xl font-bold uppercase mb-4 text-cream">Priority Path</h3>
++                <p className="text-xs text-cream/50 leading-relaxed font-mono">Findings compressed into a Priority Path — a short list of action stories, each one a group of related findings with a clear fix-first ranking. You fix stories, not symptoms. Exportable as a markdown brief, implementation-ready.</p>
+               </div>
+             </div>
+           </div>
+@@ -273,11 +276,17 @@ export default function App() {
+               <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Focus</h3>
+               <div className="text-3xl font-bold mb-10 text-cream/60">$397</div>
+               <div className="flex-grow space-y-4 mb-12">
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>Funnel Path</span> <span className="text-cream/30">Primary</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Scope</span> <span className="text-cream/30">1 Page</span>
++                </p>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Device</span> <span className="text-cream/30">Mobile OR Desktop</span>
+                 </p>
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>UX Violations</span> <span className="text-cream/30">Top 10</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Clusters</span> <span className="text-cream/30">All 10</span>
++                </p>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Priority Path</span> <span className="text-cream/30">Included</span>
+                 </p>
+               </div>
+               <button className="w-full py-4 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
+@@ -289,14 +298,17 @@ export default function App() {
+               <h3 className="font-brutalist text-5xl mb-1 uppercase">The Funnel</h3>
+               <div className="text-5xl font-bold mb-12">$797</div>
+               <div className="flex-grow space-y-6 mb-16">
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>Full Journey Map</span> <span className="text-safety-orange">Verified</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Scope</span> <span className="text-safety-orange">LP + PDP + Checkout</span>
++                </p>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Device</span> <span className="text-safety-orange">Mobile + Desktop</span>
+                 </p>
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>Research Citations</span> <span className="text-safety-orange">Verified</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Cross-Page Path</span> <span className="text-safety-orange">Included</span>
+                 </p>
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>Priority Implementation</span> <span className="text-safety-orange">Verified</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Citations</span> <span className="text-safety-orange">Gold Tier</span>
+                 </p>
+               </div>
+               <button className="w-full py-6 bg-safety-orange text-white text-[11px] font-black uppercase hover:brightness-125 transition-all shadow-[0_0_30px_rgba(255,69,0,0.4)] cursor-pointer">
+@@ -309,14 +321,17 @@ export default function App() {
+               <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Full Spectrum</h3>
+               <div className="text-3xl font-bold mb-10 text-cream/60">$1,497</div>
+               <div className="flex-grow space-y-4 mb-12">
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>Site-Wide Audit</span> <span className="text-cream/30">Total</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Scope</span> <span className="text-cream/30">Site-wide</span>
++                </p>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Device</span> <span className="text-cream/30">Mobile + Desktop</span>
+                 </p>
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>Benchmarking</span> <span className="text-cream/30">Vs Top 3</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Delta Report</span> <span className="text-cream/30">Per-Device</span>
+                 </p>
+-                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
+-                  <span>Strategic Advisory</span> <span className="text-cream/30">60 Min</span>
++                <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between gap-2">
++                  <span>Async Q&amp;A</span> <span className="text-cream/30">14 Days</span>
+                 </p>
+               </div>
+               <button className="w-full py-4 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
+@@ -331,9 +346,9 @@ export default function App() {
+           <div className="max-w-sm">
+             <div className="font-brutalist text-3xl mb-6 tracking-tighter">ECP<span className="text-safety-orange">.</span>SYSTEMS</div>
+             <p className="text-[10px] font-bold text-cream/30 uppercase leading-loose tracking-widest">
+-              Independent Research Bureau No. 88-X.<br/>
+-              All data processing is conducted within secure local environments.<br/>
+-              Proprietary psychological methodology applied.
++              One audit. Every insight. Research-backed.<br/>
++              800+ classified findings · 80+ reference files.<br/>
++              Built on Baymard · Nielsen Norman · CXL · FTC enforcement.
+             </p>
+           </div>
+           <div className="flex flex-col md:items-end gap-12">
+@@ -343,7 +358,7 @@ export default function App() {
+               <a className="hover:text-safety-orange" href="#">Ethical_Manifesto</a>
+             </div>
+             <div className="text-[8px] font-mono text-cream/20 tracking-tighter">
+-              VER_2024.09.12 // BUREAU OF PSYCHOLOGICAL RIGOR // SYSTEM_STABLE
++              VER_v1.1.0 // E-COMMERCE PSYCHOLOGY AUDIT // SYSTEM_STABLE
+             </div>
+           </div>
+         </div>
+diff --git a/src/index.css b/src/index.css
+index c41e064..f8396f8 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -1,5 +1,4 @@
+ @import "tailwindcss";
+-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Public+Sans:wght@300;400;600;700;900&display=swap');
+ 
+ @theme {
+   --color-matte-black: #050505;
+-- 
+2.43.0
+
