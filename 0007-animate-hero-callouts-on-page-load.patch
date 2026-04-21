@@ -1,0 +1,134 @@
+From 0e5e1fab5f98c0af5ba5631fb87c56e5c687cce7 Mon Sep 17 00:00:00 2001
+From: Vera Aletheia <vera@veraaletheia.com>
+Date: Mon, 20 Apr 2026 18:34:23 -0700
+Subject: [PATCH 7/8] animate hero callouts on page load
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Stagger the hero margin notes in from the sides as the page mounts —
+each slides in from its resting direction with its own delay:
+- HEADLINES & BUTTONS slides in from the left at 0.35s
+- PRICE & OFFERS slides in from the right at 0.65s
+- CHECKOUT EXPERIENCE slides in from below at 0.95s
+- ANALYSIS_LIVE readout fades+scales in at 1.25s
+
+Cubic-bezier easing (0.2, 0.8, 0.2, 1) for natural deceleration. On
+mobile the stacked callouts below the hero also stagger in at 0.35/
+0.55/0.75s so the effect carries across form factors.
+
+prefers-reduced-motion: animation is disabled entirely, callouts land
+at their final state so users who've opted out of motion still see the
+page correctly.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/App.tsx   | 14 +++++++-------
+ src/index.css | 34 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 41 insertions(+), 7 deletions(-)
+
+diff --git a/src/App.tsx b/src/App.tsx
+index e5a5161..19f90b7 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -73,7 +73,7 @@ export default function App() {
+               {/* Callouts — OUTSIDE the panel, examiner's notes in the margin.
+                   Hidden on narrow mobile; shown from sm (640px) up. Below hero image on mobile instead. */}
+               {/* Top-left — HEADLINES & BUTTONS */}
+-              <div className="hidden sm:flex absolute top-[6%] -left-[12%] md:-left-[16%] lg:-left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500">
++              <div className="hidden sm:flex absolute top-[6%] -left-[12%] md:-left-[16%] lg:-left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500 callout-animate-left" style={{ animationDelay: '0.35s' }}>
+                 <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,69,0,0.25)] whitespace-nowrap">
+                   <span className="block text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest leading-none mb-0.5">HEADLINES &amp; BUTTONS</span>
+                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Hero lacks visible promise</span>
+@@ -85,7 +85,7 @@ export default function App() {
+               </div>
+ 
+               {/* Mid-right — PRICE & OFFERS */}
+-              <div className="hidden sm:flex absolute top-[38%] -right-[12%] md:-right-[16%] lg:-right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 delay-75">
++              <div className="hidden sm:flex absolute top-[38%] -right-[12%] md:-right-[16%] lg:-right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 callout-animate-right" style={{ animationDelay: '0.65s' }}>
+                 <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(212,175,55,0.25)] whitespace-nowrap">
+                   <span className="block text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest leading-none mb-0.5">PRICE &amp; OFFERS</span>
+                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Delivery context missing</span>
+@@ -97,7 +97,7 @@ export default function App() {
+               </div>
+ 
+               {/* Bottom-left — CHECKOUT EXPERIENCE */}
+-              <div className="hidden sm:flex absolute bottom-[8%] -left-[12%] md:-left-[16%] lg:-left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 delay-150">
++              <div className="hidden sm:flex absolute bottom-[8%] -left-[12%] md:-left-[16%] lg:-left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 callout-animate-bottom" style={{ animationDelay: '0.95s' }}>
+                 <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,255,255,0.15)] whitespace-nowrap">
+                   <span className="block text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest leading-none mb-0.5">CHECKOUT EXPERIENCE</span>
+                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Fitment flow consumes decisions</span>
+@@ -109,7 +109,7 @@ export default function App() {
+               </div>
+ 
+               {/* Live analysis readout — top-right corner */}
+-              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8 w-32 sm:w-40 lg:w-48 monitor-panel p-2 sm:p-3 lg:p-4 text-[7px] sm:text-[8px] lg:text-[9px] font-mono leading-tight bg-matte-black border-safety-orange/40 shadow-lg group-hover:-translate-y-1 sm:group-hover:-translate-y-2 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500 z-30">
++              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8 w-32 sm:w-40 lg:w-48 monitor-panel p-2 sm:p-3 lg:p-4 text-[7px] sm:text-[8px] lg:text-[9px] font-mono leading-tight bg-matte-black border-safety-orange/40 shadow-lg group-hover:-translate-y-1 sm:group-hover:-translate-y-2 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500 z-30 readout-animate" style={{ animationDelay: '1.25s' }}>
+                 <span className="text-safety-orange">/ / ANALYSIS_LIVE</span><br/>
+                 LATENCY: 14MS<br/>
+                 THREAT_LEVEL: <span className="text-safety-orange">CRITICAL</span><br/>
+@@ -120,15 +120,15 @@ export default function App() {
+ 
+           {/* Mobile callouts — stacked BELOW hero image so they're not overlapping and not hidden */}
+           <div className="sm:hidden w-full flex flex-col gap-2 mt-6 px-2">
+-            <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
++            <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap callout-animate-bottom" style={{ animationDelay: '0.35s' }}>
+               <span className="text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest whitespace-nowrap">HEADLINES &amp; BUTTONS</span>
+               <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Hero lacks visible promise</span>
+             </div>
+-            <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
++            <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap callout-animate-bottom" style={{ animationDelay: '0.55s' }}>
+               <span className="text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest whitespace-nowrap">PRICE &amp; OFFERS</span>
+               <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Delivery context missing</span>
+             </div>
+-            <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
++            <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap callout-animate-bottom" style={{ animationDelay: '0.75s' }}>
+               <span className="text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest whitespace-nowrap">CHECKOUT EXPERIENCE</span>
+               <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Fitment flow consumes decisions</span>
+             </div>
+diff --git a/src/index.css b/src/index.css
+index 6816e99..9f8e29a 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -69,4 +69,38 @@
+     .skew-hero { transform: none !important; }
+     .skew-hero:hover { transform: none !important; }
+   }
++
++  /* Callout entry animations — stagger in after page load */
++  @keyframes callout-slide-in-left {
++    0% { opacity: 0; transform: translateX(-24px); }
++    100% { opacity: 0.95; transform: translateX(0); }
++  }
++  @keyframes callout-slide-in-right {
++    0% { opacity: 0; transform: translateX(24px); }
++    100% { opacity: 0.95; transform: translateX(0); }
++  }
++  @keyframes callout-slide-in-bottom {
++    0% { opacity: 0; transform: translateY(16px); }
++    100% { opacity: 0.95; transform: translateY(0); }
++  }
++  @keyframes callout-dash-draw {
++    0% { stroke-dashoffset: 60; opacity: 0; }
++    100% { stroke-dashoffset: 0; opacity: 0.8; }
++  }
++  @keyframes readout-pulse-in {
++    0% { opacity: 0; transform: translate(8px, -8px) scale(0.9); }
++    100% { opacity: 1; transform: translate(0, 0) scale(1); }
++  }
++  .callout-animate-left { animation: callout-slide-in-left 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
++  .callout-animate-right { animation: callout-slide-in-right 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
++  .callout-animate-bottom { animation: callout-slide-in-bottom 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
++  .readout-animate { animation: readout-pulse-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
++  .callout-dash { animation: callout-dash-draw 0.6s ease-out both; stroke-dasharray: 6; }
++
++  @media (prefers-reduced-motion: reduce) {
++    .callout-animate-left, .callout-animate-right, .callout-animate-bottom, .readout-animate, .callout-dash {
++      animation: none !important;
++      opacity: 0.95 !important;
++    }
++  }
+ }
+-- 
+2.43.0
+
