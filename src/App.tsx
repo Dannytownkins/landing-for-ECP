@@ -148,6 +148,48 @@ export default function App() {
           </div>
         </section>
 
+        {/* Plain-English Explainer — for people who don't live in CRO */}
+        <section className="relative py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border bg-matte-black overflow-hidden">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-10 sm:mb-14 flex items-center gap-4">
+              <span className="w-3 h-3 bg-brass"></span>
+              <div className="text-[10px] font-black text-brass tracking-widest uppercase">Plain English</div>
+              <div className="flex-1 h-px bg-monitor-border"></div>
+            </div>
+            <h2 className="font-brutalist text-3xl sm:text-5xl md:text-6xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-4xl tracking-tight">
+              For people who don't<br/>work in <span className="text-safety-orange">conversion</span> all day.
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
+              <div className="monitor-panel p-6 sm:p-8 border border-monitor-border">
+                <div className="text-[10px] font-mono text-safety-orange mb-3 tracking-widest uppercase">01 · The Problem</div>
+                <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You're paying for traffic that leaves without buying.</h3>
+                <p className="text-sm text-cream/60 leading-relaxed font-medium">
+                  Most people who land on an e-commerce store don't buy. That's normal. But the GAP between your visitor count and your sales count has specific causes — confusing layouts, hidden prices, broken trust cues, wrong button colors, fifty other small things. Each one is fixable. Most store owners never learn which ones matter on THEIR site.
+                </p>
+              </div>
+              <div className="monitor-panel p-6 sm:p-8 border border-monitor-border">
+                <div className="text-[10px] font-mono text-brass mb-3 tracking-widest uppercase">02 · The Audit</div>
+                <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">We diagnose your store against 800+ research findings.</h3>
+                <p className="text-sm text-cream/60 leading-relaxed font-medium">
+                  Give us a URL — no logins, no integrations. We capture your pages on desktop and mobile, run them through an evidence-cited analysis engine, and flag every place research says visitors get stuck or distracted. Every finding ties back to a specific study or regulation. Not opinions — citations.
+                </p>
+              </div>
+              <div className="monitor-panel p-6 sm:p-8 border border-monitor-border">
+                <div className="text-[10px] font-mono text-cream/50 mb-3 tracking-widest uppercase">03 · The Report</div>
+                <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You get a document. You decide what to do.</h3>
+                <p className="text-sm text-cream/60 leading-relaxed font-medium">
+                  72 hours later, you receive an interactive report with every finding, its severity, its cited source, and its priority ranking. We don't lock you into implementation. We don't upsell you. You own the report. Hand it to your developer, your agency, or just read it yourself. The point is clarity, not dependency.
+                </p>
+              </div>
+            </div>
+            <div className="mt-10 sm:mt-14 text-center">
+              <p className="text-sm sm:text-base text-cream/50 italic max-w-2xl mx-auto">
+                If you've ever been told "your bounce rate is high, try A/B testing" — this is the part that comes before A/B testing. Here's what to actually test, and here's the research that says why.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="relative py-20 sm:py-24 px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 bg-command-gray overflow-hidden">
           {/* Procedural grid wash — replaces stock phone image */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px)' }} />
@@ -270,8 +312,8 @@ export default function App() {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-1">
-            <div className="monitor-panel p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-1">
+            <div className="monitor-panel p-6 sm:p-8 lg:p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
               <div className="text-[10px] font-black text-cream/30 mb-8 uppercase tracking-widest">Commission_01</div>
               <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Focus</h3>
               <div className="text-3xl font-bold mb-10 text-cream/60">$397</div>
@@ -292,7 +334,7 @@ export default function App() {
               <button className="w-full py-4 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
             </div>
             
-            <div className="monitor-panel p-12 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-4 lg:-mb-4 shadow-[0_0_50px_rgba(255,69,0,0.15)] relative">
+            <div className="monitor-panel p-7 sm:p-9 lg:p-12 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-4 lg:-mb-4 shadow-[0_0_50px_rgba(255,69,0,0.15)] relative">
               <div className="absolute top-0 right-0 bg-safety-orange text-white text-[9px] font-black px-4 py-1 uppercase">Recommended</div>
               <div className="text-[10px] font-black text-safety-orange mb-8 uppercase tracking-widest">Commission_02</div>
               <h3 className="font-brutalist text-5xl mb-1 uppercase">The Funnel</h3>
@@ -316,7 +358,7 @@ export default function App() {
               </button>
             </div>
             
-            <div className="monitor-panel p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer">
+            <div className="monitor-panel p-6 sm:p-8 lg:p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
               <div className="text-[10px] font-black text-cream/30 mb-8 uppercase tracking-widest">Commission_03</div>
               <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Full Spectrum</h3>
               <div className="text-3xl font-bold mb-10 text-cream/60">$1,497</div>
