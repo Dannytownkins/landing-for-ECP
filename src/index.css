@@ -69,4 +69,38 @@
     .skew-hero { transform: none !important; }
     .skew-hero:hover { transform: none !important; }
   }
+
+  /* Callout entry animations — stagger in after page load */
+  @keyframes callout-slide-in-left {
+    0% { opacity: 0; transform: translateX(-24px); }
+    100% { opacity: 0.95; transform: translateX(0); }
+  }
+  @keyframes callout-slide-in-right {
+    0% { opacity: 0; transform: translateX(24px); }
+    100% { opacity: 0.95; transform: translateX(0); }
+  }
+  @keyframes callout-slide-in-bottom {
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 0.95; transform: translateY(0); }
+  }
+  @keyframes callout-dash-draw {
+    0% { stroke-dashoffset: 60; opacity: 0; }
+    100% { stroke-dashoffset: 0; opacity: 0.8; }
+  }
+  @keyframes readout-pulse-in {
+    0% { opacity: 0; transform: translate(8px, -8px) scale(0.9); }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); }
+  }
+  .callout-animate-left { animation: callout-slide-in-left 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .callout-animate-right { animation: callout-slide-in-right 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .callout-animate-bottom { animation: callout-slide-in-bottom 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .readout-animate { animation: readout-pulse-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .callout-dash { animation: callout-dash-draw 0.6s ease-out both; stroke-dasharray: 6; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .callout-animate-left, .callout-animate-right, .callout-animate-bottom, .readout-animate, .callout-dash {
+      animation: none !important;
+      opacity: 0.95 !important;
+    }
+  }
 }

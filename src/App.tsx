@@ -73,7 +73,7 @@ export default function App() {
               {/* Callouts — OUTSIDE the panel, examiner's notes in the margin.
                   Hidden on narrow mobile; shown from sm (640px) up. Below hero image on mobile instead. */}
               {/* Top-left — HEADLINES & BUTTONS */}
-              <div className="hidden sm:flex absolute top-[6%] -left-[12%] md:-left-[16%] lg:-left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500">
+              <div className="hidden sm:flex absolute top-[6%] -left-[12%] md:-left-[16%] lg:-left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500 callout-animate-left" style={{ animationDelay: '0.35s' }}>
                 <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,69,0,0.25)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest leading-none mb-0.5">HEADLINES &amp; BUTTONS</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Hero lacks visible promise</span>
@@ -85,7 +85,7 @@ export default function App() {
               </div>
 
               {/* Mid-right — PRICE & OFFERS */}
-              <div className="hidden sm:flex absolute top-[38%] -right-[12%] md:-right-[16%] lg:-right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 delay-75">
+              <div className="hidden sm:flex absolute top-[38%] -right-[12%] md:-right-[16%] lg:-right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 callout-animate-right" style={{ animationDelay: '0.65s' }}>
                 <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(212,175,55,0.25)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest leading-none mb-0.5">PRICE &amp; OFFERS</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Delivery context missing</span>
@@ -97,7 +97,7 @@ export default function App() {
               </div>
 
               {/* Bottom-left — CHECKOUT EXPERIENCE */}
-              <div className="hidden sm:flex absolute bottom-[8%] -left-[12%] md:-left-[16%] lg:-left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 delay-150">
+              <div className="hidden sm:flex absolute bottom-[8%] -left-[12%] md:-left-[16%] lg:-left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 callout-animate-bottom" style={{ animationDelay: '0.95s' }}>
                 <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,255,255,0.15)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest leading-none mb-0.5">CHECKOUT EXPERIENCE</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Fitment flow consumes decisions</span>
@@ -109,7 +109,7 @@ export default function App() {
               </div>
 
               {/* Live analysis readout — top-right corner */}
-              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8 w-32 sm:w-40 lg:w-48 monitor-panel p-2 sm:p-3 lg:p-4 text-[7px] sm:text-[8px] lg:text-[9px] font-mono leading-tight bg-matte-black border-safety-orange/40 shadow-lg group-hover:-translate-y-1 sm:group-hover:-translate-y-2 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500 z-30">
+              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8 w-32 sm:w-40 lg:w-48 monitor-panel p-2 sm:p-3 lg:p-4 text-[7px] sm:text-[8px] lg:text-[9px] font-mono leading-tight bg-matte-black border-safety-orange/40 shadow-lg group-hover:-translate-y-1 sm:group-hover:-translate-y-2 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500 z-30 readout-animate" style={{ animationDelay: '1.25s' }}>
                 <span className="text-safety-orange">/ / ANALYSIS_LIVE</span><br/>
                 LATENCY: 14MS<br/>
                 THREAT_LEVEL: <span className="text-safety-orange">CRITICAL</span><br/>
@@ -120,15 +120,15 @@ export default function App() {
 
           {/* Mobile callouts — stacked BELOW hero image so they're not overlapping and not hidden */}
           <div className="sm:hidden w-full flex flex-col gap-2 mt-6 px-2">
-            <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
+            <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap callout-animate-bottom" style={{ animationDelay: '0.35s' }}>
               <span className="text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest whitespace-nowrap">HEADLINES &amp; BUTTONS</span>
               <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Hero lacks visible promise</span>
             </div>
-            <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
+            <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap callout-animate-bottom" style={{ animationDelay: '0.55s' }}>
               <span className="text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest whitespace-nowrap">PRICE &amp; OFFERS</span>
               <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Delivery context missing</span>
             </div>
-            <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap">
+            <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap callout-animate-bottom" style={{ animationDelay: '0.75s' }}>
               <span className="text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest whitespace-nowrap">CHECKOUT EXPERIENCE</span>
               <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Fitment flow consumes decisions</span>
             </div>
