@@ -150,7 +150,13 @@ export default function App() {
 
         {/* Plain-English Explainer — for people who don't live in CRO */}
         <section className="relative py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border bg-matte-black overflow-hidden">
-          <div className="max-w-6xl mx-auto">
+          {/* Subtle form-line texture — bureau clipboard feel */}
+          <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent 0, transparent 42px, #F9F9F7 42px, #F9F9F7 43px)' }} />
+          {/* Giant faint "ECP" watermark top-right */}
+          <div aria-hidden="true" className="absolute -top-10 -right-6 md:right-0 pointer-events-none opacity-[0.04] select-none font-brutalist text-[14rem] md:text-[22rem] leading-none text-cream tracking-tighter">
+            ECP
+          </div>
+          <div className="max-w-6xl mx-auto relative">
             <div className="mb-10 sm:mb-14 flex items-center gap-4">
               <span className="w-3 h-3 bg-brass"></span>
               <div className="text-[10px] font-black text-brass tracking-widest uppercase">Plain English</div>
@@ -203,8 +209,12 @@ export default function App() {
         </section>
 
         <section className="relative py-20 sm:py-24 px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 bg-command-gray overflow-hidden">
-          {/* Procedural grid wash — replaces stock phone image */}
+          {/* Procedural grid wash — brass ledger feel */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px)' }} />
+          {/* Giant faint "ETHICS" watermark */}
+          <div aria-hidden="true" className="absolute -bottom-6 right-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[9rem] md:text-[16rem] leading-none text-brass tracking-tighter">
+            ETHICS
+          </div>
 
           <div className="lg:col-span-4 flex flex-col justify-center relative z-10">
             <h2 className="font-brutalist text-5xl sm:text-6xl md:text-7xl mb-6 leading-none">THE<br/>ETHICS<br/>GATE</h2>
@@ -260,8 +270,12 @@ export default function App() {
         </section>
 
         <section className="py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden">
-          {/* Diagonal pipeline stripes — replaces stock cyber image */}
+          {/* Pipeline flow diagram — faint connector lines between phases */}
           <div aria-hidden="true" className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 28px, #FF4500 28px, #FF4500 29px)' }} />
+          {/* Giant faint "PIPELINE" word backdrop */}
+          <div aria-hidden="true" className="absolute bottom-0 -right-10 md:right-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[10rem] md:text-[18rem] leading-none text-safety-orange tracking-tighter">
+            PIPELINE
+          </div>
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-16">
               <span className="hidden md:block w-4 h-4 bg-safety-orange animate-pulse"></span>
@@ -311,8 +325,14 @@ export default function App() {
           </div>
         </section>
 
-        <section className="py-24 sm:py-32 px-6 sm:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 border-b border-monitor-border pb-6 sm:pb-8 gap-6">
+        <section className="py-24 sm:py-32 px-6 sm:px-8 relative overflow-hidden">
+          {/* Blueprint grid — architectural/commission feel */}
+          <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px)' }} />
+          {/* Giant faint "LEVELS" word */}
+          <div aria-hidden="true" className="absolute -bottom-8 -left-4 md:left-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[10rem] md:text-[16rem] leading-none text-brass tracking-tighter">
+            LEVELS
+          </div>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 border-b border-monitor-border pb-6 sm:pb-8 gap-6 relative">
             <div>
               <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-4 uppercase">Operational Tiers</div>
               <h2 className="font-brutalist text-4xl sm:text-5xl md:text-6xl uppercase leading-none">Levels of<br/>Depth</h2>
