@@ -182,10 +182,22 @@ export default function App() {
                 </p>
               </div>
             </div>
-            <div className="mt-10 sm:mt-14 text-center">
-              <p className="text-sm sm:text-base text-cream/50 italic max-w-2xl mx-auto">
+            <div className="mt-10 sm:mt-14 flex flex-col items-center gap-6">
+              <p className="text-sm sm:text-base text-cream/50 italic max-w-2xl mx-auto text-center">
                 If you've ever been told "your bounce rate is high, try A/B testing" — this is the part that comes before A/B testing. Here's what to actually test, and here's the research that says why.
               </p>
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 mt-2">
+                <a href="#pricing" className="bg-safety-orange text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.18em] px-7 sm:px-9 py-4 hover:brightness-110 transition-all shadow-[0_0_30px_rgba(255,69,0,0.35)] cursor-pointer inline-block">
+                  Commission an Audit →
+                </a>
+                <a href="/report-mockup.html" target="_blank" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-cream/60 hover:text-brass border-b border-cream/20 hover:border-brass pb-1 transition-colors">
+                  See a Sample Report
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-[10px] font-mono text-cream/30 tracking-widest uppercase mt-2">
+                <span className="w-3 h-3 bg-brass animate-pulse"></span>
+                72-Hour Turnaround · No Retainer · Full Refund If We Miss The Bar
+              </div>
             </div>
           </div>
         </section>
