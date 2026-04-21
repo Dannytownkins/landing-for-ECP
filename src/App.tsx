@@ -145,12 +145,20 @@ function CalloutCard({
   return (
     <div
       role="button"
+      aria-pressed={active}
       aria-label={`Finding ${id} — ${data.eyebrow}: ${data.label}`}
       style={{ animationDelay: `${delay}ms` }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       onFocus={onEnter}
       onBlur={onLeave}
+      onClick={() => (active ? onLeave() : onEnter())}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          active ? onLeave() : onEnter();
+        }
+      }}
       tabIndex={0}
       className={`callout-enter flex items-center gap-1.5 cursor-pointer group/callout ${active ? 'is-active' : ''}`}
     >
@@ -274,7 +282,7 @@ function EthicsGateSection({
   const firstApproveIdx = GATE_LOG.findIndex(r => r.verdict === 'approve');
 
   return (
-    <section className="relative py-20 sm:py-24 px-6 sm:px-8 bg-command-gray border-t border-monitor-border overflow-hidden">
+    <section id="ethics-gate" className="relative py-20 sm:py-24 px-6 sm:px-8 bg-command-gray border-t border-monitor-border overflow-hidden scroll-mt-16">
       {/* Brass ledger grid wash */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px)' }} />
       {/* Giant faint "ETHICS" watermark */}
@@ -533,9 +541,9 @@ export default function App() {
             ECP<span className="text-brass">.</span>SYSTEMS
           </div>
           <div className="hidden md:flex gap-12 text-[9px] font-black tracking-file text-cream/40">
-            <a className="hover:text-safety-orange transition-colors" href="#">SURVEILLANCE</a>
-            <a className="hover:text-safety-orange transition-colors" href="#">INTEL_LOGS</a>
-            <a className="hover:text-safety-orange transition-colors" href="#">ACTIVE_ORDERS</a>
+            <a className="hover:text-safety-orange transition-colors" href="#pipeline">PIPELINE</a>
+            <a className="hover:text-safety-orange transition-colors" href="#ethics-gate">ETHICS_GATE</a>
+            <a className="hover:text-safety-orange transition-colors" href="#pricing">TIERS</a>
           </div>
           {/* Mobile gets a taller hit area (min-h-11 = 44px) with the same
               visual weight; desktop keeps the tight bureau-chip styling. */}
@@ -562,12 +570,12 @@ export default function App() {
                 <p className="boot-subhead text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
                   One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
                 </p>
-                <p className="boot-body text-sm font-medium text-cream/60 leading-relaxed mb-8">
+                <p className="boot-body text-base sm:text-sm font-medium text-cream/60 leading-relaxed mb-8">
                   800+ classified findings across 80+ reference files from Baymard Institute, Nielsen Norman Group, peer-reviewed journals, and FTC enforcement actions. Every recommendation cites its source. Every citation rated by evidence tier.
                 </p>
                 <div className="boot-panel flex gap-4">
                   <div className="flex-[1.5] monitor-panel p-4 border-l-4 border-l-brass">
-                    <div className="text-[9px] text-brass font-black mb-1">COMMAND_QUERY</div>
+                    <div className="text-[9px] text-brass font-black mb-1">STANDING_ORDER</div>
                     <div className="text-sm font-semibold">Not vibes. Not best practices. Actual studies, actual evidence tiers, actual legal compliance.</div>
                   </div>
                 </div>
@@ -693,21 +701,21 @@ export default function App() {
               <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-safety-orange mb-3 tracking-widest uppercase">01 · The Problem</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You’re paying for traffic that leaves without buying.</h3>
-                <p className="text-sm text-cream/60 leading-relaxed font-medium">
+                <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
                   Most people who land on an e-commerce store don’t buy. That’s normal. But the GAP between your visitor count and your sales count has specific causes — confusing layouts, hidden prices, broken trust cues, wrong button colors, fifty other small things. Each one is fixable. Most store owners never learn which ones matter on THEIR site.
                 </p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '120ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-brass mb-3 tracking-widest uppercase">02 · The Audit</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">We diagnose your store against 800+ research findings.</h3>
-                <p className="text-sm text-cream/60 leading-relaxed font-medium">
+                <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
                   Give us a URL — no logins, no integrations. We capture your pages on desktop and mobile, run them through an evidence-cited analysis engine, and flag every place research says visitors get stuck or distracted. Every finding ties back to a specific study or regulation. Not opinions — citations.
                 </p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-cream/50 mb-3 tracking-widest uppercase">03 · The Report</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You get a document. You decide what to do.</h3>
-                <p className="text-sm text-cream/60 leading-relaxed font-medium">
+                <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
                   72 hours later, you receive an interactive report with every finding, its severity, its cited source, and its priority ranking. We don’t lock you into implementation. We don’t upsell you. You own the report. Hand it to your developer, your agency, or just read it yourself. The point is clarity, not dependency.
                 </p>
               </div>
@@ -742,7 +750,7 @@ export default function App() {
           setActiveCallout={setActiveCallout}
         />
 
-        <section className="py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden">
+        <section id="pipeline" className="py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden scroll-mt-16">
           {/* Pipeline flow diagram — faint connector lines between phases */}
           <div aria-hidden="true" className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 28px, #FF4500 28px, #FF4500 29px)' }} />
           {/* Giant faint "PIPELINE" word backdrop */}
@@ -803,7 +811,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-6 sm:px-8 relative overflow-hidden">
+        <section id="pricing" className="py-16 sm:py-20 px-6 sm:px-8 relative overflow-hidden scroll-mt-16">
           {/* Blueprint grid — architectural/commission feel */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px)' }} />
           {/* Giant faint "LEVELS" word */}
@@ -841,7 +849,7 @@ export default function App() {
                   <span>Priority Path</span> <span className="text-cream/30">Included</span>
                 </p>
               </div>
-              <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Select Protocol</button>
+              <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Commission Focus</button>
             </div>
 
             <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="tier-pulse-on-reveal radar-sweep-host monitor-panel p-5 sm:p-7 lg:p-8 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-3 lg:-mb-3 shadow-[0_0_40px_rgba(255,69,0,0.15)] relative">
@@ -886,7 +894,7 @@ export default function App() {
                   <span>Async Q&amp;A</span> <span className="text-cream/30">14 Days</span>
                 </p>
               </div>
-              <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Select Protocol</button>
+              <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Commission Full Spectrum</button>
             </div>
           </div>
         </section>
@@ -900,10 +908,10 @@ export default function App() {
             <span className="w-2 h-2 bg-safety-orange animate-pulse"></span>
             ECP<span className="text-safety-orange">.</span>SYSTEMS
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-2 text-[9px] font-black uppercase tracking-chip text-cream/50">
-            <a className="hover:text-safety-orange transition-colors" href="#">Privacy_Policy</a>
-            <a className="hover:text-safety-orange transition-colors" href="#">Terms_of_Audit</a>
-            <a className="hover:text-safety-orange transition-colors" href="#">Ethical_Manifesto</a>
+          <div className="flex flex-wrap gap-x-8 gap-y-1 text-[9px] font-black uppercase tracking-chip text-cream/50">
+            <a className="hover:text-safety-orange transition-colors inline-block py-2 -my-2" href="#">Privacy_Policy</a>
+            <a className="hover:text-safety-orange transition-colors inline-block py-2 -my-2" href="#">Terms_of_Audit</a>
+            <a className="hover:text-safety-orange transition-colors inline-block py-2 -my-2" href="#">Ethical_Manifesto</a>
           </div>
           <div className="text-[8px] font-mono text-cream/25 tracking-tighter whitespace-nowrap">
             VER_v1.1.0 // SYSTEM_STABLE
