@@ -2,6 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
+import awdmodsHero from './assets/awdmods-hero.png';
 
 export default function App() {
   return (
@@ -19,22 +20,22 @@ export default function App() {
             <a className="hover:text-safety-orange transition-colors" href="#">INTEL_LOGS</a>
             <a className="hover:text-safety-orange transition-colors" href="#">ACTIVE_ORDERS</a>
           </div>
-          <div className="text-[9px] font-black border border-safety-orange/30 px-3 py-1.5 text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer">
-            AUTH_LOGIN
+          <div className="text-[9px] font-black border border-safety-orange/30 px-3 py-1.5 text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-[0.2em]">
+            COMMISSION_AUDIT
           </div>
         </div>
       </nav>
       
       <main>
-        <section className="relative min-h-screen pt-32 pb-24 px-8 flex items-center justify-center">
-          <div className="w-full max-w-[95rem] mx-auto flex flex-col lg:flex-row gap-8 lg:gap-24 items-center justify-between xl:px-16">
-            <div className="lg:w-[45%] flex flex-col justify-center z-20 relative">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="px-2 py-0.5 bg-white text-black text-[9px] font-black">ENFORCEMENT MODE</span>
+        <section className="relative min-h-screen pt-24 sm:pt-32 pb-20 sm:pb-24 px-6 sm:px-8 flex items-center justify-center">
+          <div className="w-full max-w-[95rem] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-24 items-center justify-between xl:px-16">
+            <div className="lg:w-[45%] flex flex-col justify-center z-20 relative w-full">
+              <div className="flex items-center gap-3 mb-6 flex-wrap">
+                <span className="px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">ENFORCEMENT MODE</span>
                 <span className="text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-SURVEIL-STATION</span>
               </div>
-              <h1 className="font-brutalist text-massive mb-8 uppercase mix-blend-difference drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                FACTS<br/>OVER<br/><span className="text-safety-orange stroke-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
+              <h1 className="font-brutalist text-massive mb-6 sm:mb-8 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                FACTS<br/>OVER<br/><span className="text-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
               </h1>
               <div className="max-w-md relative z-20">
                 <p className="text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
@@ -51,74 +52,73 @@ export default function App() {
           
             <div className="lg:w-[55%] relative flex items-center justify-center mt-12 lg:mt-0 z-10 w-full">
             <div className="relative skew-hero group cursor-pointer w-full max-w-2xl">
-              
-              {/* Callout 1 - Top Left Off-Screen */}
-              <div className="absolute top-[5%] md:top-[10%] -left-[10%] lg:-left-[20%] z-20 flex flex-col items-end gap-1 opacity-90 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500 delay-75">
-                <div className="border-l-4 border-safety-orange bg-matte-black border border-monitor-border p-2 shadow-[4px_4px_0px_rgba(255,69,0,0.2)]">
-                  <span className="block text-[7px] md:text-[8px] opacity-70 text-safety-orange font-bold uppercase tracking-widest">UI_VIOLATION</span>
-                  <span className="text-[8px] md:text-[10px] font-black uppercase text-cream tracking-tighter whitespace-nowrap">GUEST CHECKOUT HIDDEN</span>
+
+              {/* Main screenshot — real subject under examination */}
+              <div className="monitor-panel p-2 shadow-[10px_10px_0px_rgba(10,10,10,0.8)] sm:shadow-[20px_20px_0px_rgba(10,10,10,0.8)] group-hover:shadow-[15px_15px_0px_rgba(255,69,0,0.15)] sm:group-hover:shadow-[25px_25px_0px_rgba(255,69,0,0.15)] group-hover:border-safety-orange/40 border-2 sm:border-4 border-monitor-border transition-all duration-500 rounded-sm relative">
+                <img
+                  alt="Subject interface under examination — awdmods.com"
+                  className="w-full block grayscale-[0.6] brightness-90 contrast-110 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
+                  src={awdmodsHero}
+                />
+                {/* Red redaction overlay swipes — light touch */}
+                <div aria-hidden="true" className="absolute inset-0 pointer-events-none mix-blend-multiply">
+                  <div className="absolute top-[12%] left-[8%] w-[30%] h-[3px] bg-safety-orange/50"/>
+                  <div className="absolute top-[68%] left-[12%] w-[22%] h-[3px] bg-safety-orange/50"/>
                 </div>
-                <svg className="w-24 md:w-40 h-16 md:h-24 text-safety-orange -mr-16 md:-mr-32 relative z-30" viewBox="0 0 100 100" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10,0 L95,95" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
-                  <circle cx="95" cy="95" r="3" fill="currentColor" />
-                </svg>
+
+                {/* Callouts pinned ON-SCREEN over the image */}
+                {/* Top-left — UI_VIOLATION */}
+                <div className="absolute top-[6%] left-[2%] sm:left-[-4%] lg:left-[-10%] z-20 flex items-start gap-1 opacity-95 group-hover:-translate-y-1 transition-transform duration-500">
+                  <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-1.5 sm:p-2 shadow-[3px_3px_0px_rgba(255,69,0,0.25)] max-w-[130px] sm:max-w-none">
+                    <span className="block text-[7px] sm:text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest leading-none mb-0.5">UI_VIOLATION</span>
+                    <span className="text-[8px] sm:text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Guest checkout hidden</span>
+                  </div>
+                </div>
+
+                {/* Mid-right — PSYCH_ANCHOR */}
+                <div className="absolute top-[38%] right-[2%] sm:right-[-4%] lg:right-[-10%] z-20 flex items-start gap-1 opacity-95 group-hover:translate-x-1 transition-transform duration-500 delay-75">
+                  <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-1.5 sm:p-2 shadow-[3px_3px_0px_rgba(212,175,55,0.25)] max-w-[130px] sm:max-w-none">
+                    <span className="block text-[7px] sm:text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest leading-none mb-0.5">PSYCH_ANCHOR</span>
+                    <span className="text-[8px] sm:text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Price contrast lacking</span>
+                  </div>
+                </div>
+
+                {/* Bottom-left — FRICTION_PT */}
+                <div className="absolute bottom-[8%] left-[2%] sm:left-[-4%] lg:left-[-8%] z-20 flex items-start gap-1 opacity-95 group-hover:translate-y-1 transition-transform duration-500 delay-150">
+                  <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-1.5 sm:p-2 shadow-[3px_3px_0px_rgba(255,255,255,0.15)] max-w-[130px] sm:max-w-none">
+                    <span className="block text-[7px] sm:text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest leading-none mb-0.5">FRICTION_PT</span>
+                    <span className="text-[8px] sm:text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Forced registration</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Callout 2 - Right Off-Screen */}
-              <div className="absolute top-[35%] md:top-[45%] -right-[10%] lg:-right-[22%] z-20 flex flex-col items-start gap-1 opacity-90 group-hover:translate-x-2 transition-transform duration-500 delay-100">
-                <div className="border-l-4 border-brass bg-matte-black border border-monitor-border p-2 shadow-[4px_4px_0px_rgba(212,175,55,0.2)]">
-                  <span className="block text-[7px] md:text-[8px] opacity-70 text-brass font-bold uppercase tracking-widest">PSYCH_ANCHOR</span>
-                  <span className="text-[8px] md:text-[10px] font-black uppercase text-cream tracking-tighter whitespace-nowrap">PRICE CONTRAST LACKING</span>
-                </div>
-                <svg className="w-20 md:w-32 h-16 md:h-24 text-brass -ml-12 md:-ml-24 transform -scale-x-100 -scale-y-100 relative z-30" viewBox="0 0 100 100" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10,0 L95,95" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
-                  <circle cx="95" cy="95" r="3" fill="currentColor" />
-                </svg>
-              </div>
-              
-              {/* Callout 3 - Bottom Left Off-Screen */}
-              <div className="absolute bottom-[10%] md:bottom-[20%] -left-[10%] lg:-left-[18%] z-20 flex flex-col items-end gap-1 opacity-90 group-hover:-translate-x-1 group-hover:translate-y-1 transition-transform duration-500 delay-150">
-                <svg className="w-20 md:w-32 h-16 md:h-24 text-white/50 -mr-12 md:-mr-24 transform scale-y-[1] -scale-x-100 relative z-30" viewBox="0 0 100 100" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10,0 L95,95" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
-                  <circle cx="95" cy="95" r="3" fill="currentColor" />
-                </svg>
-                <div className="border-l-4 border-white/50 bg-matte-black border border-monitor-border p-2 shadow-[4px_4px_0px_rgba(255,255,255,0.1)]">
-                  <span className="block text-[7px] md:text-[8px] opacity-70 text-white/50 font-bold uppercase tracking-widest">FRICTION_PT</span>
-                  <span className="text-[8px] md:text-[10px] font-black uppercase text-cream tracking-tighter whitespace-nowrap">FORCED REGISTRATION</span>
-                </div>
-              </div>
-
-              <div className="monitor-panel p-2 shadow-[20px_20px_0px_rgba(10,10,10,0.8)] group-hover:shadow-[25px_25px_0px_rgba(255,69,0,0.15)] group-hover:border-safety-orange/40 border-4 border-monitor-border transition-all duration-500 rounded-sm">
-                <img alt="High-ISO Gritty Laptop Surveillance" className="w-full grayscale brightness-75 contrast-125 group-hover:brightness-95 group-hover:contrast-[1.1] transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC094ZvNivQdk8wmcgo8dDkIheS6gvoAcrOkkPigoxmKueh_Z3cTXWI_p8va5J_uzQWkYwV3XRf2Ep-GO4L0Fy-XE2zhS0Ujvn0rZ2L8_oW6XfCvZ1De7ffMDQ1n4_cCLqSgVEeopW9QKIPc48tNp3MCSW93uWUxzZpjw4AxIurwfTVmee3wGGwbUE42qkQaVrkfgVwUnQUNRP95RsdFv9Ys_cuDy5TKnn383k7btec6OSDF-7TGnbVKERt6Kxdt4INtPXHhRe8"/>
-              </div>
-              <div className="absolute -top-6 -right-6 lg:-top-8 lg:-right-8 w-40 lg:w-48 monitor-panel p-3 lg:p-4 text-[8px] lg:text-[9px] font-mono leading-tight bg-matte-black border-safety-orange/40 shadow-lg group-hover:-translate-y-2 group-hover:translate-x-2 transition-transform duration-500">
+              {/* Live analysis readout — top-right corner */}
+              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8 w-32 sm:w-40 lg:w-48 monitor-panel p-2 sm:p-3 lg:p-4 text-[7px] sm:text-[8px] lg:text-[9px] font-mono leading-tight bg-matte-black border-safety-orange/40 shadow-lg group-hover:-translate-y-1 sm:group-hover:-translate-y-2 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500">
                 <span className="text-safety-orange">/ / ANALYSIS_LIVE</span><br/>
                 LATENCY: 14MS<br/>
-                THREAT_LEVEL: CRITICAL<br/>
-                REVENUE_LEAK: DETECTED
+                THREAT_LEVEL: <span className="text-safety-orange">CRITICAL</span><br/>
+                REVENUE_LEAK: <span className="text-safety-orange animate-pulse">DETECTED</span>
               </div>
             </div>
           </div>
           </div>
           
-          <div className="absolute bottom-0 left-0 w-full border-t border-monitor-border bg-command-gray/90 px-8 py-4 flex flex-wrap justify-between items-center gap-4">
-            <div className="text-[9px] font-black text-brass uppercase tracking-[0.2em]">Frameworks of Authority:</div>
-            <div className="flex flex-wrap gap-8 opacity-40 hover:opacity-100 transition-opacity">
-              <span className="font-brutalist text-xs">BAYMARD</span>
-              <span className="font-brutalist text-xs">NIELSEN NORMAN</span>
-              <span className="font-brutalist text-xs">CXL</span>
-              <span className="font-brutalist text-xs">FTC_FEDERAL</span>
-              <span className="font-brutalist text-xs">GDPR_REG</span>
-              <span className="font-brutalist text-xs">WCAG_2.1</span>
+          <div className="absolute bottom-0 left-0 w-full border-t border-monitor-border bg-command-gray/90 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 flex flex-col md:flex-row md:flex-wrap md:justify-between md:items-center gap-3 md:gap-4">
+            <div className="text-[9px] font-black text-brass uppercase tracking-[0.2em] whitespace-nowrap">Frameworks of Authority:</div>
+            <div className="flex flex-wrap gap-3 sm:gap-6 lg:gap-8 opacity-50 hover:opacity-100 transition-opacity">
+              <span className="font-brutalist text-[10px] sm:text-xs">BAYMARD</span>
+              <span className="font-brutalist text-[10px] sm:text-xs">NIELSEN NORMAN</span>
+              <span className="font-brutalist text-[10px] sm:text-xs">CXL</span>
+              <span className="font-brutalist text-[10px] sm:text-xs">FTC_FEDERAL</span>
+              <span className="font-brutalist text-[10px] sm:text-xs">GDPR_REG</span>
+              <span className="font-brutalist text-[10px] sm:text-xs">WCAG_2.1</span>
             </div>
           </div>
         </section>
 
-        <section className="relative py-24 px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 bg-command-gray overflow-hidden">
-          {/* Faded Mobile Phone Background */}
-          <div className="absolute left-[-15%] md:left-[-5%] top-[10%] w-[60%] md:w-[40%] max-w-lg opacity-[0.15] pointer-events-none mix-blend-screen transform -rotate-12">
-            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop" alt="Mobile Surveillance Graphic" className="w-full h-auto grayscale brightness-50 contrast-150" />
-          </div>
+        <section className="relative py-20 sm:py-24 px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 bg-command-gray overflow-hidden">
+          {/* Procedural grid wash — replaces stock phone image */}
+          <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px)' }} />
 
           <div className="lg:col-span-4 flex flex-col justify-center relative z-10">
             <h2 className="font-brutalist text-7xl mb-6 leading-none">THE<br/>ETHICS<br/>GATE</h2>
@@ -173,10 +173,9 @@ export default function App() {
           </div>
         </section>
 
-        <section className="py-24 px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden">
-          <div className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none mix-blend-screen">
-            <img className="w-full h-full object-cover grayscale brightness-50 contrast-150" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop" alt="Cyber Pipeline" />
-          </div>
+        <section className="py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden">
+          {/* Diagonal pipeline stripes — replaces stock cyber image */}
+          <div aria-hidden="true" className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 28px, #FF4500 28px, #FF4500 29px)' }} />
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-16">
               <span className="hidden md:block w-4 h-4 bg-safety-orange animate-pulse"></span>
@@ -226,8 +225,8 @@ export default function App() {
           </div>
         </section>
 
-        <section className="py-32 px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-monitor-border pb-8">
+        <section className="py-24 sm:py-32 px-6 sm:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 border-b border-monitor-border pb-6 sm:pb-8 gap-6">
             <div>
               <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-4 uppercase">Operational Tiers</div>
               <h2 className="font-brutalist text-6xl uppercase leading-none">Levels of<br/>Depth</h2>
@@ -242,7 +241,7 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-1">
             <div className="monitor-panel p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer">
               <div className="text-[10px] font-black text-cream/30 mb-8 uppercase tracking-widest">Commission_01</div>
-              <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Core</h3>
+              <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Focus</h3>
               <div className="text-3xl font-bold mb-10 text-cream/60">$397</div>
               <div className="flex-grow space-y-4 mb-12">
                 <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
@@ -278,7 +277,7 @@ export default function App() {
             
             <div className="monitor-panel p-10 flex flex-col group hover:border-brass/30 transition-all cursor-pointer">
               <div className="text-[10px] font-black text-cream/30 mb-8 uppercase tracking-widest">Commission_03</div>
-              <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Spectrum</h3>
+              <h3 className="font-brutalist text-4xl mb-1 uppercase group-hover:text-brass transition-colors">Full Spectrum</h3>
               <div className="text-3xl font-bold mb-10 text-cream/60">$1,497</div>
               <div className="flex-grow space-y-4 mb-12">
                 <p className="text-xs font-bold uppercase tracking-widest py-3 border-b border-monitor-border flex justify-between">
@@ -298,8 +297,8 @@ export default function App() {
 
       </main>
 
-      <footer className="py-20 px-8 border-t border-monitor-border bg-command-gray">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+      <footer className="py-16 sm:py-20 px-6 sm:px-8 border-t border-monitor-border bg-command-gray">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-10 sm:gap-12">
           <div className="max-w-sm">
             <div className="font-brutalist text-3xl mb-6 tracking-tighter">ECP<span className="text-safety-orange">.</span>SYSTEMS</div>
             <p className="text-[10px] font-bold text-cream/30 uppercase leading-loose tracking-widest">
