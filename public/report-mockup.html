@@ -1705,13 +1705,86 @@ body::before {
   background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 4px);
 }
 
-/* Small screen — tighten more */
+/* Small screen — lay out cleanly on mobile */
 @media (max-width: 768px) {
-  .app-header { padding: 8px 12px; }
-  .app-header-left { flex-wrap: wrap; gap: 8px; }
-  .app-title { font-size: 0.95rem; }
-  .panel-tab { padding: 10px 12px; font-size: 0.68rem; }
-  .cluster-head { padding: 10px 12px; }
+  .app-header {
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    gap: 8px;
+    min-height: auto;
+    height: auto;
+  }
+  .app-header-left {
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+  }
+  .app-header-meta {
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .app-header-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+  }
+  .app-header-actions .btn {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+  .app-title {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+  .app-main {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: calc(100vh - var(--header-h));
+  }
+  .panel-left {
+    width: 100% !important;
+    max-width: 100% !important;
+    order: 1;
+    border-right: none;
+    border-bottom: 1px solid var(--border-strong);
+    max-height: none;
+  }
+  .canvas, .panel-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    order: 2;
+  }
+  .panel-right {
+    border-left: none;
+    border-top: 1px solid var(--border-strong);
+    max-height: none;
+  }
+  .panel-tabs { overflow-x: auto; }
+  .panel-tab {
+    padding: 12px 14px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+  .cluster-head { padding: 12px 14px; }
+  .center-empty {
+    padding: 40px 20px;
+  }
+  .onboarding-steps {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+  }
+  .onboarding-step {
+    padding: 10px 12px;
+  }
+  .bottom-bar, .bottom-left, .bottom-right {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .bottom-bar { padding: 10px 14px; height: auto; }
+  .mockup-badge { font-size: 0.58rem; padding: 3px 6px; }
 }
 
 /* Dev / mockup hint strip at the very top */
@@ -1783,12 +1856,12 @@ body::before {
         </div>
         <div class="center-empty-title">Pick a finding to spotlight it</div>
         <div class="center-empty-hint">
-          Use <strong>By Cluster</strong>, <strong>Priority Path</strong>, or <strong>Ethics</strong> on the left.
-          <br>The chosen finding will appear here with its zone outlined on the screenshot.
+          Pick a tab &mdash; <strong>By Cluster</strong>, <strong>Priority Path</strong>, or <strong>Ethics</strong> &mdash; and open a finding.
+          <br>Selected findings appear here with their zone outlined on the screenshot.
         </div>
         <div class="onboarding-steps">
-          <div class="onboarding-step"><span class="onboarding-step-num">1</span>Open a cluster on the left rail</div>
-          <div class="onboarding-step"><span class="onboarding-step-num">2</span>Click a finding row to see it here</div>
+          <div class="onboarding-step"><span class="onboarding-step-num">1</span>Open a cluster in the rail</div>
+          <div class="onboarding-step"><span class="onboarding-step-num">2</span>Click a finding row to view it here</div>
           <div class="onboarding-step"><span class="onboarding-step-num">3</span>Check the box on findings you want in your brief</div>
           <div class="onboarding-step"><span class="onboarding-step-num">4</span>Hit <strong>Export Brief</strong> to copy them out</div>
         </div>
