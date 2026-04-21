@@ -36,6 +36,12 @@
     overflow-x: hidden;
     max-width: 100vw;
   }
+  /* Anchor-scroll smoothing for the in-page nav (#pipeline / #ethics-gate /
+     #pricing). The scroll-mt-16 on each section already offsets for the
+     sticky header. Reduced-motion users get an instant jump. */
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
   body { position: relative; }
 
   /* Keyboard-only focus ring. Orange-on-dark for clear contrast.
@@ -471,6 +477,41 @@
   }
 
   /* -------------------------------------------------------------
+     Bureau nav link — thin dashed rule scales in L→R on hover/focus.
+     Echoes the redaction-stripe / pipeline-connector / callout-dash
+     motif so nav motion reads as "filed" rather than "web-animated".
+     ------------------------------------------------------------- */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      currentColor 0,
+      currentColor 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* -------------------------------------------------------------
      Reduced motion — kill all keyframe animations, show static.
      ------------------------------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
@@ -514,6 +555,9 @@
     .gate-row:hover .verdict-stamp-reject,
     .gate-row:hover .verdict-stamp-approve {
       transform: none !important;
+      transition: none !important;
+    }
+    .nav-link::after {
       transition: none !important;
     }
   }

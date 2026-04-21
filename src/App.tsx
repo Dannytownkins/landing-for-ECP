@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { useState } from 'react';
-import awdmodsHero from './assets/awdmods-hero.png';
-import awdmodsMobileSection1 from './assets/awdmods-mobile-section1.jpg';
+import awdmodsHero from './assets/awdmods-hero.webp';
+import awdmodsMobileSection1 from './assets/awdmods-mobile-section1.webp';
 import { useReveal } from './hooks/useReveal';
 import { LiveReadout } from './components/LiveReadout';
 
@@ -344,6 +344,8 @@ function EthicsGateSection({
                     alt="Subject mobile viewport — awdmods.com category browse"
                     className="w-full block grayscale-[0.5] brightness-90 contrast-110 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
                     src={awdmodsMobileSection1}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div aria-hidden="true" className="absolute inset-0 pointer-events-none mix-blend-multiply">
                     <div className="redaction-stripe redaction-stripe-1 absolute top-[18%] left-[10%] w-[60%] h-[3px] bg-safety-orange/55" />
@@ -421,7 +423,7 @@ function EthicsGateSection({
                     {/* Giant count — the hero of the card. 5-6x the size of the
                         framework name so it reads as a case-file statistic, not
                         decoration. */}
-                    <div className="font-brutalist text-[4rem] sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] text-brass leading-[0.82] tracking-tighter mb-2 group-hover:text-safety-orange transition-colors duration-300">
+                    <div className="font-brutalist text-[4rem] sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] text-cream leading-[0.82] tracking-tighter mb-2 group-hover:text-safety-orange transition-colors duration-300">
                       {f.patterns}
                     </div>
                     <div className="h-px bg-monitor-border mb-2.5" />
@@ -541,9 +543,9 @@ export default function App() {
             ECP<span className="text-brass">.</span>SYSTEMS
           </div>
           <div className="hidden md:flex gap-12 text-[9px] font-black tracking-file text-cream/40">
-            <a className="hover:text-safety-orange transition-colors" href="#pipeline">PIPELINE</a>
-            <a className="hover:text-safety-orange transition-colors" href="#ethics-gate">ETHICS_GATE</a>
-            <a className="hover:text-safety-orange transition-colors" href="#pricing">TIERS</a>
+            <a className="nav-link hover:text-safety-orange transition-colors" href="#pipeline">PIPELINE</a>
+            <a className="nav-link hover:text-safety-orange transition-colors" href="#ethics-gate">ETHICS_GATE</a>
+            <a className="nav-link hover:text-safety-orange transition-colors" href="#pricing">TIERS</a>
           </div>
           {/* Mobile gets a taller hit area (min-h-11 = 44px) with the same
               visual weight; desktop keeps the tight bureau-chip styling. */}
@@ -591,6 +593,8 @@ export default function App() {
                   alt="Subject interface under examination — awdmods.com"
                   className="w-full block grayscale-[0.6] brightness-90 contrast-110 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
                   src={awdmodsHero}
+                  fetchPriority="high"
+                  decoding="async"
                 />
                 {/* Red redaction overlay swipes — light touch */}
                 <div aria-hidden="true" className="absolute inset-0 pointer-events-none mix-blend-multiply">
@@ -856,7 +860,7 @@ export default function App() {
               <div className="absolute top-0 right-0 bg-safety-orange text-white text-[9px] font-black px-3 py-1 uppercase">Recommended</div>
               <div className="text-[10px] font-black text-safety-orange mb-5 uppercase tracking-widest">Commission_02</div>
               <h3 className="font-brutalist text-4xl mb-1 uppercase">The Funnel</h3>
-              <div className="text-4xl font-bold mb-8">$797</div>
+              <div className="font-brutalist text-[4.5rem] sm:text-[5.5rem] lg:text-[6.25rem] leading-[0.82] tracking-tighter mb-8 text-cream">$<span className="text-safety-orange">797</span></div>
               <div className="flex-grow space-y-3 mb-10">
                 <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Scope</span> <span className="text-safety-orange">LP + PDP + Checkout</span>
@@ -909,9 +913,9 @@ export default function App() {
             ECP<span className="text-safety-orange">.</span>SYSTEMS
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-1 text-[9px] font-black uppercase tracking-chip text-cream/50">
-            <a className="hover:text-safety-orange transition-colors inline-block py-2 -my-2" href="#">Privacy_Policy</a>
-            <a className="hover:text-safety-orange transition-colors inline-block py-2 -my-2" href="#">Terms_of_Audit</a>
-            <a className="hover:text-safety-orange transition-colors inline-block py-2 -my-2" href="#">Ethical_Manifesto</a>
+            <a className="nav-link hover:text-safety-orange transition-colors py-2 -my-2" href="#">Privacy_Policy</a>
+            <a className="nav-link hover:text-safety-orange transition-colors py-2 -my-2" href="#">Terms_of_Audit</a>
+            <a className="nav-link hover:text-safety-orange transition-colors py-2 -my-2" href="#">Ethical_Manifesto</a>
           </div>
           <div className="text-[8px] font-mono text-cream/25 tracking-tighter whitespace-nowrap">
             VER_v1.1.0 // SYSTEM_STABLE
