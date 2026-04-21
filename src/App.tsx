@@ -173,7 +173,7 @@ function FindingBody({ activeId }: { activeId: CalloutId | null }) {
 
   return (
     <div className="relative border-t border-monitor-border/60 pt-4 lg:pt-5 min-h-[260px]">
-      <div className="text-[9px] font-black uppercase tracking-[0.28em] text-cream/40 mb-2 transition-colors duration-200">
+      <div className="text-[9px] font-black uppercase tracking-chip text-cream/40 mb-2 transition-colors duration-200">
         {eyebrow}
       </div>
       <div key={activeId ?? 'default'} className="finding-swap">
@@ -395,9 +395,9 @@ function EthicsGateSection({
               <div className="flex items-end justify-between gap-4 mb-3 pb-3 border-b border-monitor-border">
                 <div className="flex items-center gap-3">
                   <span className="w-2.5 h-2.5 bg-safety-orange" />
-                  <div className="text-[9px] font-black text-safety-orange tracking-[0.28em] uppercase">Pattern Index · Active Enforcement</div>
+                  <div className="text-[9px] font-black text-safety-orange tracking-chip uppercase">Pattern Index · Active Enforcement</div>
                 </div>
-                <div className="flex items-baseline gap-2 font-mono text-[9px] text-cream/40 tracking-[0.2em] uppercase">
+                <div className="flex items-baseline gap-2 font-mono text-[9px] text-cream/40 tracking-meta uppercase">
                   <span>5 frameworks</span>
                   <span className="text-cream/20">/</span>
                   <span className="text-brass">{GATE_FRAMEWORKS.reduce((s, f) => s + f.patterns, 0)} tracked</span>
@@ -437,7 +437,7 @@ function EthicsGateSection({
               {/* Filing header block */}
               <div className="relative mb-5 border-t-2 border-b-2 border-monitor-border bg-matte-black/40">
                 {/* Tiny filing eyebrow pinned at the top-left corner */}
-                <div className="absolute -top-[9px] left-5 bg-command-gray px-2 text-[8px] font-black text-safety-orange tracking-[0.3em] uppercase">
+                <div className="absolute -top-[9px] left-5 bg-command-gray px-2 text-[8px] font-black text-safety-orange tracking-file uppercase">
                   Official Filing
                 </div>
                 <div className="absolute -top-[9px] right-5 bg-command-gray px-2 text-[8px] font-mono text-cream/40 tracking-[0.22em] uppercase">
@@ -451,7 +451,7 @@ function EthicsGateSection({
                       {rejectCount}
                     </div>
                     <div className="flex flex-col">
-                      <div className="text-[9px] font-black text-safety-orange tracking-[0.28em] uppercase mb-1">Rejected</div>
+                      <div className="text-[9px] font-black text-safety-orange tracking-chip uppercase mb-1">Rejected</div>
                       <div className="text-[10px] text-cream/55 leading-snug max-w-[14ch]">Patterns refused at the gate.</div>
                     </div>
                   </div>
@@ -461,21 +461,21 @@ function EthicsGateSection({
                       {approveCount}
                     </div>
                     <div className="flex flex-col">
-                      <div className="text-[9px] font-black text-intel-green tracking-[0.28em] uppercase mb-1">Approved</div>
+                      <div className="text-[9px] font-black text-intel-green tracking-chip uppercase mb-1">Approved</div>
                       <div className="text-[10px] text-cream/55 leading-snug max-w-[14ch]">Cleared for recommendation.</div>
                     </div>
                   </div>
                   {/* Window meta */}
                   <div className="px-5 py-4 sm:py-6 flex flex-col justify-center bg-matte-black/60 min-w-[14rem]">
-                    <div className="text-[8px] font-black text-brass/60 tracking-[0.3em] uppercase mb-1.5">Intake Window</div>
+                    <div className="text-[8px] font-black text-brass/60 tracking-file uppercase mb-1.5">Intake Window</div>
                     <div className="font-brutalist text-lg sm:text-xl text-cream leading-none tracking-tighter mb-1">2026.04.21</div>
-                    <div className="text-[9px] font-mono text-cream/40 tracking-[0.2em]">14:32 → 14:32 UTC</div>
+                    <div className="text-[9px] font-mono text-cream/40 tracking-meta">14:32 → 14:32 UTC</div>
                   </div>
                 </div>
               </div>
 
               {/* Table header */}
-              <div className="grid grid-cols-[1fr_110px] sm:grid-cols-[1.6fr_1fr_130px] gap-x-3 sm:gap-x-6 pb-2 border-b border-monitor-border text-[9px] font-mono uppercase tracking-[0.2em] text-cream/30">
+              <div className="grid grid-cols-[1fr_110px] sm:grid-cols-[1.6fr_1fr_130px] gap-x-3 sm:gap-x-6 pb-2 border-b border-monitor-border text-[9px] font-mono uppercase tracking-meta text-cream/30">
                 <div>Pattern Under Review</div>
                 <div className="hidden sm:block">Law Cited</div>
                 <div className="text-right">Verdict</div>
@@ -487,7 +487,7 @@ function EthicsGateSection({
               ))}
 
               {/* Divider */}
-              <div className="my-2 flex items-center gap-3 text-[9px] font-mono uppercase tracking-[0.2em] text-cream/25">
+              <div className="my-2 flex items-center gap-3 text-[9px] font-mono uppercase tracking-meta text-cream/25">
                 <div className="flex-1 h-px bg-monitor-border/60" />
                 <span>Approved Below</span>
                 <div className="flex-1 h-px bg-monitor-border/60" />
@@ -502,10 +502,10 @@ function EthicsGateSection({
                   so the footer becomes the closing stamp of the ruling. */}
               <div className="mt-5 pt-5 border-t-2 border-monitor-border flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="font-brutalist text-safety-orange text-xs tracking-[0.3em] uppercase">Filed</div>
+                  <div className="font-brutalist text-safety-orange text-xs tracking-file uppercase">Filed</div>
                   <div className="text-[10px] font-mono text-cream/50 tracking-[0.18em] uppercase">2026.04.21 · 14:32 UTC</div>
                   <div className="hidden lg:block flex-1 h-px bg-monitor-border/60 max-w-[4rem]" />
-                  <div className="text-[9px] font-mono text-cream/30 tracking-[0.2em] uppercase">Officer: ECP.Systems</div>
+                  <div className="text-[9px] font-mono text-cream/30 tracking-meta uppercase">Officer: ECP.Systems</div>
                 </div>
                 <div className="text-[11px] text-cream/70 italic leading-snug max-w-[40ch] lg:text-right">
                   “We refuse to recommend anything we wouldn’t defend in court.”
@@ -532,14 +532,14 @@ export default function App() {
             <span className="w-2 h-2 bg-safety-orange animate-pulse"></span>
             ECP<span className="text-brass">.</span>SYSTEMS
           </div>
-          <div className="hidden md:flex gap-12 text-[9px] font-black tracking-[0.3em] text-cream/40">
+          <div className="hidden md:flex gap-12 text-[9px] font-black tracking-file text-cream/40">
             <a className="hover:text-safety-orange transition-colors" href="#">SURVEILLANCE</a>
             <a className="hover:text-safety-orange transition-colors" href="#">INTEL_LOGS</a>
             <a className="hover:text-safety-orange transition-colors" href="#">ACTIVE_ORDERS</a>
           </div>
           {/* Mobile gets a taller hit area (min-h-11 = 44px) with the same
               visual weight; desktop keeps the tight bureau-chip styling. */}
-          <a href="#pricing" className="cta-armed inline-flex items-center border border-safety-orange/40 md:border-safety-orange/30 px-3.5 sm:px-3 min-h-[44px] md:min-h-0 md:py-1.5 text-[10px] sm:text-[9px] font-black text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-[0.2em]">
+          <a href="#pricing" className="cta-armed inline-flex items-center border border-safety-orange/40 md:border-safety-orange/30 px-3.5 sm:px-3 min-h-[44px] md:min-h-0 md:py-1.5 text-[10px] sm:text-[9px] font-black text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-meta">
             COMMISSION_AUDIT
           </a>
         </div>
@@ -660,7 +660,7 @@ export default function App() {
           </div>
           
           <div className="absolute bottom-0 left-0 w-full border-t border-monitor-border bg-command-gray/90 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 flex flex-col md:flex-row md:flex-wrap md:justify-between md:items-center gap-3 md:gap-4">
-            <div className="text-[9px] font-black text-brass uppercase tracking-[0.2em] whitespace-nowrap">Frameworks of Authority:</div>
+            <div className="text-[9px] font-black text-brass uppercase tracking-meta whitespace-nowrap">Frameworks of Authority:</div>
             <div className="flex flex-wrap gap-3 sm:gap-6 lg:gap-8 opacity-50 hover:opacity-100 transition-opacity">
               <span className="font-brutalist text-[10px] sm:text-xs">BAYMARD</span>
               <span className="font-brutalist text-[10px] sm:text-xs">NIELSEN NORMAN</span>
@@ -720,7 +720,7 @@ export default function App() {
                 <a href="#pricing" className="cta-armed bg-safety-orange text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.18em] px-7 sm:px-9 py-4 hover:brightness-110 transition-all shadow-[0_0_30px_rgba(255,69,0,0.35)] cursor-pointer inline-block">
                   Commission an Audit →
                 </a>
-                <a href="/report-mockup.html" target="_blank" className="inline-flex items-center min-h-[44px] sm:min-h-0 py-2.5 sm:py-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-cream/60 hover:text-brass border-b border-cream/20 hover:border-brass transition-colors">
+                <a href="/report-mockup.html" target="_blank" className="inline-flex items-center min-h-[44px] sm:min-h-0 py-2.5 sm:py-1 text-[10px] sm:text-xs font-bold uppercase tracking-meta text-cream/60 hover:text-brass border-b border-cream/20 hover:border-brass transition-colors">
                   See a Sample Report
                 </a>
               </div>
@@ -900,7 +900,7 @@ export default function App() {
             <span className="w-2 h-2 bg-safety-orange animate-pulse"></span>
             ECP<span className="text-safety-orange">.</span>SYSTEMS
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-2 text-[9px] font-black uppercase tracking-[0.28em] text-cream/50">
+          <div className="flex flex-wrap gap-x-8 gap-y-2 text-[9px] font-black uppercase tracking-chip text-cream/50">
             <a className="hover:text-safety-orange transition-colors" href="#">Privacy_Policy</a>
             <a className="hover:text-safety-orange transition-colors" href="#">Terms_of_Audit</a>
             <a className="hover:text-safety-orange transition-colors" href="#">Ethical_Manifesto</a>
@@ -910,7 +910,7 @@ export default function App() {
           </div>
         </div>
         {/* Thin status strip — tagline + frameworks on one line */}
-        <div className="border-t border-monitor-border/60 px-6 sm:px-8 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6 text-[9px] font-bold text-cream/30 uppercase tracking-[0.2em]">
+        <div className="border-t border-monitor-border/60 px-6 sm:px-8 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6 text-[9px] font-bold text-cream/30 uppercase tracking-meta">
           <span>One audit. Every insight. Research-backed.</span>
           <span className="text-cream/25">Built on Baymard · Nielsen Norman · CXL · FTC enforcement</span>
         </div>
