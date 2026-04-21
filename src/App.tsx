@@ -2,16 +2,533 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
+import { useState } from 'react';
 import awdmodsHero from './assets/awdmods-hero.png';
+import awdmodsMobileSection1 from './assets/awdmods-mobile-section1.jpg';
+import { useReveal } from './hooks/useReveal';
+import { LiveReadout } from './components/LiveReadout';
+
+type CalloutId = '01' | '02' | '03';
+
+type CalloutColor = 'orange' | 'phosphor' | 'brass';
+
+const AUDIT_CALLOUTS: Record<CalloutId, {
+  eyebrow: string;
+  label: string;
+  color: CalloutColor;
+  headline: string;
+  body: string;
+  cluster: string;
+  cite: string;
+}> = {
+  '01': {
+    eyebrow: 'Ethics Flag',
+    label: 'Shipping qualifier vague',
+    color: 'orange',
+    headline: 'Free-shipping claim fails pricing transparency',
+    body: '“FREE SHIPPING on most orders $75+” uses a soft qualifier without disclosing which orders don’t qualify. Under FTC § 5, material pricing conditions must be clear and conspicuous. “Most” is a standing enforcement flag — identical language has triggered FTC action and NAD complaints.',
+    cluster: 'Pricing & Compliance',
+    cite: 'FTC § 5 · NAD 2023',
+  },
+  '02': {
+    eyebrow: 'Conversion',
+    label: 'Grid mixes category + model',
+    color: 'phosphor',
+    headline: 'Tile grid collapses two hierarchies into one row',
+    body: 'The category tiles mix vehicle models (“Ford Focus RS / ST”) with product categories (“Performance”) at the same visual level. Users have to pattern-match to decide which cells are vehicles and which are departments — Baymard flags this as a measurable task-abandonment predictor on mobile browse.',
+    cluster: 'Browse & Navigation',
+    cite: 'Baymard · PLP 2024',
+  },
+  '03': {
+    eyebrow: 'Accessibility',
+    label: 'CTA contrast below AA',
+    color: 'brass',
+    headline: 'SHOP buttons fail WCAG 2.1 AA contrast',
+    body: 'The orange CTAs on the dark tile backgrounds measure below the 4.5:1 contrast ratio required for normal-weight button text under WCAG 2.1 AA. Accessibility failures on purchase CTAs are also a California civil-rights exposure under Unruh Act case law — not just a design problem.',
+    cluster: 'Accessibility',
+    cite: 'WCAG 2.1 AA · Unruh Act',
+  },
+};
+
+// Per-color token map so callouts render consistently without string concat
+// gymnastics on Tailwind class names.
+const CALLOUT_COLOR_CLASSES: Record<CalloutColor, {
+  borderL: string;
+  border: string;
+  text: string;
+  textDim: string;
+  bg: string;
+  shadowRgb: string;
+}> = {
+  orange: {
+    borderL: 'border-l-safety-orange',
+    border:  'border-safety-orange/60',
+    text:    'text-safety-orange',
+    textDim: 'text-safety-orange/60',
+    bg:      'bg-safety-orange',
+    shadowRgb: '255,69,0',
+  },
+  brass: {
+    borderL: 'border-l-brass',
+    border:  'border-brass/60',
+    text:    'text-brass',
+    textDim: 'text-brass/60',
+    bg:      'bg-brass',
+    shadowRgb: '212,175,55',
+  },
+  phosphor: {
+    borderL: 'border-l-intel-green',
+    border:  'border-intel-green/60',
+    text:    'text-intel-green',
+    textDim: 'text-intel-green/60',
+    bg:      'bg-intel-green',
+    // sRGB of --color-intel-green (oklch 0.78 0.17 145). Tailwind arbitrary
+    // shadow values can't reference CSS vars inline, so this literal rgb is
+    // the one place the token has to be mirrored by hand — keep in sync.
+    shadowRgb: '115,214,96',
+  },
+};
+
+function CalloutCard({
+  id,
+  arrowSide,
+  active,
+  onEnter,
+  onLeave,
+  delay = 0,
+}: {
+  id: CalloutId;
+  arrowSide: 'left' | 'right' | 'none';
+  active: boolean;
+  onEnter: () => void;
+  onLeave: () => void;
+  delay?: number;
+}) {
+  const data = AUDIT_CALLOUTS[id];
+  const tokens = CALLOUT_COLOR_CLASSES[data.color];
+  const arrowColor = active ? tokens.text : `${tokens.text}/70`;
+
+  const card = (
+    <div
+      className={`flex-1 border-l-4 bg-matte-black/95 border border-monitor-border p-2 transition-all duration-200 cursor-default ${tokens.borderL} ${
+        active
+          ? `shadow-[4px_4px_0px_rgba(${tokens.shadowRgb},0.55)] ${tokens.border} translate-x-[-1px] translate-y-[-1px]`
+          : `shadow-[3px_3px_0px_rgba(${tokens.shadowRgb},0.25)]`
+      }`}
+    >
+      <div className="flex items-center gap-1.5 mb-0.5">
+        <span className={`text-[8px] font-black tracking-[0.15em] ${tokens.textDim}`}>{id}</span>
+        <span className={`block text-[8px] opacity-80 font-bold uppercase tracking-widest leading-none ${tokens.text}`}>
+          {data.eyebrow}
+        </span>
+      </div>
+      <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">
+        {data.label}
+      </span>
+    </div>
+  );
+
+  const rightArrow = (
+    <svg className={`w-7 h-5 flex-shrink-0 transition-colors duration-200 ${arrowColor}`} viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
+      <path d="M0,25 L80,25" stroke="currentColor" strokeWidth="1.4" strokeDasharray="4 3" />
+      <path d="M72,17 L92,25 L72,33" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+
+  const leftArrow = (
+    <svg className={`w-7 h-5 flex-shrink-0 transition-colors duration-200 ${arrowColor}`} viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
+      <path d="M20,25 L100,25" stroke="currentColor" strokeWidth="1.4" strokeDasharray="4 3" />
+      <path d="M28,17 L8,25 L28,33" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+
+  return (
+    <div
+      role="button"
+      aria-label={`Finding ${id} — ${data.eyebrow}: ${data.label}`}
+      style={{ animationDelay: `${delay}ms` }}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onFocus={onEnter}
+      onBlur={onLeave}
+      tabIndex={0}
+      className={`callout-enter flex items-center gap-1.5 cursor-pointer group/callout ${active ? 'is-active' : ''}`}
+    >
+      {arrowSide === 'left' && leftArrow}
+      {card}
+      {arrowSide === 'right' && rightArrow}
+    </div>
+  );
+}
+
+function FindingBody({ activeId }: { activeId: CalloutId | null }) {
+  const isActive = activeId !== null;
+  const content = isActive ? AUDIT_CALLOUTS[activeId] : null;
+  const eyebrow = isActive ? `FINDING / ${activeId}` : 'FINDING / SUMMARY';
+  const headline = isActive
+    ? content!.headline
+    : 'Three findings across three law domains on a single mobile page';
+  const cluster = isActive ? content!.cluster : 'Pricing · Browse · Accessibility';
+  const cite = isActive ? content!.cite : 'FTC · Baymard · WCAG 2.1';
+
+  return (
+    <div className="relative border-t border-monitor-border/60 pt-4 lg:pt-5 min-h-[260px]">
+      <div className="text-[9px] font-black uppercase tracking-[0.28em] text-cream/40 mb-2 transition-colors duration-200">
+        {eyebrow}
+      </div>
+      <div key={activeId ?? 'default'} className="finding-swap">
+        <h3 className="font-brutalist text-xl sm:text-2xl md:text-[1.6rem] xl:text-[1.8rem] mb-4 uppercase leading-[1.05]">
+          {headline}
+        </h3>
+        {isActive ? (
+          <p className="text-[0.95rem] md:text-base font-medium leading-relaxed text-cream/85 mb-5">
+            {content!.body}
+          </p>
+        ) : (
+          <p className="text-[0.95rem] md:text-base font-medium leading-relaxed italic text-cream/90 mb-5">
+            One mobile browse page. Three findings flagged across three different law domains — <span className="text-safety-orange">pricing transparency</span>, <span className="text-intel-green">conversion research</span>, and <span className="text-brass">accessibility compliance</span>. Hover a marker to see what each one flags and the statute behind it.
+          </p>
+        )}
+        <div className="monitor-panel p-3 inline-flex items-center gap-5 border-brass/30">
+          <div>
+            <div className="text-[9px] font-black text-brass mb-1 uppercase tracking-widest">Cluster</div>
+            <div className="text-sm font-bold">{cluster}</div>
+          </div>
+          <div className="w-px h-8 bg-monitor-border" />
+          <div className="text-[10px] font-mono text-cream/40 tracking-wider">
+            Cited:<br />{cite}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// --- ETHICS GATE DATA ---------------------------------------------------------
+const GATE_FRAMEWORKS: ReadonlyArray<{ name: string; domain: string; patterns: number }> = [
+  { name: 'FTC §5',  domain: 'Deceptive Acts',       patterns: 47 },
+  { name: 'CPRA',    domain: 'California Privacy',   patterns: 22 },
+  { name: 'ROSCA',   domain: 'Negative Option',      patterns: 14 },
+  { name: 'GDPR',    domain: 'EU Data Protection',   patterns: 31 },
+  { name: 'WCAG 2.1',domain: 'Accessibility AA',     patterns: 68 },
+];
+
+type GateVerdict = 'reject' | 'approve';
+const GATE_LOG: ReadonlyArray<{
+  pattern: string;
+  law: string;
+  detail: string;
+  verdict: GateVerdict;
+}> = [
+  { pattern: 'Countdown urgency timer',          law: 'FTC § 5',             detail: 'deceptive scarcity claim',        verdict: 'reject' },
+  { pattern: '"Only 2 left" stock urgency',      law: 'FTC § 5',             detail: 'unverified inventory claim',      verdict: 'reject' },
+  { pattern: 'Pre-checked add-on at checkout',   law: 'FTC Click-to-Cancel', detail: 'lacks affirmative consent',       verdict: 'reject' },
+  { pattern: 'Hidden subscription opt-out',      law: 'ROSCA § 8403',        detail: 'negative option rule',            verdict: 'reject' },
+  { pattern: 'Undisclosed CA data sharing',      law: 'CPRA § 1798.135',     detail: 'opt-out link required',           verdict: 'reject' },
+  { pattern: 'One-click unsubscribe flow',       law: 'ROSCA',               detail: 'cancel path disclosed',           verdict: 'approve' },
+  { pattern: 'CTA contrast 7.2:1 luminance',     law: 'WCAG 2.1 AA',         detail: 'accessible color ratio',          verdict: 'approve' },
+  { pattern: 'Price disclosed above the fold',   law: 'FTC',                 detail: 'pricing transparency',            verdict: 'approve' },
+];
+
+function GateRow({ pattern, law, detail, verdict, delay = 0 }: {
+  pattern: string; law: string; detail: string; verdict: GateVerdict; delay?: number;
+}) {
+  const isReject = verdict === 'reject';
+  return (
+    <div
+      className="gate-row grid grid-cols-[1fr_110px] sm:grid-cols-[1.6fr_1fr_130px] gap-x-3 sm:gap-x-6 items-center py-2.5 sm:py-3 border-b border-monitor-border/40 last:border-b-0"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {/* Pattern */}
+      <div className="text-[11px] sm:text-[13px] text-cream font-medium leading-tight">
+        {pattern}
+      </div>
+      {/* Law + detail — hidden on xs so row stays scannable */}
+      <div className="hidden sm:block">
+        <div className="text-[10px] font-black uppercase text-brass tracking-tight leading-tight">{law}</div>
+        <div className="text-[9px] font-mono text-cream/40 tracking-wider mt-0.5">{detail}</div>
+      </div>
+      {/* Verdict stamp — rotated slightly so it reads as a pressed rubber
+          stamp, not a React badge. Offset shadow mimics ink bleeding onto
+          the page; stamp tilts further on row hover. */}
+      <div className={`verdict-stamp justify-self-end inline-flex items-center px-2.5 py-1 border-2 text-[10px] font-black uppercase tracking-[0.24em] ${
+        isReject
+          ? 'text-safety-orange border-safety-orange/70 bg-safety-orange/[0.04] verdict-stamp-reject'
+          : 'text-intel-green border-intel-green/70 bg-intel-green/[0.04] verdict-stamp-approve'
+      }`}>
+        {isReject ? 'Reject' : 'Approve'}
+      </div>
+    </div>
+  );
+}
+
+function EthicsGateSection({
+  activeCallout,
+  setActiveCallout,
+}: {
+  activeCallout: CalloutId | null;
+  setActiveCallout: (id: CalloutId | null) => void;
+}) {
+  const rejectCount = GATE_LOG.filter(r => r.verdict === 'reject').length;
+  const approveCount = GATE_LOG.filter(r => r.verdict === 'approve').length;
+  const firstApproveIdx = GATE_LOG.findIndex(r => r.verdict === 'approve');
+
+  return (
+    <section className="relative py-20 sm:py-24 px-6 sm:px-8 bg-command-gray border-t border-monitor-border overflow-hidden">
+      {/* Brass ledger grid wash */}
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px)' }} />
+      {/* Giant faint "ETHICS" watermark */}
+      <div aria-hidden="true" className="absolute -bottom-8 right-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[10rem] md:text-[18rem] leading-none text-brass tracking-tighter">
+        ETHICS
+      </div>
+
+      <div className="max-w-[92rem] mx-auto relative z-10">
+        {/* ===================================================================
+            Two-column layout:
+              LEFT  — callouts + phone specimen (a single vertical exhibit).
+                      Phone is tilted on a perspective transform so the page
+                      has a repeating "tilted monitor" motif that rhymes with
+                      the hero specimen above.
+              RIGHT — section header, subhead, frameworks strip, gate ledger.
+                      Constrained width so copy doesn't sprawl and the phone
+                      stays the dominant anchor.
+            Stacks vertically below lg (phone on top, content below).
+            =================================================================== */}
+        <div className="grid grid-cols-1 lg:grid-cols-[auto_minmax(0,1fr)] gap-12 lg:gap-10 xl:gap-14 items-start">
+
+          {/* ============ LEFT COLUMN — specimen ============ */}
+          <div data-reveal="up" className="flex gap-3 md:gap-4 items-stretch mx-auto lg:mx-0">
+
+            {/* Callouts column — stretches to phone height, distributes top/mid/bottom */}
+            <div className="hidden md:flex flex-col justify-between gap-3 w-[160px] lg:w-[170px] xl:w-[185px] py-2">
+              <CalloutCard
+                id="01"
+                arrowSide="right"
+                active={activeCallout === '01'}
+                onEnter={() => setActiveCallout('01')}
+                onLeave={() => setActiveCallout(null)}
+              />
+              <CalloutCard
+                id="02"
+                arrowSide="right"
+                active={activeCallout === '02'}
+                onEnter={() => setActiveCallout('02')}
+                onLeave={() => setActiveCallout(null)}
+                delay={120}
+              />
+              <CalloutCard
+                id="03"
+                arrowSide="right"
+                active={activeCallout === '03'}
+                onEnter={() => setActiveCallout('03')}
+                onLeave={() => setActiveCallout(null)}
+                delay={240}
+              />
+            </div>
+
+            {/* PHONE — anchors the column, tilted like the hero (motif repetition).
+                Wrapper handles the tilt transform; inner bezel keeps its own
+                hover treatment. */}
+            <div className="skew-specimen subject-frame group relative w-[240px] sm:w-[270px] md:w-[280px] lg:w-[310px] xl:w-[340px] flex-shrink-0">
+              <div className="relative border-2 border-monitor-border rounded-[22px] p-[6px] bg-matte-black shadow-[12px_14px_0px_rgba(10,10,10,0.85)] group-hover:shadow-[16px_18px_0px_rgba(212,175,55,0.25)] group-hover:border-brass/40 transition-all duration-500">
+                <div className="relative rounded-[16px] overflow-hidden">
+                  <img
+                    alt="Subject mobile viewport — awdmods.com category browse"
+                    className="w-full block grayscale-[0.5] brightness-90 contrast-110 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
+                    src={awdmodsMobileSection1}
+                  />
+                  <div aria-hidden="true" className="absolute inset-0 pointer-events-none mix-blend-multiply">
+                    <div className="redaction-stripe redaction-stripe-1 absolute top-[18%] left-[10%] w-[60%] h-[3px] bg-safety-orange/55" />
+                    <div className="redaction-stripe redaction-stripe-2 absolute top-[46%] left-[6%] w-[82%] h-[3px] bg-safety-orange/55" />
+                  </div>
+                  <div aria-hidden="true" className="scanline absolute inset-0 opacity-40 pointer-events-none" />
+
+                  {/* Evidence markers — all on the left edge of the phone so
+                      the callout arrows coming from the left land cleanly. */}
+                  <div aria-hidden="true" className={`evidence-marker absolute top-[14%] left-[6%] z-10 w-5 h-5 rounded-full bg-safety-orange text-white text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '01' ? 'is-active' : ''}`}>01</div>
+                  <div aria-hidden="true" className={`evidence-marker evidence-marker-phosphor absolute top-[48%] left-[6%] z-10 w-5 h-5 rounded-full bg-intel-green text-matte-black text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '02' ? 'is-active' : ''}`}>02</div>
+                  <div aria-hidden="true" className={`evidence-marker evidence-marker-brass absolute top-[84%] left-[6%] z-10 w-5 h-5 rounded-full bg-brass text-matte-black text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '03' ? 'is-active' : ''}`}>03</div>
+                </div>
+              </div>
+
+              <div className="absolute -top-3 left-3 bg-matte-black border border-monitor-border px-2 py-0.5 font-mono text-[8px] text-cream/40 tracking-widest">
+                VIEWPORT_390x844
+              </div>
+
+              {/* MOBILE-ONLY stacked callouts, directly below the phone.
+                  Renders only below md where the side callout column is hidden. */}
+              <div className="flex md:hidden flex-col gap-2.5 mt-6">
+                <CalloutCard id="01" arrowSide="none" active={activeCallout === '01'} onEnter={() => setActiveCallout('01')} onLeave={() => setActiveCallout(null)} />
+                <CalloutCard id="02" arrowSide="none" active={activeCallout === '02'} onEnter={() => setActiveCallout('02')} onLeave={() => setActiveCallout(null)} />
+                <CalloutCard id="03" arrowSide="none" active={activeCallout === '03'} onEnter={() => setActiveCallout('03')} onLeave={() => setActiveCallout(null)} />
+              </div>
+            </div>
+          </div>
+
+          {/* ============ RIGHT COLUMN — header, frameworks, ledger ============
+              max-w capped so the copy reads at a comfortable measure instead of
+              stretching edge-to-edge and swallowing the phone. */}
+          <div className="flex flex-col gap-8 lg:gap-10 min-w-0 lg:max-w-[52rem] xl:max-w-[56rem]">
+
+            {/* Section header */}
+            <div data-reveal="up">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="w-4 h-4 bg-brass animate-pulse shrink-0"></span>
+                <h2 className="font-brutalist text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.95]">The Ethics Gate</h2>
+                <div className="flex-1 h-px bg-monitor-border relative hidden sm:block">
+                  <div className="absolute right-0 top-[-15px] text-[10px] font-mono text-cream/30">GATE_001_OPERATIONAL</div>
+                </div>
+              </div>
+              <p className="text-brass font-bold text-lg mb-5">Every recommendation passes through compliance law before it ships.</p>
+              <p className="text-cream/60 leading-relaxed font-medium max-w-[65ch]">
+                We flag what you already run. We refuse to recommend anything we wouldn’t defend in court. Every pattern is checked against active enforcement — not theory. Below is a real intake window.
+              </p>
+            </div>
+
+            {/* Frameworks strip — reframed as a PATTERN INDEX with a single total
+                as the loudest thing in the section. The chrome recedes, the
+                counts dominate, and the sum "182" becomes the opening statement:
+                this isn't abstract ethics, it's 182 trackable, precedent-backed
+                violations being checked on every audit. */}
+            <div data-reveal="up" style={{ transitionDelay: '80ms' }} className="relative">
+              {/* Eyebrow with the grand total sitting next to the label */}
+              <div className="flex items-end justify-between gap-4 mb-3 pb-3 border-b border-monitor-border">
+                <div className="flex items-center gap-3">
+                  <span className="w-2.5 h-2.5 bg-safety-orange" />
+                  <div className="text-[9px] font-black text-safety-orange tracking-[0.28em] uppercase">Pattern Index · Active Enforcement</div>
+                </div>
+                <div className="flex items-baseline gap-2 font-mono text-[9px] text-cream/40 tracking-[0.2em] uppercase">
+                  <span>5 frameworks</span>
+                  <span className="text-cream/20">/</span>
+                  <span className="text-brass">{GATE_FRAMEWORKS.reduce((s, f) => s + f.patterns, 0)} tracked</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border border-monitor-border bg-matte-black/40">
+                {GATE_FRAMEWORKS.map((f, i) => (
+                  <div
+                    key={f.name}
+                    className="px-4 pt-4 pb-5 sm:px-5 sm:pt-5 sm:pb-6 border-r border-b lg:border-b-0 border-monitor-border last:border-r-0 relative group flex flex-col"
+                  >
+                    {/* Giant count — the hero of the card. 5-6x the size of the
+                        framework name so it reads as a case-file statistic, not
+                        decoration. */}
+                    <div className="font-brutalist text-[4rem] sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] text-brass leading-[0.82] tracking-tighter mb-2 group-hover:text-safety-orange transition-colors duration-300">
+                      {f.patterns}
+                    </div>
+                    <div className="h-px bg-monitor-border mb-2.5" />
+                    <div className="font-brutalist text-sm sm:text-base uppercase tracking-tighter leading-none mb-1">{f.name}</div>
+                    <div className="text-[9px] text-cream/45 uppercase tracking-[0.18em] leading-tight mb-auto pb-3">{f.domain}</div>
+                    <div className="flex items-center gap-1.5 text-[8px] font-mono text-brass/40 tracking-[0.22em] uppercase">
+                      <span className="w-1 h-1 bg-brass/60 group-hover:bg-safety-orange transition-colors" />
+                      Code_{String(i + 1).padStart(2, '0')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Gate Log ledger — now framed as an OFFICIAL FILING. The opener
+                leads with the headline count (3 REJECTED / 3 APPROVED) in
+                large brutalist numerals so the verdict distribution is the
+                first thing you see, not a footnote. */}
+            <div data-reveal="up" style={{ transitionDelay: '160ms' }}>
+
+              {/* Filing header block */}
+              <div className="relative mb-5 border-t-2 border-b-2 border-monitor-border bg-matte-black/40">
+                {/* Tiny filing eyebrow pinned at the top-left corner */}
+                <div className="absolute -top-[9px] left-5 bg-command-gray px-2 text-[8px] font-black text-safety-orange tracking-[0.3em] uppercase">
+                  Official Filing
+                </div>
+                <div className="absolute -top-[9px] right-5 bg-command-gray px-2 text-[8px] font-mono text-cream/40 tracking-[0.22em] uppercase">
+                  Ruling_001 / Intake_24h
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-stretch divide-y sm:divide-y-0 sm:divide-x divide-monitor-border">
+                  {/* REJECTED — loudest of the three */}
+                  <div className="flex-1 px-5 py-5 sm:py-6 flex items-center gap-5">
+                    <div className="font-brutalist text-[4.5rem] sm:text-[5rem] lg:text-[6rem] text-safety-orange leading-[0.82] tracking-tighter">
+                      {rejectCount}
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="text-[9px] font-black text-safety-orange tracking-[0.28em] uppercase mb-1">Rejected</div>
+                      <div className="text-[10px] text-cream/55 leading-snug max-w-[14ch]">Patterns refused at the gate.</div>
+                    </div>
+                  </div>
+                  {/* APPROVED */}
+                  <div className="flex-1 px-5 py-5 sm:py-6 flex items-center gap-5">
+                    <div className="font-brutalist text-[4.5rem] sm:text-[5rem] lg:text-[6rem] text-intel-green leading-[0.82] tracking-tighter">
+                      {approveCount}
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="text-[9px] font-black text-intel-green tracking-[0.28em] uppercase mb-1">Approved</div>
+                      <div className="text-[10px] text-cream/55 leading-snug max-w-[14ch]">Cleared for recommendation.</div>
+                    </div>
+                  </div>
+                  {/* Window meta */}
+                  <div className="px-5 py-4 sm:py-6 flex flex-col justify-center bg-matte-black/60 min-w-[14rem]">
+                    <div className="text-[8px] font-black text-brass/60 tracking-[0.3em] uppercase mb-1.5">Intake Window</div>
+                    <div className="font-brutalist text-lg sm:text-xl text-cream leading-none tracking-tighter mb-1">2026.04.21</div>
+                    <div className="text-[9px] font-mono text-cream/40 tracking-[0.2em]">14:32 → 14:32 UTC</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Table header */}
+              <div className="grid grid-cols-[1fr_110px] sm:grid-cols-[1.6fr_1fr_130px] gap-x-3 sm:gap-x-6 pb-2 border-b border-monitor-border text-[9px] font-mono uppercase tracking-[0.2em] text-cream/30">
+                <div>Pattern Under Review</div>
+                <div className="hidden sm:block">Law Cited</div>
+                <div className="text-right">Verdict</div>
+              </div>
+
+              {/* Rejected entries */}
+              {GATE_LOG.slice(0, firstApproveIdx).map((row, i) => (
+                <GateRow key={row.pattern} {...row} delay={i * 80} />
+              ))}
+
+              {/* Divider */}
+              <div className="my-2 flex items-center gap-3 text-[9px] font-mono uppercase tracking-[0.2em] text-cream/25">
+                <div className="flex-1 h-px bg-monitor-border/60" />
+                <span>Approved Below</span>
+                <div className="flex-1 h-px bg-monitor-border/60" />
+              </div>
+
+              {/* Approved entries */}
+              {GATE_LOG.slice(firstApproveIdx).map((row, i) => (
+                <GateRow key={row.pattern} {...row} delay={(firstApproveIdx + i) * 80} />
+              ))}
+
+              {/* Signature block — counts have moved to the filing header,
+                  so the footer becomes the closing stamp of the ruling. */}
+              <div className="mt-5 pt-5 border-t-2 border-monitor-border flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="font-brutalist text-safety-orange text-xs tracking-[0.3em] uppercase">Filed</div>
+                  <div className="text-[10px] font-mono text-cream/50 tracking-[0.18em] uppercase">2026.04.21 · 14:32 UTC</div>
+                  <div className="hidden lg:block flex-1 h-px bg-monitor-border/60 max-w-[4rem]" />
+                  <div className="text-[9px] font-mono text-cream/30 tracking-[0.2em] uppercase">Officer: ECP.Systems</div>
+                </div>
+                <div className="text-[11px] text-cream/70 italic leading-snug max-w-[40ch] lg:text-right">
+                  “We refuse to recommend anything we wouldn’t defend in court.”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function App() {
+  useReveal();
+  const [activeCallout, setActiveCallout] = useState<CalloutId | null>(null);
   return (
     <div className="antialiased text-cream font-sans bg-matte-black min-h-screen">
       <div className="grain"></div>
-      <div className="scanline fixed inset-0 z-[100]"></div>
+      <div className="scanline boot-scanline fixed inset-0 z-[100]"></div>
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-monitor-border bg-matte-black/95">
-        <div className="flex justify-between items-center px-8 h-14">
-          <div className="font-brutalist text-xl tracking-tighter flex items-center gap-2">
+        <div className="flex justify-between items-center px-5 sm:px-8 h-14">
+          <div className="font-brutalist text-lg sm:text-xl tracking-tighter flex items-center gap-2">
             <span className="w-2 h-2 bg-safety-orange animate-pulse"></span>
             ECP<span className="text-brass">.</span>SYSTEMS
           </div>
@@ -20,31 +537,35 @@ export default function App() {
             <a className="hover:text-safety-orange transition-colors" href="#">INTEL_LOGS</a>
             <a className="hover:text-safety-orange transition-colors" href="#">ACTIVE_ORDERS</a>
           </div>
-          <div className="text-[9px] font-black border border-safety-orange/30 px-3 py-1.5 text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-[0.2em]">
+          {/* Mobile gets a taller hit area (min-h-11 = 44px) with the same
+              visual weight; desktop keeps the tight bureau-chip styling. */}
+          <a href="#pricing" className="cta-armed inline-flex items-center border border-safety-orange/40 md:border-safety-orange/30 px-3.5 sm:px-3 min-h-[44px] md:min-h-0 md:py-1.5 text-[10px] sm:text-[9px] font-black text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-[0.2em]">
             COMMISSION_AUDIT
-          </div>
+          </a>
         </div>
       </nav>
       
       <main>
         <section className="relative min-h-screen pt-24 sm:pt-32 pb-20 sm:pb-24 px-6 sm:px-8 flex items-center justify-center">
           <div className="w-full max-w-[110rem] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between xl:px-8">
-            <div className="lg:w-[50%] flex flex-col justify-center z-20 relative w-full">
+            <div className="lg:w-[48%] flex flex-col justify-center z-20 relative w-full">
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">ENFORCEMENT MODE</span>
-                <span className="text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-SURVEIL-STATION</span>
+                <span className="boot-badge px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">ENFORCEMENT MODE</span>
+                <span className="boot-id text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-SURVEIL-STATION</span>
               </div>
               <h1 className="font-brutalist text-massive mb-6 sm:mb-8 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                FACTS<br/>OVER<br/><span className="text-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
+                <span className="hero-line hero-line-1">FACTS</span><br/>
+                <span className="hero-line hero-line-2">OVER</span><br/>
+                <span className="hero-line hero-line-3 text-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
               </h1>
               <div className="max-w-xl relative z-20">
-                <p className="text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
+                <p className="boot-subhead text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
                   One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
                 </p>
-                <p className="text-sm font-medium text-cream/60 leading-relaxed mb-8">
+                <p className="boot-body text-sm font-medium text-cream/60 leading-relaxed mb-8">
                   800+ classified findings across 80+ reference files from Baymard Institute, Nielsen Norman Group, peer-reviewed journals, and FTC enforcement actions. Every recommendation cites its source. Every citation rated by evidence tier.
                 </p>
-                <div className="flex gap-4">
+                <div className="boot-panel flex gap-4">
                   <div className="flex-[1.5] monitor-panel p-4 border-l-4 border-l-brass">
                     <div className="text-[9px] text-brass font-black mb-1">COMMAND_QUERY</div>
                     <div className="text-sm font-semibold">Not vibes. Not best practices. Actual studies, actual evidence tiers, actual legal compliance.</div>
@@ -53,8 +574,8 @@ export default function App() {
               </div>
             </div>
           
-            <div className="lg:w-[50%] relative flex items-center justify-center mt-12 lg:mt-0 z-10 w-full px-4 sm:px-8 lg:px-0 overflow-visible">
-            <div className="relative skew-hero group cursor-pointer w-full max-w-3xl overflow-visible">
+            <div className="lg:w-[52%] relative flex items-center justify-center mt-12 lg:mt-0 z-10 w-full px-4 sm:px-8 lg:px-0 overflow-visible">
+            <div className="relative skew-hero group cursor-pointer w-full max-w-[52rem] overflow-visible">
 
               {/* Main screenshot — real subject under examination */}
               <div className="monitor-panel p-2 shadow-[10px_10px_0px_rgba(10,10,10,0.8)] sm:shadow-[20px_20px_0px_rgba(10,10,10,0.8)] group-hover:shadow-[15px_15px_0px_rgba(255,69,0,0.15)] sm:group-hover:shadow-[25px_25px_0px_rgba(255,69,0,0.15)] group-hover:border-safety-orange/40 border-2 sm:border-4 border-monitor-border transition-all duration-500 rounded-sm relative">
@@ -65,15 +586,19 @@ export default function App() {
                 />
                 {/* Red redaction overlay swipes — light touch */}
                 <div aria-hidden="true" className="absolute inset-0 pointer-events-none mix-blend-multiply">
-                  <div className="absolute top-[12%] left-[8%] w-[30%] h-[3px] bg-safety-orange/50"/>
-                  <div className="absolute top-[68%] left-[12%] w-[22%] h-[3px] bg-safety-orange/50"/>
+                  <div className="redaction-stripe redaction-stripe-1 absolute top-[12%] left-[8%] w-[30%] h-[3px] bg-safety-orange/50"/>
+                  <div className="redaction-stripe redaction-stripe-2 absolute top-[68%] left-[12%] w-[22%] h-[3px] bg-safety-orange/50"/>
                 </div>
               </div>
 
               {/* Callouts — OUTSIDE the panel, examiner's notes in the margin.
-                  Hidden on narrow mobile; shown from sm (640px) up. Below hero image on mobile instead. */}
+                  Only shown from lg (1024px) up, because the negative offsets
+                  (-left-[22%], etc.) rely on the hero being in the side-by-side
+                  column layout. Below lg, the hero stacks full-width and those
+                  offsets would push the callouts off-screen. Mobile/tablet get
+                  the stacked callouts rendered below the hero image instead. */}
               {/* Top-left — HEADLINES & BUTTONS */}
-              <div className="hidden sm:flex absolute top-[6%] -left-[12%] md:-left-[16%] lg:-left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500 callout-animate-left" style={{ animationDelay: '0.35s' }}>
+              <div className="hidden lg:flex absolute top-[6%] -left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500 callout-animate-left" style={{ animationDelay: '0.35s' }}>
                 <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,69,0,0.25)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest leading-none mb-0.5">HEADLINES &amp; BUTTONS</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Hero lacks visible promise</span>
@@ -85,7 +610,7 @@ export default function App() {
               </div>
 
               {/* Mid-right — PRICE & OFFERS */}
-              <div className="hidden sm:flex absolute top-[38%] -right-[12%] md:-right-[16%] lg:-right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 callout-animate-right" style={{ animationDelay: '0.65s' }}>
+              <div className="hidden lg:flex absolute top-[38%] -right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 callout-animate-right" style={{ animationDelay: '0.65s' }}>
                 <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(212,175,55,0.25)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest leading-none mb-0.5">PRICE &amp; OFFERS</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Delivery context missing</span>
@@ -97,7 +622,7 @@ export default function App() {
               </div>
 
               {/* Bottom-left — CHECKOUT EXPERIENCE */}
-              <div className="hidden sm:flex absolute bottom-[8%] -left-[12%] md:-left-[16%] lg:-left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 callout-animate-bottom" style={{ animationDelay: '0.95s' }}>
+              <div className="hidden lg:flex absolute bottom-[8%] -left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 callout-animate-bottom" style={{ animationDelay: '0.95s' }}>
                 <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,255,255,0.15)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest leading-none mb-0.5">CHECKOUT EXPERIENCE</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Fitment flow consumes decisions</span>
@@ -109,17 +634,16 @@ export default function App() {
               </div>
 
               {/* Live analysis readout — top-right corner */}
-              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8 w-32 sm:w-40 lg:w-48 monitor-panel p-2 sm:p-3 lg:p-4 text-[7px] sm:text-[8px] lg:text-[9px] font-mono leading-tight bg-matte-black border-safety-orange/40 shadow-lg group-hover:-translate-y-1 sm:group-hover:-translate-y-2 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500 z-30 readout-animate" style={{ animationDelay: '1.25s' }}>
-                <span className="text-safety-orange">/ / ANALYSIS_LIVE</span><br/>
-                LATENCY: 14MS<br/>
-                THREAT_LEVEL: <span className="text-safety-orange">CRITICAL</span><br/>
-                REVENUE_LEAK: <span className="text-safety-orange animate-pulse">DETECTED</span>
-              </div>
+              <LiveReadout />
             </div>
           </div>
 
-          {/* Mobile callouts — stacked BELOW hero image so they're not overlapping and not hidden */}
-          <div className="sm:hidden w-full flex flex-col gap-2 mt-6 px-2">
+          {/* Mobile + tablet callouts — stacked BELOW the hero image. Shown on
+              everything below lg (1024px), which is where the side-by-side hero
+              layout kicks in and the absolutely-positioned callouts become
+              viable. Between sm and lg, the absolute callouts would clip, so
+              this stacked version is the responsible fallback. */}
+          <div className="lg:hidden w-full flex flex-col gap-2 mt-6 px-2">
             <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 flex items-baseline gap-3 flex-wrap callout-animate-bottom" style={{ animationDelay: '0.35s' }}>
               <span className="text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest whitespace-nowrap">HEADLINES &amp; BUTTONS</span>
               <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight">Hero lacks visible promise</span>
@@ -157,46 +681,46 @@ export default function App() {
             ECP
           </div>
           <div className="max-w-6xl mx-auto relative">
-            <div className="mb-10 sm:mb-14 flex items-center gap-4">
+            <div data-reveal="up" className="mb-10 sm:mb-14 flex items-center gap-4">
               <span className="w-3 h-3 bg-brass"></span>
               <div className="text-[10px] font-black text-brass tracking-widest uppercase">Plain English</div>
               <div className="flex-1 h-px bg-monitor-border"></div>
             </div>
-            <h2 className="font-brutalist text-3xl sm:text-5xl md:text-6xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-4xl tracking-tight">
-              For people who don't<br/>work in <span className="text-safety-orange">conversion</span> all day.
+            <h2 data-reveal="up" className="font-brutalist text-3xl sm:text-5xl md:text-6xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-4xl tracking-tight">
+              For people who don’t<br/>work in <span className="text-safety-orange">conversion</span> all day.
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
-              <div className="monitor-panel p-6 sm:p-8 border border-monitor-border">
+              <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-safety-orange mb-3 tracking-widest uppercase">01 · The Problem</div>
-                <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You're paying for traffic that leaves without buying.</h3>
+                <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You’re paying for traffic that leaves without buying.</h3>
                 <p className="text-sm text-cream/60 leading-relaxed font-medium">
-                  Most people who land on an e-commerce store don't buy. That's normal. But the GAP between your visitor count and your sales count has specific causes — confusing layouts, hidden prices, broken trust cues, wrong button colors, fifty other small things. Each one is fixable. Most store owners never learn which ones matter on THEIR site.
+                  Most people who land on an e-commerce store don’t buy. That’s normal. But the GAP between your visitor count and your sales count has specific causes — confusing layouts, hidden prices, broken trust cues, wrong button colors, fifty other small things. Each one is fixable. Most store owners never learn which ones matter on THEIR site.
                 </p>
               </div>
-              <div className="monitor-panel p-6 sm:p-8 border border-monitor-border">
+              <div data-reveal="up" style={{ transitionDelay: '120ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-brass mb-3 tracking-widest uppercase">02 · The Audit</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">We diagnose your store against 800+ research findings.</h3>
                 <p className="text-sm text-cream/60 leading-relaxed font-medium">
                   Give us a URL — no logins, no integrations. We capture your pages on desktop and mobile, run them through an evidence-cited analysis engine, and flag every place research says visitors get stuck or distracted. Every finding ties back to a specific study or regulation. Not opinions — citations.
                 </p>
               </div>
-              <div className="monitor-panel p-6 sm:p-8 border border-monitor-border">
+              <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-cream/50 mb-3 tracking-widest uppercase">03 · The Report</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You get a document. You decide what to do.</h3>
                 <p className="text-sm text-cream/60 leading-relaxed font-medium">
-                  72 hours later, you receive an interactive report with every finding, its severity, its cited source, and its priority ranking. We don't lock you into implementation. We don't upsell you. You own the report. Hand it to your developer, your agency, or just read it yourself. The point is clarity, not dependency.
+                  72 hours later, you receive an interactive report with every finding, its severity, its cited source, and its priority ranking. We don’t lock you into implementation. We don’t upsell you. You own the report. Hand it to your developer, your agency, or just read it yourself. The point is clarity, not dependency.
                 </p>
               </div>
             </div>
             <div className="mt-10 sm:mt-14 flex flex-col items-center gap-6">
-              <p className="text-sm sm:text-base text-cream/50 italic max-w-2xl mx-auto text-center">
-                If you've ever been told "your bounce rate is high, try A/B testing" — this is the part that comes before A/B testing. Here's what to actually test, and here's the research that says why.
+              <p data-reveal="up" className="text-sm sm:text-base text-cream/50 italic max-w-2xl mx-auto text-center">
+                If you’ve ever been told “your bounce rate is high, try A/B testing” — this is the part that comes before A/B testing. Here’s what to actually test, and here’s the research that says why.
               </p>
-              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 mt-2">
-                <a href="#pricing" className="bg-safety-orange text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.18em] px-7 sm:px-9 py-4 hover:brightness-110 transition-all shadow-[0_0_30px_rgba(255,69,0,0.35)] cursor-pointer inline-block">
+              <div data-reveal="up" style={{ transitionDelay: '120ms' }} className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 mt-2">
+                <a href="#pricing" className="cta-armed bg-safety-orange text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.18em] px-7 sm:px-9 py-4 hover:brightness-110 transition-all shadow-[0_0_30px_rgba(255,69,0,0.35)] cursor-pointer inline-block">
                   Commission an Audit →
                 </a>
-                <a href="/report-mockup.html" target="_blank" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-cream/60 hover:text-brass border-b border-cream/20 hover:border-brass pb-1 transition-colors">
+                <a href="/report-mockup.html" target="_blank" className="inline-flex items-center min-h-[44px] sm:min-h-0 py-2.5 sm:py-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-cream/60 hover:text-brass border-b border-cream/20 hover:border-brass transition-colors">
                   See a Sample Report
                 </a>
               </div>
@@ -208,66 +732,15 @@ export default function App() {
           </div>
         </section>
 
-        <section className="relative py-20 sm:py-24 px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 bg-command-gray overflow-hidden">
-          {/* Procedural grid wash — brass ledger feel */}
-          <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 1px, transparent 1px, transparent 32px)' }} />
-          {/* Giant faint "ETHICS" watermark */}
-          <div aria-hidden="true" className="absolute -bottom-6 right-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[9rem] md:text-[16rem] leading-none text-brass tracking-tighter">
-            ETHICS
-          </div>
-
-          <div className="lg:col-span-4 flex flex-col justify-center relative z-10">
-            <h2 className="font-brutalist text-5xl sm:text-6xl md:text-7xl mb-6 leading-none">THE<br/>ETHICS<br/>GATE</h2>
-            <p className="text-lg font-bold text-brass mb-4">Every audit, every phase.</p>
-            <p className="text-cream/60 leading-relaxed font-medium">
-              Every phase is checked against an ethics gate built from actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Every audit ships with a PASS or FAIL verdict on the patterns regulators are now fining. We flag what you already run. We refuse to recommend anything we wouldn't defend in court.
-            </p>
-          </div>
-          <div className="lg:col-span-8">
-            <div className="monitor-panel p-1 border-2 border-monitor-border shadow-2xl">
-              <div className="bg-matte-black p-8 md:p-12 relative">
-                <div className="absolute top-4 right-6 font-mono text-[9px] text-cream/20">LOG_SERIAL: X-992-ALPHA</div>
-                <div className="flex items-center gap-2 mb-8">
-                  <span className="w-3 h-3 bg-brass"></span>
-                  <div className="text-[10px] font-black text-brass tracking-widest uppercase">AUDIT INSIGHT EXAMPLE</div>
-                </div>
-                
-                <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-10">
-                  <div className="max-w-xl">
-                    <h3 className="font-brutalist text-3xl sm:text-4xl mb-6 uppercase">Mobile hero lacks a visible promise before the fitment flow</h3>
-                    <p className="text-xl font-medium leading-relaxed italic text-cream/90">
-                      "Visitors land on the PLP and immediately hit a year/make/model stack with no positioning above it. The fitment gate consumes the <span className="text-safety-orange">first 4 seconds</span> of attention — before the brand has established what it actually does, or why a visitor should keep scrolling."
-                    </p>
-                  </div>
-                  <div className="monitor-panel p-4 min-w-[200px] border-brass/30">
-                    <div className="text-[9px] font-black text-brass mb-2 uppercase">CLUSTER</div>
-                    <div className="text-sm font-bold">Headlines &amp; Buttons</div>
-                    <div className="text-[10px] font-mono text-cream/40 mt-2">Cited: Baymard · NN/g</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-monitor-border pt-8">
-                  <div>
-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Severity</div>
-                    <div className="text-lg font-bold uppercase tracking-tighter">HIGH</div>
-                  </div>
-                  <div>
-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Evidence Tier</div>
-                    <div className="text-lg font-bold uppercase tracking-tighter">Gold</div>
-                  </div>
-                  <div>
-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Device</div>
-                    <div className="text-lg font-bold uppercase tracking-tighter">Mobile</div>
-                  </div>
-                  <div>
-                    <div className="text-safety-orange text-[9px] font-black uppercase mb-1">Ethics</div>
-                    <div className="text-lg font-bold uppercase tracking-tighter text-brass">PASS</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ========================================================
+            SECTION — THE ETHICS GATE
+            Phone specimen on the left (one callout = explicit ethics
+            violation) + compliance ledger on the right.
+            ======================================================== */}
+        <EthicsGateSection
+          activeCallout={activeCallout}
+          setActiveCallout={setActiveCallout}
+        />
 
         <section className="py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden">
           {/* Pipeline flow diagram — faint connector lines between phases */}
@@ -277,16 +750,21 @@ export default function App() {
             PIPELINE
           </div>
           <div className="max-w-[100rem] mx-auto relative z-10">
-            <div className="flex flex-col md:flex-row md:items-center gap-4 mb-16">
-              <span className="hidden md:block w-4 h-4 bg-safety-orange animate-pulse"></span>
-              <h2 className="font-brutalist text-5xl lg:text-6xl uppercase tracking-tighter">Pipeline</h2>
-              <div className="flex-1 h-px bg-monitor-border md:ml-4 relative mt-4 md:mt-0">
+            <div data-reveal="up" className="flex items-center gap-4 mb-6">
+              <span className="w-3 h-3 sm:w-4 sm:h-4 bg-safety-orange animate-pulse shrink-0"></span>
+              <h2 className="font-brutalist text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.95]">Pipeline</h2>
+              <div className="flex-1 h-px bg-monitor-border relative hidden sm:block">
                 <div className="absolute right-0 top-[-15px] text-[10px] font-mono text-cream/30">METH_001_ACTIVE</div>
               </div>
             </div>
 
+            {/* Connector line that draws across as section enters viewport */}
+            <div data-reveal="fade" className="relative h-px mb-10 hidden lg:block">
+              <div className="pipeline-connector h-px bg-safety-orange/30" data-reveal="fade" />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-              <div className="monitor-panel p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors">
+              <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-safety-orange font-black px-2 py-1 bg-safety-orange/10 border border-safety-orange/20">PHASE_01</div>
                   <div className="text-[10px] font-mono text-cream/20">AUTO_EXEC</div>
@@ -295,7 +773,7 @@ export default function App() {
                 <p className="text-sm text-cream/50 leading-relaxed font-mono">Full screenshot capture at real viewports. Rendered DOM extraction (post-hydration for SPAs). Element coordinate mapping. Dual-device parallel acquisition — desktop and mobile in a single pass.</p>
               </div>
 
-              <div className="monitor-panel p-10 border-t-2 border-t-brass hover:bg-monitor-border/30 transition-colors">
+              <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-brass hover:bg-monitor-border/30 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-brass font-black px-2 py-1 bg-brass/10 border border-brass/20">PHASE_02</div>
                   <div className="text-[10px] font-mono text-cream/20">AWAIT_SIG</div>
@@ -304,16 +782,16 @@ export default function App() {
                 <p className="text-sm text-cream/50 leading-relaxed font-mono">Multi-agent analysis across 10 conversion-psychology clusters — Headlines, Trust, Price, Checkout, Performance, Media, Browse, SEO, Retention, Audience Fit. Findings scored against 800+ classified research entries.</p>
               </div>
 
-              <div className="monitor-panel p-10 border-t-2 border-t-cream/50 hover:bg-monitor-border/30 transition-colors">
+              <div data-reveal="up" style={{ transitionDelay: '300ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-cream/50 hover:bg-monitor-border/30 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-cream/60 font-black px-2 py-1 bg-white/5 border border-white/10">PHASE_03</div>
                   <div className="text-[10px] font-mono text-cream/20">MANUAL_REV</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Ethics Gate</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Every phase checked against actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Flags dark patterns you're already running. Refuses to recommend anything we wouldn't defend in court. PASS or FAIL.</p>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Every phase checked against actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Flags dark patterns you’re already running. Refuses to recommend anything we wouldn’t defend in court. PASS or FAIL.</p>
               </div>
 
-              <div className="monitor-panel p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors bg-safety-orange/5">
+              <div data-reveal="up" style={{ transitionDelay: '450ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors bg-safety-orange/5">
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-[10px] text-safety-orange font-black px-2 py-1 bg-safety-orange/20 border border-safety-orange/40">PHASE_04</div>
                   <div className="text-[10px] font-mono text-safety-orange/80 animate-pulse">DEPLOY_RDY</div>
@@ -332,7 +810,7 @@ export default function App() {
           <div aria-hidden="true" className="absolute -bottom-8 -left-4 md:left-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[8rem] md:text-[13rem] leading-none text-brass tracking-tighter">
             LEVELS
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 border-b border-monitor-border pb-5 sm:pb-6 gap-5 relative">
+          <div data-reveal="up" className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 border-b border-monitor-border pb-5 sm:pb-6 gap-5 relative">
             <div>
               <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-3 uppercase">Operational Tiers</div>
               <h2 className="font-brutalist text-3xl sm:text-4xl md:text-5xl uppercase leading-none">Levels of<br/>Depth</h2>
@@ -345,7 +823,7 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-1 max-w-6xl mx-auto">
-            <div className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
+            <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
               <div className="text-[10px] font-black text-cream/30 mb-5 uppercase tracking-widest">Commission_01</div>
               <h3 className="font-brutalist text-3xl mb-1 uppercase group-hover:text-brass transition-colors">Focus</h3>
               <div className="text-2xl font-bold mb-7 text-cream/60">$397</div>
@@ -363,10 +841,10 @@ export default function App() {
                   <span>Priority Path</span> <span className="text-cream/30">Included</span>
                 </p>
               </div>
-              <button className="w-full py-3 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
+              <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Select Protocol</button>
             </div>
 
-            <div className="monitor-panel p-5 sm:p-7 lg:p-8 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-3 lg:-mb-3 shadow-[0_0_40px_rgba(255,69,0,0.15)] relative">
+            <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="tier-pulse-on-reveal radar-sweep-host monitor-panel p-5 sm:p-7 lg:p-8 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-3 lg:-mb-3 shadow-[0_0_40px_rgba(255,69,0,0.15)] relative">
               <div className="absolute top-0 right-0 bg-safety-orange text-white text-[9px] font-black px-3 py-1 uppercase">Recommended</div>
               <div className="text-[10px] font-black text-safety-orange mb-5 uppercase tracking-widest">Commission_02</div>
               <h3 className="font-brutalist text-4xl mb-1 uppercase">The Funnel</h3>
@@ -385,12 +863,12 @@ export default function App() {
                   <span>Citations</span> <span className="text-safety-orange">Gold Tier</span>
                 </p>
               </div>
-              <button className="w-full py-4 bg-safety-orange text-white text-[11px] font-black uppercase hover:brightness-125 transition-all shadow-[0_0_25px_rgba(255,69,0,0.4)] cursor-pointer">
+              <button className="cta-armed w-full py-4 bg-safety-orange text-white text-[11px] font-black uppercase hover:brightness-125 transition-all shadow-[0_0_25px_rgba(255,69,0,0.4)] cursor-pointer">
                 SECURE PRIORITY SLOT
               </button>
             </div>
 
-            <div className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
+            <div data-reveal="up" style={{ transitionDelay: '300ms' }} className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
               <div className="text-[10px] font-black text-cream/30 mb-5 uppercase tracking-widest">Commission_03</div>
               <h3 className="font-brutalist text-3xl mb-1 uppercase group-hover:text-brass transition-colors">Full Spectrum</h3>
               <div className="text-2xl font-bold mb-7 text-cream/60">$1,497</div>
@@ -408,33 +886,33 @@ export default function App() {
                   <span>Async Q&amp;A</span> <span className="text-cream/30">14 Days</span>
                 </p>
               </div>
-              <button className="w-full py-3 border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer">Select Protocol</button>
+              <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Select Protocol</button>
             </div>
           </div>
         </section>
 
       </main>
 
-      <footer className="py-16 sm:py-20 px-6 sm:px-8 border-t border-monitor-border bg-command-gray">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-10 sm:gap-12">
-          <div className="max-w-sm">
-            <div className="font-brutalist text-3xl mb-6 tracking-tighter">ECP<span className="text-safety-orange">.</span>SYSTEMS</div>
-            <p className="text-[10px] font-bold text-cream/30 uppercase leading-loose tracking-widest">
-              One audit. Every insight. Research-backed.<br/>
-              800+ classified findings · 80+ reference files.<br/>
-              Built on Baymard · Nielsen Norman · CXL · FTC enforcement.
-            </p>
+      <footer className="border-t border-monitor-border bg-command-gray">
+        {/* Main strip — brand · links · version */}
+        <div className="px-6 sm:px-8 py-4 sm:py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-8">
+          <div className="flex items-center gap-3 font-brutalist text-lg tracking-tighter">
+            <span className="w-2 h-2 bg-safety-orange animate-pulse"></span>
+            ECP<span className="text-safety-orange">.</span>SYSTEMS
           </div>
-          <div className="flex flex-col md:items-end gap-12">
-            <div className="flex gap-10 text-[9px] font-black uppercase tracking-[0.3em] text-cream/50">
-              <a className="hover:text-safety-orange" href="#">Privacy_Policy</a>
-              <a className="hover:text-safety-orange" href="#">Terms_of_Audit</a>
-              <a className="hover:text-safety-orange" href="#">Ethical_Manifesto</a>
-            </div>
-            <div className="text-[8px] font-mono text-cream/20 tracking-tighter">
-              VER_v1.1.0 // E-COMMERCE PSYCHOLOGY AUDIT // SYSTEM_STABLE
-            </div>
+          <div className="flex flex-wrap gap-x-8 gap-y-2 text-[9px] font-black uppercase tracking-[0.28em] text-cream/50">
+            <a className="hover:text-safety-orange transition-colors" href="#">Privacy_Policy</a>
+            <a className="hover:text-safety-orange transition-colors" href="#">Terms_of_Audit</a>
+            <a className="hover:text-safety-orange transition-colors" href="#">Ethical_Manifesto</a>
           </div>
+          <div className="text-[8px] font-mono text-cream/25 tracking-tighter whitespace-nowrap">
+            VER_v1.1.0 // SYSTEM_STABLE
+          </div>
+        </div>
+        {/* Thin status strip — tagline + frameworks on one line */}
+        <div className="border-t border-monitor-border/60 px-6 sm:px-8 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6 text-[9px] font-bold text-cream/30 uppercase tracking-[0.2em]">
+          <span>One audit. Every insight. Research-backed.</span>
+          <span className="text-cream/25">Built on Baymard · Nielsen Norman · CXL · FTC enforcement</span>
         </div>
       </footer>
     </div>
