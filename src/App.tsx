@@ -788,7 +788,7 @@ export default function App() {
               <div className="text-[10px] font-mono text-cream/30 uppercase tracking-widest whitespace-nowrap hidden sm:block">02 · PREMISE</div>
             </div>
             <h2 data-reveal="up" className="font-brutalist text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-5xl tracking-tight text-balance">
-              You've heard the <span className="text-cream/40">"how"</span>,<br/>
+              You've heard the <span className="text-cream/40">"how",</span><br/>
               but not the <span className="text-safety-orange">"why?"</span>
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-16 items-start">
