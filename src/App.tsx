@@ -574,20 +574,23 @@ export default function App() {
           <div className="w-full max-w-[110rem] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between xl:px-8">
             <div className="lg:w-[48%] flex flex-col justify-center z-20 relative w-full">
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="boot-badge px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">ENFORCEMENT MODE</span>
-                <span className="boot-id text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-SURVEIL-STATION</span>
+                <span className="boot-badge px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">PREVENTION MODE</span>
+                <span className="boot-id text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-DEFENSE-STATION</span>
               </div>
-              <h1 className="font-brutalist text-massive mb-6 sm:mb-8 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+              <h1 className="font-brutalist text-massive mb-5 sm:mb-6 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                 <span className="hero-line hero-line-1">FACTS</span><br/>
                 <span className="hero-line hero-line-2">OVER</span><br/>
                 <span className="hero-line hero-line-3 text-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
               </h1>
+              <p className="boot-subhead text-lg sm:text-xl font-semibold text-cream/90 leading-tight mb-7 max-w-xl border-l-2 border-safety-orange pl-4">
+                Verify <span className="text-safety-orange">us</span>, not the other way around.
+              </p>
               <div className="max-w-xl relative z-20">
                 <p className="boot-subhead text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
                   One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
                 </p>
                 <p className="boot-body text-base sm:text-sm font-medium text-cream/60 leading-relaxed mb-8">
-                  800+ classified findings across 80+ reference files from Baymard Institute, Nielsen Norman Group, peer-reviewed journals, and FTC enforcement actions. Every recommendation cites its source. Every citation rated by evidence tier.
+                  800+ classified findings across 80+ reference files from Baymard Institute, Nielsen Norman Group, peer-reviewed journals, and FTC enforcement actions. Every recommendation cites its source — confidence rated by evidence tier.
                 </p>
                 <div className="boot-panel flex gap-4">
                   <div className="flex-[1.5] monitor-panel p-4 border-l-4 border-l-brass">
@@ -970,7 +973,7 @@ export default function App() {
                 </div>
                 <div className="text-right text-[10px] font-mono text-cream/30 uppercase">
                   AUTH_ID: DK_01<br/>
-                  Established 2026
+                  Signed · Verified
                 </div>
               </div>
             </div>
@@ -1022,6 +1025,7 @@ export default function App() {
                 </p>
               </div>
               <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Commission Focus</button>
+              <div className="mt-3 text-center text-[9px] font-mono uppercase tracking-widest text-cream/40">Miss the deadline · Full refund</div>
             </div>
 
             <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="tier-pulse-on-reveal radar-sweep-host monitor-panel p-5 sm:p-7 lg:p-8 flex flex-col bg-matte-black border-2 border-safety-orange z-10 lg:-mt-3 lg:-mb-3 shadow-[0_0_40px_rgba(255,69,0,0.15)] relative">
@@ -1052,6 +1056,7 @@ export default function App() {
               <button className="cta-armed w-full py-4 bg-safety-orange text-white text-[11px] font-black uppercase hover:brightness-125 transition-all shadow-[0_0_25px_rgba(255,69,0,0.4)] cursor-pointer">
                 SECURE PRIORITY SLOT
               </button>
+              <div className="mt-3 text-center text-[9px] font-mono uppercase tracking-widest text-safety-orange/80">Miss the deadline · Full refund</div>
             </div>
 
             <div data-reveal="up" style={{ transitionDelay: '300ms' }} className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
@@ -1076,6 +1081,7 @@ export default function App() {
                 </p>
               </div>
               <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Commission Full Spectrum</button>
+              <div className="mt-3 text-center text-[9px] font-mono uppercase tracking-widest text-cream/40">Miss the deadline · Full refund</div>
             </div>
           </div>
           </div>
