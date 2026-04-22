@@ -229,10 +229,8 @@ const GATE_LOG: ReadonlyArray<{
   verdict: GateVerdict;
 }> = [
   { pattern: 'Countdown urgency timer',          law: 'FTC § 5',             detail: 'deceptive scarcity claim',        verdict: 'reject' },
-  { pattern: '"Only 2 left" stock urgency',      law: 'FTC § 5',             detail: 'unverified inventory claim',      verdict: 'reject' },
   { pattern: 'Pre-checked add-on at checkout',   law: 'FTC Click-to-Cancel', detail: 'lacks affirmative consent',       verdict: 'reject' },
   { pattern: 'Hidden subscription opt-out',      law: 'ROSCA § 8403',        detail: 'negative option rule',            verdict: 'reject' },
-  { pattern: 'Undisclosed CA data sharing',      law: 'CPRA § 1798.135',     detail: 'opt-out link required',           verdict: 'reject' },
   { pattern: 'One-click unsubscribe flow',       law: 'ROSCA',               detail: 'cancel path disclosed',           verdict: 'approve' },
   { pattern: 'CTA contrast 7.2:1 luminance',     law: 'WCAG 2.1 AA',         detail: 'accessible color ratio',          verdict: 'approve' },
   { pattern: 'Price disclosed above the fold',   law: 'FTC',                 detail: 'pricing transparency',            verdict: 'approve' },
@@ -304,39 +302,50 @@ function EthicsGateSection({
             =================================================================== */}
         <div className="grid grid-cols-1 lg:grid-cols-[auto_minmax(0,1fr)] gap-12 lg:gap-10 xl:gap-14 items-start">
 
-          {/* ============ LEFT COLUMN — specimen ============ */}
-          <div data-reveal="up" className="flex gap-3 md:gap-4 items-stretch mx-auto lg:mx-0">
+          {/* ============ LEFT COLUMN — specimen ============
+              Reveal is attached per-slot (callouts + phone) rather than on the
+              whole column, so the three callouts stagger in from the left and
+              the phone pushes in from the right as the section enters view. */}
+          <div className="flex gap-3 md:gap-4 items-stretch mx-auto lg:mx-0">
 
-            {/* Callouts column — stretches to phone height, distributes top/mid/bottom */}
+            {/* Callouts column — stretches to phone height, distributes top/mid/bottom.
+                Each callout wrapped in its own [data-reveal="left"] so the stagger
+                is scroll-triggered; transitionDelay steps them in sequence. */}
             <div className="hidden md:flex flex-col justify-between gap-3 w-[160px] lg:w-[170px] xl:w-[185px] py-2">
-              <CalloutCard
-                id="01"
-                arrowSide="right"
-                active={activeCallout === '01'}
-                onEnter={() => setActiveCallout('01')}
-                onLeave={() => setActiveCallout(null)}
-              />
-              <CalloutCard
-                id="02"
-                arrowSide="right"
-                active={activeCallout === '02'}
-                onEnter={() => setActiveCallout('02')}
-                onLeave={() => setActiveCallout(null)}
-                delay={120}
-              />
-              <CalloutCard
-                id="03"
-                arrowSide="right"
-                active={activeCallout === '03'}
-                onEnter={() => setActiveCallout('03')}
-                onLeave={() => setActiveCallout(null)}
-                delay={240}
-              />
+              <div data-reveal="left" style={{ transitionDelay: '0ms' }} className="flex">
+                <CalloutCard
+                  id="01"
+                  arrowSide="right"
+                  active={activeCallout === '01'}
+                  onEnter={() => setActiveCallout('01')}
+                  onLeave={() => setActiveCallout(null)}
+                />
+              </div>
+              <div data-reveal="left" style={{ transitionDelay: '140ms' }} className="flex">
+                <CalloutCard
+                  id="02"
+                  arrowSide="right"
+                  active={activeCallout === '02'}
+                  onEnter={() => setActiveCallout('02')}
+                  onLeave={() => setActiveCallout(null)}
+                />
+              </div>
+              <div data-reveal="left" style={{ transitionDelay: '280ms' }} className="flex">
+                <CalloutCard
+                  id="03"
+                  arrowSide="right"
+                  active={activeCallout === '03'}
+                  onEnter={() => setActiveCallout('03')}
+                  onLeave={() => setActiveCallout(null)}
+                />
+              </div>
             </div>
 
             {/* PHONE — anchors the column, tilted like the hero (motif repetition).
                 Wrapper handles the tilt transform; inner bezel keeps its own
-                hover treatment. */}
+                hover treatment. Outer [data-reveal] wrapper handles scroll reveal
+                separately so it doesn't fight the skew-specimen transform. */}
+            <div data-reveal="right" style={{ transitionDelay: '80ms' }} className="flex">
             <div className="skew-specimen subject-frame group relative w-[240px] sm:w-[270px] md:w-[280px] lg:w-[310px] xl:w-[340px] flex-shrink-0">
               <div className="relative border-2 border-monitor-border rounded-[22px] p-[6px] bg-matte-black shadow-[12px_14px_0px_rgba(10,10,10,0.85)] group-hover:shadow-[16px_18px_0px_rgba(212,175,55,0.25)] group-hover:border-brass/40 transition-all duration-500">
                 <div className="relative rounded-[16px] overflow-hidden">
@@ -372,6 +381,7 @@ function EthicsGateSection({
                 <CalloutCard id="02" arrowSide="none" active={activeCallout === '02'} onEnter={() => setActiveCallout('02')} onLeave={() => setActiveCallout(null)} />
                 <CalloutCard id="03" arrowSide="none" active={activeCallout === '03'} onEnter={() => setActiveCallout('03')} onLeave={() => setActiveCallout(null)} />
               </div>
+            </div>
             </div>
           </div>
 
@@ -542,7 +552,7 @@ export default function App() {
             <span className="w-2 h-2 bg-safety-orange animate-pulse"></span>
             ECP<span className="text-brass">.</span>SYSTEMS
           </div>
-          <div className="hidden md:flex gap-12 text-[9px] font-black tracking-file text-cream/40">
+          <div className="hidden md:flex gap-12 text-[10px] font-black tracking-file text-cream/75">
             <a className="nav-link hover:text-safety-orange transition-colors" href="#pipeline">PIPELINE</a>
             <a className="nav-link hover:text-safety-orange transition-colors" href="#ethics-gate">ETHICS_GATE</a>
             <a className="nav-link hover:text-safety-orange transition-colors" href="#pricing">TIERS</a>
@@ -556,7 +566,11 @@ export default function App() {
       </nav>
       
       <main>
-        <section className="relative min-h-screen pt-24 sm:pt-32 pb-20 sm:pb-24 px-6 sm:px-8 flex items-center justify-center">
+        {/* Hero height trimmed ~8vh vs. min-h-screen so the specimen + headline
+            sit a touch higher in the fold. Flex items-center still centers the
+            pair vertically; shorter section = higher centroid = more of
+            "Plain English" peeks in, pulling the whole document upward. */}
+        <section className="relative min-h-[92vh] pt-20 sm:pt-28 pb-16 sm:pb-20 px-6 sm:px-8 flex items-center justify-center">
           <div className="w-full max-w-[110rem] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between xl:px-8">
             <div className="lg:w-[48%] flex flex-col justify-center z-20 relative w-full">
               <div className="flex items-center gap-3 mb-6 flex-wrap">
@@ -684,8 +698,10 @@ export default function App() {
           </div>
         </section>
 
-        {/* Plain-English Explainer — for people who don't live in CRO */}
-        <section className="relative py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border bg-matte-black overflow-hidden">
+        {/* Plain-English Explainer — for people who don't live in CRO.
+            Top padding trimmed 16px vs. pb so the hero→explainer handoff feels
+            tighter without collapsing the bureau breathing room. */}
+        <section className="relative pt-16 sm:pt-20 pb-20 sm:pb-24 px-6 sm:px-8 border-t border-monitor-border bg-matte-black overflow-hidden">
           {/* Subtle form-line texture — bureau clipboard feel */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent 0, transparent 42px, #F9F9F7 42px, #F9F9F7 43px)' }} />
           {/* Giant faint "ECP" watermark top-right */}
@@ -754,7 +770,7 @@ export default function App() {
           setActiveCallout={setActiveCallout}
         />
 
-        <section id="pipeline" className="py-20 sm:py-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden scroll-mt-16">
+        <section id="pipeline" className="pt-16 sm:pt-20 pb-20 sm:pb-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden scroll-mt-16">
           {/* Pipeline flow diagram — faint connector lines between phases */}
           <div aria-hidden="true" className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 28px, #FF4500 28px, #FF4500 29px)' }} />
           {/* Giant faint "PIPELINE" word backdrop */}
@@ -815,26 +831,29 @@ export default function App() {
           </div>
         </section>
 
-        <section id="pricing" className="py-16 sm:py-20 px-6 sm:px-8 relative overflow-hidden scroll-mt-16">
+        <section id="pricing" className="pt-12 sm:pt-16 pb-16 sm:pb-20 px-6 sm:px-8 relative overflow-hidden scroll-mt-16">
           {/* Blueprint grid — architectural/commission feel */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, #D4AF37 0px, #D4AF37 1px, transparent 1px, transparent 60px)' }} />
           {/* Giant faint "LEVELS" word */}
           <div aria-hidden="true" className="absolute -bottom-8 -left-4 md:left-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[8rem] md:text-[13rem] leading-none text-brass tracking-tighter">
             LEVELS
           </div>
-          <div data-reveal="up" className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 border-b border-monitor-border pb-5 sm:pb-6 gap-5 relative">
-            <div>
-              <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-3 uppercase">Operational Tiers</div>
-              <h2 className="font-brutalist text-3xl sm:text-4xl md:text-5xl uppercase leading-none">Levels of<br/>Depth</h2>
+          {/* Inner wrapper matches Pipeline's max-w-[100rem] so the two section
+              headers share the same left gutter when stacked vertically. */}
+          <div className="max-w-[100rem] mx-auto relative z-10">
+            <div data-reveal="up" className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 border-b border-monitor-border pb-5 sm:pb-6 gap-5 relative">
+              <div>
+                <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-3 uppercase">Operational Tiers</div>
+                <h2 className="font-brutalist text-3xl sm:text-4xl md:text-5xl uppercase leading-none">Levels of<br/>Depth</h2>
+              </div>
+              <div className="text-right text-[10px] font-mono text-cream/30 mt-6 md:mt-0 uppercase">
+                Protocol: Fixed Rate Commission<br/>
+                Waitlist: Active<br/>
+                Region: Global Shopify
+              </div>
             </div>
-            <div className="text-right text-[10px] font-mono text-cream/30 mt-6 md:mt-0 uppercase">
-              Protocol: Fixed Rate Commission<br/>
-              Waitlist: Active<br/>
-              Region: Global Shopify
-            </div>
-          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-1 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-1 max-w-6xl mx-auto">
             <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-5 sm:p-6 lg:p-7 flex flex-col group hover:border-brass/30 transition-all cursor-pointer border border-monitor-border">
               <div className="text-[10px] font-black text-cream/30 mb-5 uppercase tracking-widest">Commission_01</div>
               <h3 className="font-brutalist text-3xl mb-1 uppercase group-hover:text-brass transition-colors">Focus</h3>
@@ -860,7 +879,10 @@ export default function App() {
               <div className="absolute top-0 right-0 bg-safety-orange text-white text-[9px] font-black px-3 py-1 uppercase">Recommended</div>
               <div className="text-[10px] font-black text-safety-orange mb-5 uppercase tracking-widest">Commission_02</div>
               <h3 className="font-brutalist text-4xl mb-1 uppercase">The Funnel</h3>
-              <div className="font-brutalist text-[4.5rem] sm:text-[5.5rem] lg:text-[6.25rem] leading-[0.82] tracking-tighter mb-8 text-cream">$<span className="text-safety-orange">797</span></div>
+              {/* leading-[0.86] + mb-10 give the numerals real breathing room
+                  above the SCOPE row — at leading-[0.82] the Archivo Black
+                  descenders were visually clipping into the first detail row. */}
+              <div className="font-brutalist text-[4.25rem] sm:text-[5rem] lg:text-[5.75rem] leading-[0.86] tracking-tighter mb-10 text-cream">$<span className="text-safety-orange">797</span></div>
               <div className="flex-grow space-y-3 mb-10">
                 <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Scope</span> <span className="text-safety-orange">LP + PDP + Checkout</span>
@@ -900,6 +922,7 @@ export default function App() {
               </div>
               <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Commission Full Spectrum</button>
             </div>
+          </div>
           </div>
         </section>
 

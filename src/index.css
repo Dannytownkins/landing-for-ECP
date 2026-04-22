@@ -93,8 +93,11 @@
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
     transform-origin: center center;
   }
+  /* Hover crosses zero into the opposite tilt — phone "looks back" at the
+     cursor rather than flattening. Magnitudes kept small so it reads as a
+     considered shift, not a flip. */
   .skew-specimen:hover {
-    transform: perspective(1800px) rotateY(4deg) rotateX(1deg) scale(1.04);
+    transform: perspective(1800px) rotateY(-2deg) rotateX(1deg) scale(1.03);
   }
   .callout-3d {
     @apply absolute bg-safety-orange text-white px-3 py-1 text-[10px] font-black uppercase tracking-tighter;
