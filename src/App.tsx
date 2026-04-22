@@ -220,51 +220,38 @@ function FindingBody({ activeId }: { activeId: CalloutId | null }) {
  * visual tie between the callout on the phone and the detail on the right.
  */
 function ActiveFindingPanel({ activeId }: { activeId: CalloutId | null }) {
-  const isActive = activeId !== null;
-  const content = isActive ? AUDIT_CALLOUTS[activeId] : null;
-  const tokens = isActive ? CALLOUT_COLOR_CLASSES[content!.color] : CALLOUT_COLOR_CLASSES.orange;
+  if (activeId === null) return null;
+  const content = AUDIT_CALLOUTS[activeId];
+  const tokens = CALLOUT_COLOR_CLASSES[content.color];
 
   return (
     <div
       data-reveal="up"
       style={{ transitionDelay: '40ms' }}
-      className={`relative monitor-panel border border-monitor-border border-l-2 ${isActive ? tokens.borderL : 'border-l-cream/20'} p-5 sm:p-6 bg-matte-black/40 transition-colors duration-200 min-h-[170px]`}
+      className={`relative monitor-panel border border-monitor-border border-l-2 ${tokens.borderL} p-5 sm:p-6 bg-matte-black/40 transition-colors duration-200`}
     >
       <div className="flex items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-2">
-          <span className={`inline-block w-2 h-2 ${isActive ? tokens.bg : 'bg-cream/30'} transition-colors duration-200`} />
-          <div className={`text-[9px] font-black tracking-chip uppercase ${isActive ? tokens.text : 'text-cream/40'}`}>
-            {isActive ? `Active Finding · ${activeId}` : 'Active Finding · Standby'}
+          <span className={`inline-block w-2 h-2 ${tokens.bg} transition-colors duration-200`} />
+          <div className={`text-[9px] font-black tracking-chip uppercase ${tokens.text}`}>
+            Active Finding · {activeId}
           </div>
         </div>
         <div className="text-[9px] font-mono text-cream/30 tracking-widest uppercase whitespace-nowrap">
-          {isActive ? content!.cluster : 'Hover a callout →'}
+          {content.cluster}
         </div>
       </div>
-      <div key={activeId ?? 'default'} className="finding-swap">
-        {isActive ? (
-          <>
-            <h3 className="font-brutalist text-lg sm:text-xl md:text-2xl uppercase leading-[1.1] mb-3 tracking-tight">
-              {content!.headline}
-            </h3>
-            <p className="text-[0.92rem] sm:text-sm text-cream/75 leading-relaxed mb-4">
-              {content!.body}
-            </p>
-            <div className={`inline-flex items-center gap-2 text-[9px] font-mono tracking-widest uppercase ${tokens.text} border ${tokens.border} px-2 py-1`}>
-              <span>Cited:</span>
-              <span className="text-cream/90 font-semibold">{content!.cite}</span>
-            </div>
-          </>
-        ) : (
-          <>
-            <h3 className="font-brutalist text-base sm:text-lg uppercase leading-snug mb-2 text-cream/70 tracking-tight">
-              Hover any callout to see the finding.
-            </h3>
-            <p className="text-sm text-cream/45 leading-relaxed">
-              Three findings are pinned to this specimen — one pricing, one conversion, one accessibility. Each carries its own body, cluster, and citation. Hover (or tap on mobile) and the detail surfaces here.
-            </p>
-          </>
-        )}
+      <div key={activeId} className="finding-swap">
+        <h3 className="font-brutalist text-lg sm:text-xl md:text-2xl uppercase leading-[1.1] mb-3 tracking-tight">
+          {content.headline}
+        </h3>
+        <p className="text-[0.92rem] sm:text-sm text-cream/75 leading-relaxed mb-4">
+          {content.body}
+        </p>
+        <div className={`inline-flex items-center gap-2 text-[9px] font-mono tracking-widest uppercase ${tokens.text} border ${tokens.border} px-2 py-1`}>
+          <span>Cited:</span>
+          <span className="text-cream/90 font-semibold">{content.cite}</span>
+        </div>
       </div>
     </div>
   );
@@ -500,10 +487,9 @@ function EthicsGateSection({
                     key={f.name}
                     className="px-4 pt-4 pb-5 sm:px-5 sm:pt-5 sm:pb-6 border-r border-b lg:border-b-0 border-monitor-border last:border-r-0 relative group flex flex-col"
                   >
-                    {/* Giant count — the hero of the card. 5-6x the size of the
-                        framework name so it reads as a case-file statistic, not
-                        decoration. */}
-                    <div className="font-brutalist text-[4rem] sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] text-cream leading-[0.82] tracking-tighter mb-2 group-hover:text-safety-orange transition-colors duration-300">
+                    {/* Count — sized to roughly match the section heading so it
+                        reads as a case-file statistic without swallowing the card. */}
+                    <div className="font-brutalist text-4xl sm:text-5xl lg:text-6xl text-cream leading-[0.9] tracking-tighter mb-2 group-hover:text-safety-orange transition-colors duration-300">
                       {f.patterns}
                     </div>
                     <div className="h-px bg-monitor-border mb-2.5" />
@@ -671,7 +657,13 @@ export default function App() {
               </div>
             </div>
           
-            <div className="lg:w-[52%] relative flex items-center justify-center mt-12 lg:mt-0 z-10 w-full px-4 sm:px-8 lg:px-0 overflow-visible">
+            <div className="lg:w-[52%] relative flex flex-col mt-12 lg:mt-0 z-10 w-full px-4 sm:px-8 lg:px-0 overflow-visible">
+            {/* Tagline above the specimen image — pairs the promise with the
+                visual evidence on the right side of the hero. */}
+            <p className="boot-subhead hidden lg:block text-right text-lg xl:text-xl font-light text-cream/70 leading-tight mb-5 pr-1">
+              One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
+            </p>
+            <div className="relative flex items-center justify-center w-full">
             <div className="relative skew-hero group cursor-pointer w-full max-w-[52rem] overflow-visible">
 
               {/* Main screenshot — real subject under examination */}
@@ -735,6 +727,7 @@ export default function App() {
               {/* Live analysis readout — top-right corner */}
               <LiveReadout />
             </div>
+          </div>
           </div>
 
           {/* Mobile + tablet callouts — stacked BELOW the hero image. Shown on
@@ -839,67 +832,66 @@ export default function App() {
         </section>
 
         {/* ========================================================
-            SECTION — HOW vs. WHY (bridge)
-            Short transitional section. Reframes the page from "what you
-            get" (plain english) into "why you should trust it" (evidence
-            stack below). Single-idea section — no grid, no mockup, just
-            the thesis landing full-width.
+            SECTION — HOW vs. WHY (strip, not full page)
+            Short horizontal transitional strip. Single line thesis +
+            inline ship-list. Sits above the Ethics Gate as the premise
+            for everything that follows.
             ======================================================== */}
-        <section className="relative pt-16 sm:pt-20 pb-16 sm:pb-20 px-6 sm:px-8 border-t border-monitor-border bg-matte-black overflow-hidden">
-          {/* Giant faint "HOW vs WHY" watermark */}
-          <div aria-hidden="true" className="absolute -top-6 -right-4 md:right-0 pointer-events-none opacity-[0.025] select-none font-brutalist text-[9rem] md:text-[15rem] leading-none text-cream tracking-tighter">
-            HOW · WHY
-          </div>
-          <div className="max-w-[90rem] mx-auto relative z-10">
-            <div data-reveal="up" className="flex items-center gap-4 mb-10 sm:mb-12">
-              <span className="w-3 h-3 bg-safety-orange"></span>
+        <section className="relative py-10 sm:py-12 px-6 sm:px-8 border-t border-monitor-border bg-matte-black overflow-hidden">
+          <div className="max-w-[100rem] mx-auto relative z-10">
+            <div data-reveal="up" className="flex items-center gap-4 mb-5">
+              <span className="w-2.5 h-2.5 bg-safety-orange shrink-0"></span>
               <div className="text-[10px] font-black text-safety-orange tracking-widest uppercase">The Ask</div>
               <div className="flex-1 h-px bg-monitor-border"></div>
               <div className="text-[10px] font-mono text-cream/30 uppercase tracking-widest whitespace-nowrap hidden sm:block">02 · PREMISE</div>
             </div>
-            <h2 data-reveal="up" className="font-brutalist text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-5xl tracking-tight text-balance">
-              You've heard the <span className="text-cream/40">"how",</span><br/>
-              but not the <span className="text-safety-orange">"why?"</span>
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-16 items-start">
-              <p data-reveal="up" className="text-xl sm:text-2xl font-light text-cream/80 leading-snug max-w-3xl">
-                We give you <span className="font-bold text-cream">both</span> — with a <span className="text-safety-orange font-semibold">confidence score</span> on every finding and the citations to check our work.
-                <span className="block mt-5 text-base sm:text-lg text-cream/55 font-medium leading-relaxed">
-                  Most CRO advice is the <em>how</em>. Larger CTAs. Shorter checkouts. Social proof above the fold. What nobody hands you is the <em>why</em> — the peer-reviewed research, the FTC enforcement record, the UX benchmark behind the rule. We hand you both. You decide whether each decision is right for <em>your</em> store.
+
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-6 lg:gap-10 items-start">
+              {/* Left: headline + one-sentence thesis */}
+              <div data-reveal="up" className="min-w-0">
+                <h2 className="font-brutalist text-2xl sm:text-3xl md:text-4xl uppercase leading-[1.05] tracking-tight mb-3">
+                  You've heard the <span className="text-cream/40">"how",</span> but not the <span className="text-safety-orange">"why?"</span>
+                </h2>
+                <p className="text-base sm:text-lg font-light text-cream/75 leading-snug max-w-3xl">
+                  We give you <span className="font-bold text-cream">both</span> — a <span className="text-safety-orange font-semibold">confidence score</span> on every finding and the citations to check our work.
+                </p>
+              </div>
+
+              {/* Right: horizontal ship-list pill strip */}
+              <div data-reveal="up" style={{ transitionDelay: '120ms' }} className="flex flex-wrap gap-2 lg:gap-2.5 lg:justify-end lg:self-center">
+                <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-cream/70 border border-monitor-border bg-command-gray/60 px-3 py-2 whitespace-nowrap">
+                  <span className="text-safety-orange font-black">01</span> Rule
                 </span>
-              </p>
-              <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="monitor-panel p-6 border-l-2 border-l-safety-orange bg-command-gray/60">
-                <div className="text-[10px] font-black text-safety-orange mb-3 tracking-widest uppercase">Every Finding Ships With</div>
-                <ul className="space-y-3 text-sm text-cream/80 font-mono leading-relaxed">
-                  <li className="flex items-start gap-3">
-                    <span className="text-safety-orange font-black mt-0.5">01</span>
-                    <span>The <span className="text-cream font-semibold">rule</span> — what to change, where</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-safety-orange font-black mt-0.5">02</span>
-                    <span>The <span className="text-cream font-semibold">why</span> — the published research behind it</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-safety-orange font-black mt-0.5">03</span>
-                    <span>The <span className="text-cream font-semibold">tier</span> — Gold / Silver / Bronze confidence score</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-safety-orange font-black mt-0.5">04</span>
-                    <span>The <span className="text-cream font-semibold">citation</span> — source URL, verified this audit cycle</span>
-                  </li>
-                </ul>
+                <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-cream/70 border border-monitor-border bg-command-gray/60 px-3 py-2 whitespace-nowrap">
+                  <span className="text-safety-orange font-black">02</span> Why
+                </span>
+                <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-cream/70 border border-monitor-border bg-command-gray/60 px-3 py-2 whitespace-nowrap">
+                  <span className="text-safety-orange font-black">03</span> Tier
+                </span>
+                <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-cream/70 border border-monitor-border bg-command-gray/60 px-3 py-2 whitespace-nowrap">
+                  <span className="text-safety-orange font-black">04</span> Citation
+                </span>
               </div>
             </div>
           </div>
         </section>
 
         {/* ========================================================
+            SECTION — THE ETHICS GATE
+            Phone specimen on the left (one callout = explicit ethics
+            violation) + compliance ledger on the right.
+            ======================================================== */}
+        <EthicsGateSection
+          activeCallout={activeCallout}
+          setActiveCallout={setActiveCallout}
+        />
+
+        {/* ========================================================
             SECTION — THE EVIDENCE (Authority Stack)
             Not social proof — authority stacking. Names the institutions
             the library's findings are drawn from, with scope notes.
-            Sits between "Plain English" (what you get) and "Ethics Gate"
-            (how it stays legal) to answer the implicit question:
-            "why should I trust this if I've never heard of you?"
+            Now follows the Ethics Gate so readers meet the live gate
+            mechanism first, then see the evidence registry backing it.
             ======================================================== */}
         <section className="relative pt-16 sm:pt-20 pb-16 sm:pb-20 px-6 sm:px-8 border-t border-monitor-border bg-command-gray overflow-hidden">
           {/* Giant faint "EVIDENCE" watermark */}
@@ -993,16 +985,6 @@ export default function App() {
             </div>
           </div>
         </section>
-
-        {/* ========================================================
-            SECTION — THE ETHICS GATE
-            Phone specimen on the left (one callout = explicit ethics
-            violation) + compliance ledger on the right.
-            ======================================================== */}
-        <EthicsGateSection
-          activeCallout={activeCallout}
-          setActiveCallout={setActiveCallout}
-        />
 
         <section id="pipeline" className="pt-16 sm:pt-20 pb-20 sm:pb-24 px-6 sm:px-8 border-t border-monitor-border relative bg-matte-black overflow-hidden scroll-mt-16">
           {/* Pipeline flow diagram — faint connector lines between phases */}
