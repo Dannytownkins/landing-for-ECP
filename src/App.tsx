@@ -791,21 +791,21 @@ export default function App() {
                 <div className="text-[10px] font-mono text-safety-orange mb-3 tracking-widest uppercase">01 · The Problem</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You’re paying for traffic that leaves without buying.</h3>
                 <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
-                  Most people who land on an e-commerce store don’t buy. That’s normal. But the GAP between your visitor count and your sales count has specific causes — confusing layouts, hidden prices, broken trust cues, wrong button colors, fifty other small things. Each one is fixable. Most store owners never learn which ones matter on THEIR site.
+                  Most visitors don't convert. The gap has specific causes — fixable ones — and nobody's shown you which matter on <em>your</em> store.
                 </p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '120ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-brass mb-3 tracking-widest uppercase">02 · The Audit</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">We diagnose your store against 800+ research findings.</h3>
                 <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
-                  Give us a URL — no logins, no integrations. We capture your pages on desktop and mobile, run them through an evidence-cited analysis engine, and flag every place research says visitors get stuck or distracted. Every finding ties back to a specific study or regulation. Not opinions — citations.
+                  Send a URL. No logins, no integrations. Every flag ties back to a specific study or regulation. Citations, not opinions.
                 </p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-cream/50 mb-3 tracking-widest uppercase">03 · The Report</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You get a document. You decide what to do.</h3>
                 <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
-                  72 hours later, you receive an interactive report with every finding, its severity, its cited source, and its priority ranking. We don’t lock you into implementation. We don’t upsell you. You own the report. Hand it to your developer, your agency, or just read it yourself. The point is clarity, not dependency.
+                  Interactive report, every finding ranked and sourced. Hand it to your dev, your agency, or read it yourself. You own it — no retainer, no upsell.
                 </p>
               </div>
             </div>
@@ -923,7 +923,7 @@ export default function App() {
               <span><span className="font-brutalist text-base sm:text-lg text-cream mr-1.5">100%</span> Cited · Zero Vibes</span>
             </div>
             <p data-reveal="up" className="text-sm sm:text-base text-cream/60 leading-relaxed max-w-3xl mb-8 sm:mb-10">
-              Every finding in this audit is anchored to the same institutions that regulators, law firms, and top e-commerce operators already cite. You're not getting one consultant's opinion — you're getting a curated synthesis of what peer-reviewed research, regulatory enforcement, and professional UX science already agree on. <span className="text-cream/80 font-semibold">Verify us, not the other way around.</span>
+              Every finding is anchored to the same sources regulators, law firms, and top operators already cite. <span className="text-cream/80 font-semibold">Verify us, not the other way around.</span>
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
               <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
@@ -932,7 +932,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · 107,000+ Hours</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">The canonical source for e-commerce UX benchmarks. Cart abandonment, checkout friction, filtering, mobile conversion — their multi-year panels are what every serious audit cites.</p>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">The canonical e-commerce UX benchmark set. Every serious audit cites them.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '80ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
                 <div className="flex items-start justify-between mb-4">
@@ -940,7 +940,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · Since 1998</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">The lab that named the discipline. Eye-tracking patterns, cognitive-load research, information-architecture benchmarks — the foundational work every CRO practitioner builds on.</p>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">The lab that named the discipline. Foundational eye-tracking, cognitive-load, and IA work.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '160ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
                 <div className="flex items-start justify-between mb-4">
@@ -948,7 +948,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">JMR · J. Retailing · JCP · JCR</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">Consumer psychology, pricing research, and marketing meta-analyses published in the journals academic reviewers actually trust. Full DOI citations. Replication status tracked.</p>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">Pricing, persuasion, and marketing meta-analyses from the journals that matter. DOI-traced.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
                 <div className="flex items-start justify-between mb-4">
@@ -956,7 +956,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">16 CFR · §5 · Dark Pattern Actions</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">Fake Reviews Rule. Click-to-Cancel lineage. Amazon $2.5B ROSCA settlement. Every dark pattern the FTC has actually fined in the last five years — flagged before you ship it.</p>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">Every dark pattern the FTC has fined — flagged before you ship it.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '320ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
                 <div className="flex items-start justify-between mb-4">
@@ -964,7 +964,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">GDPR · CPRA · DSA · CA SB-478</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">Live regulatory text from eur-lex, eCFR, and leginfo.ca.gov — checked against current case law and vacatur status, not last year's blog posts. Penalties cited from this year's Federal Register, not copy-paste.</p>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">Live regulatory text + current case law. Not last year's blog posts.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '400ms' }} className="monitor-panel p-6 border-t-2 border-t-intel-green">
                 <div className="flex items-start justify-between mb-4">
@@ -972,7 +972,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-intel-green">ACCESSIBILITY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">W3C · DOJ · EU Directive 2019/882</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">WCAG 2.1 AA as the converged baseline. EAA enforcement as of 2025-06-28. ADA Title III private-plaintiff exposure. Color contrast, touch targets, alt text — flagged where your store trips wire.</p>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">WCAG 2.1 AA baseline + EAA enforcement. Contrast, touch targets, alt text — flagged on sight.</p>
               </div>
             </div>
           </div>
@@ -1006,7 +1006,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-cream/20">AUTO_EXEC</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Acquire</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Full screenshot capture at real viewports. Rendered DOM extraction (post-hydration for SPAs). Element coordinate mapping. Dual-device parallel acquisition — desktop and mobile in a single pass.</p>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Full-page screenshot + rendered DOM capture, desktop and mobile in one pass.</p>
               </div>
 
               <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-brass hover:bg-monitor-border/30 transition-colors">
@@ -1015,7 +1015,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-cream/20">AWAIT_SIG</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Audit</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Multi-agent analysis across 10 conversion-psychology clusters — Headlines, Trust, Price, Checkout, Performance, Media, Browse, SEO, Retention, Audience Fit. Findings scored against 800+ classified research entries.</p>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">10 conversion-psychology clusters scored against 800+ classified research entries.</p>
               </div>
 
               <div data-reveal="up" style={{ transitionDelay: '300ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-cream/50 hover:bg-monitor-border/30 transition-colors">
@@ -1024,7 +1024,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-cream/20">MANUAL_REV</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Ethics Gate</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Every phase checked against actual compliance law — FTC enforcement actions, CPRA, ROSCA, GDPR, WCAG 2.1. Flags dark patterns you’re already running. Refuses to recommend anything we wouldn’t defend in court. PASS or FAIL.</p>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Every finding checked against live FTC, CPRA, ROSCA, GDPR, and WCAG enforcement. Pass or fail.</p>
               </div>
 
               <div data-reveal="up" style={{ transitionDelay: '450ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors bg-safety-orange/5">
@@ -1033,7 +1033,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-safety-orange/80 animate-pulse">DEPLOY_RDY</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Priority Path</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Findings compressed into a Priority Path — a short list of action stories, each one a group of related findings with a clear fix-first ranking. You fix stories, not symptoms. Exportable as a markdown brief, implementation-ready.</p>
+                <p className="text-sm text-cream/50 leading-relaxed font-mono">Findings collapsed into a ranked fix-first action list. You ship stories, not symptoms.</p>
               </div>
             </div>
           </div>
@@ -1058,11 +1058,11 @@ export default function App() {
               <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mb-5">Transmission · Founder → Reader</div>
               <div className="space-y-4 text-base sm:text-lg text-cream/80 leading-relaxed">
                 <p>
-                  Ten years running e-commerce stores. Two I still run. I've paid CRO agencies that handed me vibes dressed up as charts. I've trusted split-test tools that couldn't tell me <span className="font-semibold text-cream">why</span> the variant won. I built ECP because I wanted the audit I always wished someone would write <span className="font-semibold text-cream">for</span> me: every claim cited, every finding defensible, zero dark patterns disguised as growth tactics.
+                  Ten years running e-commerce stores. Two I still run. I've paid CRO agencies that handed me vibes dressed up as charts. I built ECP because I wanted the audit I always wished someone would write <span className="font-semibold text-cream">for</span> me: every claim cited, every finding defensible, zero dark patterns disguised as growth tactics.
                 </p>
-                <p className="text-sm sm:text-base text-cream/60 pt-3 border-t border-monitor-border">
+                <p className="text-sm text-cream/55 pt-3 border-t border-monitor-border">
                   <span className="text-intel-green font-black text-[10px] tracking-widest uppercase mr-2">Transparency:</span>
-                  The analysis is AI-driven. The research behind it isn't. Every finding links back to the published study, regulation, or primary source it's drawn from. You don't trust the model. You trust the citation the model is pointing to. If the citation doesn't say what we claim it says, we refund the audit and remove the finding. That's the contract.
+                  The analysis is AI-driven, the research behind it isn't. If a citation doesn't say what a finding claims, we refund and remove it.
                 </p>
               </div>
               <div className="flex items-center justify-between mt-6 pt-5 border-t border-monitor-border">
