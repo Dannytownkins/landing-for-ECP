@@ -766,6 +766,107 @@ export default function App() {
         </section>
 
         {/* ========================================================
+            SECTION — THE EVIDENCE (Authority Stack)
+            Not social proof — authority stacking. Names the institutions
+            the library's findings are drawn from, with scope notes.
+            Sits between "Plain English" (what you get) and "Ethics Gate"
+            (how it stays legal) to answer the implicit question:
+            "why should I trust this if I've never heard of you?"
+            ======================================================== */}
+        <section className="relative pt-16 sm:pt-20 pb-16 sm:pb-20 px-6 sm:px-8 border-t border-monitor-border bg-command-gray overflow-hidden">
+          {/* Giant faint "EVIDENCE" watermark */}
+          <div aria-hidden="true" className="absolute -top-4 left-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[9rem] md:text-[16rem] leading-none text-cream tracking-tighter">
+            EVIDENCE
+          </div>
+          <div className="max-w-[100rem] mx-auto relative z-10">
+            <div data-reveal="up" className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 sm:mb-14 border-b border-monitor-border pb-6">
+              <div>
+                <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-3 uppercase">Corroboration</div>
+                <h2 className="font-brutalist text-3xl sm:text-4xl md:text-5xl uppercase leading-[0.95] max-w-5xl tracking-tight text-balance">
+                  The evidence you cite is<br/>evidence you can <span className="text-safety-orange">trust</span>.
+                </h2>
+              </div>
+              <div className="text-right text-[10px] font-mono text-cream/30 uppercase whitespace-nowrap shrink-0">
+                Source Registry: Public<br/>
+                Tier System: Gold / Silver / Bronze<br/>
+                Peer Review: Mandatory
+              </div>
+            </div>
+            <p data-reveal="up" className="text-sm sm:text-base text-cream/60 leading-relaxed max-w-3xl mb-10 sm:mb-14">
+              Every finding in this audit is anchored to the same institutions that regulators, law firms, and top e-commerce operators already cite. You're not getting one consultant's opinion — you're getting a curated synthesis of what peer-reviewed research, regulatory enforcement, and professional UX science already agree on. <span className="text-cream/80 font-semibold">Verify us, not the other way around.</span>
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+              <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="font-brutalist text-2xl uppercase">Baymard Institute</div>
+                  <span className="text-[9px] font-mono text-brass">PRIMARY</span>
+                </div>
+                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · 107,000+ Hours</div>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">The canonical source for e-commerce UX benchmarks. Cart abandonment, checkout friction, filtering, mobile conversion — their multi-year panels are what every serious audit cites.</p>
+              </div>
+              <div data-reveal="up" style={{ transitionDelay: '80ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="font-brutalist text-2xl uppercase">Nielsen Norman Group</div>
+                  <span className="text-[9px] font-mono text-brass">PRIMARY</span>
+                </div>
+                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · Since 1998</div>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">The lab that named the discipline. Eye-tracking patterns, cognitive-load research, information-architecture benchmarks — the foundational work every CRO practitioner builds on.</p>
+              </div>
+              <div data-reveal="up" style={{ transitionDelay: '160ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="font-brutalist text-2xl uppercase">Peer-Reviewed Journals</div>
+                  <span className="text-[9px] font-mono text-brass">PRIMARY</span>
+                </div>
+                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">JMR · J. Retailing · JCP · JCR</div>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">Consumer psychology, pricing research, and marketing meta-analyses published in the journals academic reviewers actually trust. Full DOI citations. Replication status tracked.</p>
+              </div>
+              <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="font-brutalist text-2xl uppercase">FTC Enforcement</div>
+                  <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
+                </div>
+                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">16 CFR · §5 · Dark Pattern Actions</div>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">Fake Reviews Rule. Click-to-Cancel lineage. Amazon $2.5B ROSCA settlement. Every dark pattern the FTC has actually fined in the last five years — flagged before you ship it.</p>
+              </div>
+              <div data-reveal="up" style={{ transitionDelay: '320ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="font-brutalist text-2xl uppercase">EU / CA Privacy Law</div>
+                  <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
+                </div>
+                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">GDPR · CPRA · DSA · CA SB-478</div>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">Live regulatory text from eur-lex, eCFR, and leginfo.ca.gov — checked against current case law and vacatur status, not last year's blog posts. Penalties cited from this year's Federal Register, not copy-paste.</p>
+              </div>
+              <div data-reveal="up" style={{ transitionDelay: '400ms' }} className="monitor-panel p-6 border-t-2 border-t-intel-green">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="font-brutalist text-2xl uppercase">WCAG 2.1 · EAA · ADA</div>
+                  <span className="text-[9px] font-mono text-intel-green">ACCESSIBILITY</span>
+                </div>
+                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">W3C · DOJ · EU Directive 2019/882</div>
+                <p className="text-xs text-cream/60 leading-relaxed font-mono">WCAG 2.1 AA as the converged baseline. EAA enforcement as of 2025-06-28. ADA Title III private-plaintiff exposure. Color contrast, touch targets, alt text — flagged where your store trips wire.</p>
+              </div>
+            </div>
+            <div data-reveal="up" className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-monitor-border pt-8">
+              <div>
+                <div className="font-brutalist text-3xl sm:text-4xl text-safety-orange leading-none">800+</div>
+                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Classified Findings</div>
+              </div>
+              <div>
+                <div className="font-brutalist text-3xl sm:text-4xl text-brass leading-none">80+</div>
+                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Reference Files</div>
+              </div>
+              <div>
+                <div className="font-brutalist text-3xl sm:text-4xl text-intel-green leading-none">1,400+</div>
+                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Sourced Citations</div>
+              </div>
+              <div>
+                <div className="font-brutalist text-3xl sm:text-4xl text-cream leading-none">100%</div>
+                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Cited · Zero Vibes</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
             SECTION — THE ETHICS GATE
             Phone specimen on the left (one callout = explicit ethics
             violation) + compliance ledger on the right.
@@ -831,6 +932,46 @@ export default function App() {
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Priority Path</h3>
                 <p className="text-sm text-cream/50 leading-relaxed font-mono">Findings compressed into a Priority Path — a short list of action stories, each one a group of related findings with a clear fix-first ranking. You fix stories, not symptoms. Exportable as a markdown brief, implementation-ready.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
+            SECTION — OPERATOR'S NOTE
+            One human voice on a forensic page. Short, first-person,
+            AI transparency disclosure built in. Sits between Pipeline
+            (how it works) and Pricing (what it costs) so the reader
+            meets the operator right before they commit.
+            ======================================================== */}
+        <section className="relative pt-14 sm:pt-18 pb-14 sm:pb-18 px-6 sm:px-8 border-t border-monitor-border bg-command-gray overflow-hidden">
+          <div className="max-w-4xl mx-auto relative">
+            <div data-reveal="up" className="flex items-center gap-4 mb-8">
+              <span className="w-3 h-3 bg-intel-green"></span>
+              <div className="text-[10px] font-black text-intel-green tracking-widest uppercase">Operator's Note</div>
+              <div className="flex-1 h-px bg-monitor-border"></div>
+              <div className="text-[10px] font-mono text-cream/30 uppercase tracking-widest whitespace-nowrap">SIGNED · DK</div>
+            </div>
+            <div data-reveal="up" className="monitor-panel p-8 sm:p-10 border border-monitor-border border-l-2 border-l-intel-green relative">
+              <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mb-5">Transmission · Founder → Reader</div>
+              <div className="space-y-4 text-base sm:text-lg text-cream/80 leading-relaxed">
+                <p>
+                  Ten years running e-commerce stores. Two I still run. I've paid CRO agencies that handed me vibes dressed up as charts. I've trusted split-test tools that couldn't tell me <span className="font-semibold text-cream">why</span> the variant won. I built ECP because I wanted the audit I always wished someone would write <span className="font-semibold text-cream">for</span> me: every claim cited, every finding defensible, zero dark patterns disguised as growth tactics.
+                </p>
+                <p className="text-sm sm:text-base text-cream/60 pt-3 border-t border-monitor-border">
+                  <span className="text-intel-green font-black text-[10px] tracking-widest uppercase mr-2">Transparency:</span>
+                  The analysis is AI-driven. The research behind it isn't. Every finding links back to the published study, regulation, or primary source it's drawn from. You don't trust the model. You trust the citation the model is pointing to. If the citation doesn't say what we claim it says, we refund the audit and remove the finding. That's the contract.
+                </p>
+              </div>
+              <div className="flex items-center justify-between mt-6 pt-5 border-t border-monitor-border">
+                <div>
+                  <div className="font-brutalist text-xl uppercase">Dan K.</div>
+                  <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest">Founder · Operator · Signatory</div>
+                </div>
+                <div className="text-right text-[10px] font-mono text-cream/30 uppercase">
+                  AUTH_ID: DK_01<br/>
+                  Established 2026
+                </div>
               </div>
             </div>
           </div>
