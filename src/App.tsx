@@ -769,6 +769,61 @@ export default function App() {
         </section>
 
         {/* ========================================================
+            SECTION — HOW vs. WHY (bridge)
+            Short transitional section. Reframes the page from "what you
+            get" (plain english) into "why you should trust it" (evidence
+            stack below). Single-idea section — no grid, no mockup, just
+            the thesis landing full-width.
+            ======================================================== */}
+        <section className="relative pt-16 sm:pt-20 pb-16 sm:pb-20 px-6 sm:px-8 border-t border-monitor-border bg-matte-black overflow-hidden">
+          {/* Giant faint "HOW vs WHY" watermark */}
+          <div aria-hidden="true" className="absolute -top-6 -right-4 md:right-0 pointer-events-none opacity-[0.025] select-none font-brutalist text-[9rem] md:text-[15rem] leading-none text-cream tracking-tighter">
+            HOW · WHY
+          </div>
+          <div className="max-w-[90rem] mx-auto relative z-10">
+            <div data-reveal="up" className="flex items-center gap-4 mb-10 sm:mb-12">
+              <span className="w-3 h-3 bg-safety-orange"></span>
+              <div className="text-[10px] font-black text-safety-orange tracking-widest uppercase">The Ask</div>
+              <div className="flex-1 h-px bg-monitor-border"></div>
+              <div className="text-[10px] font-mono text-cream/30 uppercase tracking-widest whitespace-nowrap hidden sm:block">02 · PREMISE</div>
+            </div>
+            <h2 data-reveal="up" className="font-brutalist text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-5xl tracking-tight text-balance">
+              You've heard the <span className="text-cream/40">"how"</span>,<br/>
+              but not the <span className="text-safety-orange">"why"</span>.
+            </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-16 items-start">
+              <p data-reveal="up" className="text-xl sm:text-2xl font-light text-cream/80 leading-snug max-w-3xl">
+                We give you <span className="font-bold text-cream">both</span> — with a <span className="text-safety-orange font-semibold">confidence score</span> on every finding and the citations to check our work.
+                <span className="block mt-5 text-base sm:text-lg text-cream/55 font-medium leading-relaxed">
+                  Most CRO advice is the <em>how</em>. Larger CTAs. Shorter checkouts. Social proof above the fold. What nobody hands you is the <em>why</em> — the peer-reviewed research, the FTC enforcement record, the UX benchmark behind the rule. We hand you both. You decide whether each decision is right for <em>your</em> store.
+                </span>
+              </p>
+              <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="monitor-panel p-6 border-l-2 border-l-safety-orange bg-command-gray/60">
+                <div className="text-[10px] font-black text-safety-orange mb-3 tracking-widest uppercase">Every Finding Ships With</div>
+                <ul className="space-y-3 text-sm text-cream/80 font-mono leading-relaxed">
+                  <li className="flex items-start gap-3">
+                    <span className="text-safety-orange font-black mt-0.5">01</span>
+                    <span>The <span className="text-cream font-semibold">rule</span> — what to change, where</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-safety-orange font-black mt-0.5">02</span>
+                    <span>The <span className="text-cream font-semibold">why</span> — the published research behind it</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-safety-orange font-black mt-0.5">03</span>
+                    <span>The <span className="text-cream font-semibold">tier</span> — Gold / Silver / Bronze confidence score</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-safety-orange font-black mt-0.5">04</span>
+                    <span>The <span className="text-cream font-semibold">citation</span> — source URL, verified this audit cycle</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
             SECTION — THE EVIDENCE (Authority Stack)
             Not social proof — authority stacking. Names the institutions
             the library's findings are drawn from, with scope notes.
