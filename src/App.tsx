@@ -1017,6 +1017,9 @@ export default function App() {
                 <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Priority Path</span> <span className="text-cream/30">Included</span>
                 </p>
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
+                  <span>Turnaround</span> <span className="text-brass">24–48 Hours</span>
+                </p>
               </div>
               <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Commission Focus</button>
             </div>
@@ -1042,6 +1045,9 @@ export default function App() {
                 <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Citations</span> <span className="text-safety-orange">Gold Tier</span>
                 </p>
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
+                  <span>Turnaround</span> <span className="text-safety-orange">72 Hours</span>
+                </p>
               </div>
               <button className="cta-armed w-full py-4 bg-safety-orange text-white text-[11px] font-black uppercase hover:brightness-125 transition-all shadow-[0_0_25px_rgba(255,69,0,0.4)] cursor-pointer">
                 SECURE PRIORITY SLOT
@@ -1064,6 +1070,9 @@ export default function App() {
                 </p>
                 <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
                   <span>Async Q&amp;A</span> <span className="text-cream/30">14 Days</span>
+                </p>
+                <p className="text-[11px] font-bold uppercase tracking-widest py-2 border-b border-monitor-border flex justify-between gap-2">
+                  <span>Turnaround</span> <span className="text-brass">5–7 Days</span>
                 </p>
               </div>
               <button className="cta-armed w-full py-4 sm:py-3 min-h-[44px] border border-cream/20 text-[10px] font-black uppercase hover:bg-cream hover:text-matte-black transition-all cursor-pointer tracking-[0.18em]">Commission Full Spectrum</button>
