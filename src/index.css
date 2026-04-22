@@ -59,7 +59,7 @@
 
 @layer components {
   .text-massive {
-    font-size: clamp(3rem, 16vw, 12rem);
+    font-size: clamp(3rem, 13vw, 10.5rem);
     line-height: 0.82;
     letter-spacing: -0.045em;
     font-weight: 900;
