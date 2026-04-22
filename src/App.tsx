@@ -481,23 +481,21 @@ function EthicsGateSection({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border border-monitor-border bg-matte-black/40">
+              <div className="grid grid-cols-2 sm:grid-cols-5 border border-monitor-border bg-matte-black/40">
                 {GATE_FRAMEWORKS.map((f, i) => (
                   <div
                     key={f.name}
-                    className="px-4 pt-4 pb-5 sm:px-5 sm:pt-5 sm:pb-6 border-r border-b lg:border-b-0 border-monitor-border last:border-r-0 relative group flex flex-col"
+                    className="px-3 pt-3 pb-4 sm:px-4 sm:pt-4 sm:pb-5 border-r border-b sm:border-b-0 border-monitor-border last:border-r-0 relative group flex flex-col min-w-0"
                   >
-                    {/* Count — sized to roughly match the section heading so it
-                        reads as a case-file statistic without swallowing the card. */}
-                    <div className="font-brutalist text-4xl sm:text-5xl lg:text-6xl text-cream leading-[0.9] tracking-tighter mb-2 group-hover:text-safety-orange transition-colors duration-300">
+                    <div className="font-brutalist text-3xl sm:text-4xl lg:text-5xl text-cream leading-[0.9] tracking-tighter mb-2 group-hover:text-safety-orange transition-colors duration-300">
                       {f.patterns}
                     </div>
-                    <div className="h-px bg-monitor-border mb-2.5" />
-                    <div className="font-brutalist text-sm sm:text-base uppercase tracking-tighter leading-none mb-1">{f.name}</div>
-                    <div className="text-[9px] text-cream/45 uppercase tracking-[0.18em] leading-tight mb-auto pb-3">{f.domain}</div>
-                    <div className="flex items-center gap-1.5 text-[8px] font-mono text-brass/40 tracking-[0.22em] uppercase">
-                      <span className="w-1 h-1 bg-brass/60 group-hover:bg-safety-orange transition-colors" />
-                      Code_{String(i + 1).padStart(2, '0')}
+                    <div className="h-px bg-monitor-border mb-2" />
+                    <div className="font-brutalist text-sm uppercase tracking-tighter leading-none mb-1 truncate">{f.name}</div>
+                    <div className="text-[9px] text-cream/45 uppercase tracking-[0.14em] leading-tight mb-auto pb-2 line-clamp-2">{f.domain}</div>
+                    <div className="flex items-center gap-1.5 text-[8px] font-mono text-brass/40 tracking-[0.18em] uppercase">
+                      <span className="w-1 h-1 bg-brass/60 group-hover:bg-safety-orange transition-colors shrink-0" />
+                      <span className="truncate">Code_{String(i + 1).padStart(2, '0')}</span>
                     </div>
                   </div>
                 ))}
@@ -627,8 +625,8 @@ export default function App() {
             pair vertically; shorter section = higher centroid = more of
             "Plain English" peeks in, pulling the whole document upward. */}
         <section className="relative min-h-[92vh] pt-20 sm:pt-28 pb-16 sm:pb-20 px-6 sm:px-8 flex items-center justify-center">
-          <div className="w-full max-w-[110rem] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between xl:px-8">
-            <div className="lg:w-[48%] flex flex-col justify-center z-20 relative w-full">
+          <div className="w-full max-w-[110rem] mx-auto flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-16 items-center justify-between xl:px-8">
+            <div className="md:w-[48%] flex flex-col justify-center z-20 relative w-full">
               <div className="flex items-center gap-3 mb-6 flex-wrap">
                 <span className="boot-badge px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">PREVENTION MODE</span>
                 <span className="boot-id text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-DEFENSE-STATION</span>
@@ -657,10 +655,10 @@ export default function App() {
               </div>
             </div>
           
-            <div className="lg:w-[52%] relative flex flex-col mt-12 lg:mt-0 z-10 w-full px-4 sm:px-8 lg:px-0 overflow-visible">
+            <div className="md:w-[52%] relative flex flex-col mt-8 md:mt-0 z-10 w-full px-4 sm:px-8 md:px-0 overflow-visible">
             {/* Tagline above the specimen image — pairs the promise with the
                 visual evidence on the right side of the hero. */}
-            <p className="boot-subhead hidden lg:block text-right text-lg xl:text-xl font-light text-cream/70 leading-tight mb-5 pr-1">
+            <p className="boot-subhead hidden md:block text-right text-base lg:text-lg xl:text-xl font-light text-cream/70 leading-tight mb-4 pr-1">
               One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
             </p>
             <div className="relative flex items-center justify-center w-full">
@@ -893,13 +891,13 @@ export default function App() {
             Now follows the Ethics Gate so readers meet the live gate
             mechanism first, then see the evidence registry backing it.
             ======================================================== */}
-        <section className="relative pt-16 sm:pt-20 pb-16 sm:pb-20 px-6 sm:px-8 border-t border-monitor-border bg-command-gray overflow-hidden">
+        <section className="relative pt-10 sm:pt-12 pb-12 sm:pb-14 px-6 sm:px-8 border-t border-monitor-border bg-command-gray overflow-hidden">
           {/* Giant faint "EVIDENCE" watermark */}
           <div aria-hidden="true" className="absolute -top-4 left-0 pointer-events-none opacity-[0.03] select-none font-brutalist text-[9rem] md:text-[16rem] leading-none text-cream tracking-tighter">
             EVIDENCE
           </div>
           <div className="max-w-[100rem] mx-auto relative z-10">
-            <div data-reveal="up" className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 sm:mb-14 border-b border-monitor-border pb-6">
+            <div data-reveal="up" className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-6 sm:mb-8 border-b border-monitor-border pb-5">
               <div>
                 <div className="text-brass font-black text-[10px] tracking-[0.4em] mb-3 uppercase">Corroboration</div>
                 <h2 className="font-brutalist text-3xl sm:text-4xl md:text-5xl uppercase leading-[0.95] max-w-5xl tracking-tight text-balance">
@@ -912,7 +910,19 @@ export default function App() {
                 Peer Review: Mandatory
               </div>
             </div>
-            <p data-reveal="up" className="text-sm sm:text-base text-cream/60 leading-relaxed max-w-3xl mb-10 sm:mb-14">
+            {/* Audit-receipt stat strip — pulled up from the bottom of the section
+                and muted to a single tonal pass so the numbers read as receipts,
+                not a colored trophy case. Anchors the section opener. */}
+            <div data-reveal="up" className="flex flex-wrap items-baseline gap-x-6 gap-y-2 mb-6 sm:mb-8 text-cream/60 font-mono text-[11px] sm:text-xs tracking-widest uppercase">
+              <span><span className="font-brutalist text-base sm:text-lg text-cream mr-1.5">800+</span> Classified Findings</span>
+              <span className="text-cream/20">·</span>
+              <span><span className="font-brutalist text-base sm:text-lg text-cream mr-1.5">80+</span> Reference Files</span>
+              <span className="text-cream/20">·</span>
+              <span><span className="font-brutalist text-base sm:text-lg text-cream mr-1.5">1,400+</span> Sourced Citations</span>
+              <span className="text-cream/20">·</span>
+              <span><span className="font-brutalist text-base sm:text-lg text-cream mr-1.5">100%</span> Cited · Zero Vibes</span>
+            </div>
+            <p data-reveal="up" className="text-sm sm:text-base text-cream/60 leading-relaxed max-w-3xl mb-8 sm:mb-10">
               Every finding in this audit is anchored to the same institutions that regulators, law firms, and top e-commerce operators already cite. You're not getting one consultant's opinion — you're getting a curated synthesis of what peer-reviewed research, regulatory enforcement, and professional UX science already agree on. <span className="text-cream/80 font-semibold">Verify us, not the other way around.</span>
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
@@ -963,24 +973,6 @@ export default function App() {
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">W3C · DOJ · EU Directive 2019/882</div>
                 <p className="text-xs text-cream/60 leading-relaxed font-mono">WCAG 2.1 AA as the converged baseline. EAA enforcement as of 2025-06-28. ADA Title III private-plaintiff exposure. Color contrast, touch targets, alt text — flagged where your store trips wire.</p>
-              </div>
-            </div>
-            <div data-reveal="up" className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-monitor-border pt-8">
-              <div>
-                <div className="font-brutalist text-3xl sm:text-4xl text-safety-orange leading-none">800+</div>
-                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Classified Findings</div>
-              </div>
-              <div>
-                <div className="font-brutalist text-3xl sm:text-4xl text-brass leading-none">80+</div>
-                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Reference Files</div>
-              </div>
-              <div>
-                <div className="font-brutalist text-3xl sm:text-4xl text-intel-green leading-none">1,400+</div>
-                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Sourced Citations</div>
-              </div>
-              <div>
-                <div className="font-brutalist text-3xl sm:text-4xl text-cream leading-none">100%</div>
-                <div className="text-[10px] font-mono text-cream/40 uppercase tracking-widest mt-2">Cited · Zero Vibes</div>
               </div>
             </div>
           </div>
