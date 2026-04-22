@@ -450,7 +450,7 @@ function EthicsGateSection({
                 </div>
               </div>
               <p className="text-brass font-bold text-lg mb-5">Every recommendation passes through compliance law before it ships.</p>
-              <p className="text-cream/60 leading-relaxed font-medium max-w-[65ch]">
+              <p className="text-cream/80 leading-relaxed font-medium max-w-[65ch]">
                 We flag what you already run. We refuse to recommend anything we wouldn’t defend in court. Every pattern is checked against active enforcement — not theory. Below is a real intake window.
               </p>
             </div>
@@ -597,23 +597,23 @@ export default function App() {
   useReveal();
   const [activeCallout, setActiveCallout] = useState<CalloutId | null>(null);
   return (
-    <div className="antialiased text-cream font-sans bg-matte-black min-h-screen">
+    <div className="text-cream font-sans bg-matte-black min-h-screen">
       <div className="grain"></div>
       <div className="scanline boot-scanline fixed inset-0 z-[100]"></div>
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-monitor-border bg-matte-black/95">
-        <div className="flex justify-between items-center px-5 sm:px-8 h-14">
+        <div className="flex items-center px-5 sm:px-8 h-14 gap-8 sm:gap-12">
           <div className="font-brutalist text-lg sm:text-xl tracking-tighter flex items-center gap-2">
             <span className="w-2 h-2 bg-safety-orange animate-pulse"></span>
             ECP<span className="text-brass">.</span>SYSTEMS
           </div>
-          <div className="hidden md:flex gap-12 text-[10px] font-black tracking-file text-cream/75">
+          <div className="hidden md:flex gap-8 lg:gap-12 text-[10px] font-black tracking-file text-cream/75">
             <a className="nav-link hover:text-safety-orange transition-colors" href="#pipeline">PIPELINE</a>
             <a className="nav-link hover:text-safety-orange transition-colors" href="#ethics-gate">ETHICS_GATE</a>
             <a className="nav-link hover:text-safety-orange transition-colors" href="#pricing">TIERS</a>
           </div>
           {/* Mobile gets a taller hit area (min-h-11 = 44px) with the same
               visual weight; desktop keeps the tight bureau-chip styling. */}
-          <a href="#pricing" className="cta-armed inline-flex items-center border border-safety-orange/40 md:border-safety-orange/30 px-3.5 sm:px-3 min-h-[44px] md:min-h-0 md:py-1.5 text-[10px] sm:text-[9px] font-black text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-meta">
+          <a href="#pricing" className="cta-armed ml-auto inline-flex items-center border border-safety-orange/40 md:border-safety-orange/30 px-3.5 sm:px-3 min-h-[44px] md:min-h-0 md:py-1.5 text-[10px] sm:text-[9px] font-black text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-meta">
             COMMISSION_AUDIT
           </a>
         </div>
@@ -631,7 +631,7 @@ export default function App() {
                 <span className="boot-badge px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">PREVENTION MODE</span>
                 <span className="boot-id text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-DEFENSE-STATION</span>
               </div>
-              <h1 className="font-brutalist text-massive mb-5 sm:mb-6 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+              <h1 className="font-brutalist text-massive mb-5 sm:mb-6 uppercase">
                 <span className="hero-line hero-line-1">FACTS</span><br/>
                 <span className="hero-line hero-line-2">OVER</span><br/>
                 <span className="hero-line hero-line-3 text-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
@@ -640,10 +640,10 @@ export default function App() {
                 Verify <span className="text-safety-orange">us</span>, not the other way around.
               </p>
               <div className="max-w-xl relative z-20">
-                <p className="boot-subhead text-2xl font-light text-cream/80 leading-tight mb-8 drop-shadow-md">
+                <p className="boot-subhead text-2xl font-normal text-cream/90 leading-tight mb-8">
                   One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
                 </p>
-                <p className="boot-body text-base sm:text-sm font-medium text-cream/60 leading-relaxed mb-8">
+                <p className="boot-body text-base sm:text-sm font-medium text-cream/80 leading-relaxed mb-8">
                   800+ classified findings across 80+ reference files from Baymard Institute, Nielsen Norman Group, peer-reviewed journals, and FTC enforcement actions. Every recommendation cites its source — confidence rated by evidence tier.
                 </p>
                 <div className="boot-panel flex gap-4">
@@ -790,21 +790,21 @@ export default function App() {
               <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-safety-orange mb-3 tracking-widest uppercase">01 · The Problem</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You’re paying for traffic that leaves without buying.</h3>
-                <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
+                <p className="text-base sm:text-sm text-cream/80 leading-relaxed font-medium">
                   Most visitors don't convert. The gap has specific causes — fixable ones — and nobody's shown you which matter on <em>your</em> store.
                 </p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '120ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-brass mb-3 tracking-widest uppercase">02 · The Audit</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">We diagnose your store against 800+ research findings.</h3>
-                <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
+                <p className="text-base sm:text-sm text-cream/80 leading-relaxed font-medium">
                   Send a URL. No logins, no integrations. Every flag ties back to a specific study or regulation. Citations, not opinions.
                 </p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
                 <div className="text-[10px] font-mono text-cream/50 mb-3 tracking-widest uppercase">03 · The Report</div>
                 <h3 className="font-brutalist text-xl mb-4 uppercase leading-tight text-cream">You get a document. You decide what to do.</h3>
-                <p className="text-base sm:text-sm text-cream/60 leading-relaxed font-medium">
+                <p className="text-base sm:text-sm text-cream/80 leading-relaxed font-medium">
                   Interactive report, every finding ranked and sourced. Hand it to your dev, your agency, or read it yourself. You own it — no retainer, no upsell.
                 </p>
               </div>
@@ -922,7 +922,7 @@ export default function App() {
               <span className="text-cream/20">·</span>
               <span><span className="font-brutalist text-base sm:text-lg text-cream mr-1.5">100%</span> Cited · Zero Vibes</span>
             </div>
-            <p data-reveal="up" className="text-sm sm:text-base text-cream/60 leading-relaxed max-w-3xl mb-8 sm:mb-10">
+            <p data-reveal="up" className="text-sm sm:text-base text-cream/80 leading-relaxed max-w-3xl mb-8 sm:mb-10">
               Every finding is anchored to the same sources regulators, law firms, and top operators already cite. <span className="text-cream/80 font-semibold">Verify us, not the other way around.</span>
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
@@ -932,7 +932,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · 107,000+ Hours</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">The canonical e-commerce UX benchmark set. Every serious audit cites them.</p>
+                <p className="text-xs text-cream/80 leading-relaxed font-mono">The canonical e-commerce UX benchmark set. Every serious audit cites them.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '80ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
                 <div className="flex items-start justify-between mb-4">
@@ -940,7 +940,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · Since 1998</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">The lab that named the discipline. Foundational eye-tracking, cognitive-load, and IA work.</p>
+                <p className="text-xs text-cream/80 leading-relaxed font-mono">The lab that named the discipline. Foundational eye-tracking, cognitive-load, and IA work.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '160ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
                 <div className="flex items-start justify-between mb-4">
@@ -948,7 +948,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">JMR · J. Retailing · JCP · JCR</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">Pricing, persuasion, and marketing meta-analyses from the journals that matter. DOI-traced.</p>
+                <p className="text-xs text-cream/80 leading-relaxed font-mono">Pricing, persuasion, and marketing meta-analyses from the journals that matter. DOI-traced.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
                 <div className="flex items-start justify-between mb-4">
@@ -956,7 +956,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">16 CFR · §5 · Dark Pattern Actions</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">Every dark pattern the FTC has fined — flagged before you ship it.</p>
+                <p className="text-xs text-cream/80 leading-relaxed font-mono">Every dark pattern the FTC has fined — flagged before you ship it.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '320ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
                 <div className="flex items-start justify-between mb-4">
@@ -964,7 +964,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">GDPR · CPRA · DSA · CA SB-478</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">Live regulatory text + current case law. Not last year's blog posts.</p>
+                <p className="text-xs text-cream/80 leading-relaxed font-mono">Live regulatory text + current case law. Not last year's blog posts.</p>
               </div>
               <div data-reveal="up" style={{ transitionDelay: '400ms' }} className="monitor-panel p-6 border-t-2 border-t-intel-green">
                 <div className="flex items-start justify-between mb-4">
@@ -972,7 +972,7 @@ export default function App() {
                   <span className="text-[9px] font-mono text-intel-green">ACCESSIBILITY</span>
                 </div>
                 <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">W3C · DOJ · EU Directive 2019/882</div>
-                <p className="text-xs text-cream/60 leading-relaxed font-mono">WCAG 2.1 AA baseline + EAA enforcement. Contrast, touch targets, alt text — flagged on sight.</p>
+                <p className="text-xs text-cream/80 leading-relaxed font-mono">WCAG 2.1 AA baseline + EAA enforcement. Contrast, touch targets, alt text — flagged on sight.</p>
               </div>
             </div>
           </div>
@@ -1006,7 +1006,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-cream/20">AUTO_EXEC</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Acquire</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Full-page screenshot + rendered DOM capture, desktop and mobile in one pass.</p>
+                <p className="text-sm text-cream/70 leading-relaxed font-mono">Full-page screenshot + rendered DOM capture, desktop and mobile in one pass.</p>
               </div>
 
               <div data-reveal="up" style={{ transitionDelay: '150ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-brass hover:bg-monitor-border/30 transition-colors">
@@ -1015,7 +1015,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-cream/20">AWAIT_SIG</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Audit</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">10 conversion-psychology clusters scored against 800+ classified research entries.</p>
+                <p className="text-sm text-cream/70 leading-relaxed font-mono">10 conversion-psychology clusters scored against 800+ classified research entries.</p>
               </div>
 
               <div data-reveal="up" style={{ transitionDelay: '300ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-cream/50 hover:bg-monitor-border/30 transition-colors">
@@ -1024,7 +1024,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-cream/20">MANUAL_REV</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Ethics Gate</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Every finding checked against live FTC, CPRA, ROSCA, GDPR, and WCAG enforcement. Pass or fail.</p>
+                <p className="text-sm text-cream/70 leading-relaxed font-mono">Every finding checked against live FTC, CPRA, ROSCA, GDPR, and WCAG enforcement. Pass or fail.</p>
               </div>
 
               <div data-reveal="up" style={{ transitionDelay: '450ms' }} className="monitor-panel p-6 sm:p-8 lg:p-10 border-t-2 border-t-safety-orange hover:bg-monitor-border/30 transition-colors bg-safety-orange/5">
@@ -1033,7 +1033,7 @@ export default function App() {
                   <div className="text-[10px] font-mono text-safety-orange/80 animate-pulse">DEPLOY_RDY</div>
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-5 text-cream">Priority Path</h3>
-                <p className="text-sm text-cream/50 leading-relaxed font-mono">Findings collapsed into a ranked fix-first action list. You ship stories, not symptoms.</p>
+                <p className="text-sm text-cream/70 leading-relaxed font-mono">Findings collapsed into a ranked fix-first action list. You ship stories, not symptoms.</p>
               </div>
             </div>
           </div>
