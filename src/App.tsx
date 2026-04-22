@@ -356,7 +356,7 @@ function EthicsGateSection({
           <div className="flex gap-3 md:gap-4 items-stretch mx-auto lg:mx-0">
 
             {/* LEFT callouts column — holds 01 (top) + 03 (bottom). */}
-            <div className="hidden md:flex flex-col justify-between gap-3 w-[160px] lg:w-[170px] xl:w-[185px] py-2">
+            <div className="hidden md:flex flex-col justify-between gap-3 w-[180px] lg:w-[195px] xl:w-[215px] py-2">
               <div data-reveal="left" style={{ transitionDelay: '0ms' }} className="flex">
                 <CalloutCard
                   id="01"
@@ -387,7 +387,7 @@ function EthicsGateSection({
                 <div className="relative rounded-[16px] overflow-hidden">
                   <img
                     alt="Subject mobile viewport — awdmods.com category browse"
-                    className="w-full block grayscale-[0.5] brightness-90 contrast-110 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
+                    className="w-full block grayscale-[0.15] brightness-100 contrast-105 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
                     src={awdmodsMobileSection1}
                     loading="lazy"
                     decoding="async"
@@ -398,11 +398,17 @@ function EthicsGateSection({
                   </div>
                   <div aria-hidden="true" className="scanline absolute inset-0 opacity-40 pointer-events-none" />
 
-                  {/* Evidence markers — 01 + 03 on LEFT edge (callouts flow in
-                      from left), 02 on RIGHT edge (callout flows in from right). */}
-                  <div aria-hidden="true" className={`evidence-marker absolute top-[14%] left-[6%] z-10 w-5 h-5 rounded-full bg-safety-orange text-white text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '01' ? 'is-active' : ''}`}>01</div>
-                  <div aria-hidden="true" className={`evidence-marker evidence-marker-phosphor absolute top-[48%] right-[6%] z-10 w-5 h-5 rounded-full bg-intel-green text-matte-black text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '02' ? 'is-active' : ''}`}>02</div>
-                  <div aria-hidden="true" className={`evidence-marker evidence-marker-brass absolute top-[84%] left-[6%] z-10 w-5 h-5 rounded-full bg-brass text-matte-black text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '03' ? 'is-active' : ''}`}>03</div>
+                  {/* Evidence markers — each anchored to its actual violation
+                      spot on the awdmods mobile screenshot:
+                        01: the "most orders $75+" soft-qualifier in the shipping
+                            bar at the very top
+                        02: the vehicle-vs-category tile where the hierarchy
+                            mixes (Ford Focus RS/ST next to "Performance")
+                        03: the low-contrast SHOP PERFORMANCE CTA button further
+                            down the scroll */}
+                  <div aria-hidden="true" className={`evidence-marker absolute top-[4%] left-[52%] z-10 w-6 h-6 rounded-full bg-safety-orange text-white text-[10px] font-black flex items-center justify-center border border-white/40 shadow-[0_0_0_3px_rgba(10,10,10,0.6)] ${activeCallout === '01' ? 'is-active' : ''}`}>01</div>
+                  <div aria-hidden="true" className={`evidence-marker evidence-marker-phosphor absolute top-[36%] left-[38%] z-10 w-6 h-6 rounded-full bg-intel-green text-matte-black text-[10px] font-black flex items-center justify-center border border-white/40 shadow-[0_0_0_3px_rgba(10,10,10,0.6)] ${activeCallout === '02' ? 'is-active' : ''}`}>02</div>
+                  <div aria-hidden="true" className={`evidence-marker evidence-marker-brass absolute top-[86%] left-[48%] z-10 w-6 h-6 rounded-full bg-brass text-matte-black text-[10px] font-black flex items-center justify-center border border-white/40 shadow-[0_0_0_3px_rgba(10,10,10,0.6)] ${activeCallout === '03' ? 'is-active' : ''}`}>03</div>
                 </div>
               </div>
 
@@ -422,7 +428,7 @@ function EthicsGateSection({
 
             {/* RIGHT callouts column — holds 02 only, vertically centered so it
                 lines up with the mid-phone evidence marker. */}
-            <div className="hidden md:flex flex-col justify-center gap-3 w-[160px] lg:w-[170px] xl:w-[185px] py-2">
+            <div className="hidden md:flex flex-col justify-center gap-3 w-[180px] lg:w-[195px] xl:w-[215px] py-2">
               <div data-reveal="right" style={{ transitionDelay: '140ms' }} className="flex">
                 <CalloutCard
                   id="02"
@@ -668,7 +674,7 @@ export default function App() {
               <div className="monitor-panel p-2 shadow-[10px_10px_0px_rgba(10,10,10,0.8)] sm:shadow-[20px_20px_0px_rgba(10,10,10,0.8)] group-hover:shadow-[15px_15px_0px_rgba(255,69,0,0.15)] sm:group-hover:shadow-[25px_25px_0px_rgba(255,69,0,0.15)] group-hover:border-safety-orange/40 border-2 sm:border-4 border-monitor-border transition-all duration-500 rounded-sm relative">
                 <img
                   alt="Subject interface under examination — awdmods.com"
-                  className="w-full block grayscale-[0.6] brightness-90 contrast-110 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
+                  className="w-full block grayscale-[0.2] brightness-100 contrast-105 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-500"
                   src={awdmodsHero}
                   fetchPriority="high"
                   decoding="async"
