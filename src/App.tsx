@@ -714,8 +714,13 @@ export default function App() {
               <div className="text-[10px] font-black text-brass tracking-widest uppercase">Plain English</div>
               <div className="flex-1 h-px bg-monitor-border"></div>
             </div>
-            <h2 data-reveal="up" className="font-brutalist text-3xl sm:text-5xl md:text-6xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-4xl tracking-tight">
-              For people who don’t<br/>work in <span className="text-safety-orange">conversion</span> all day.
+            {/* Forced two-line headline, centered over the 3-card grid.
+                max-w-6xl matches the grid below so the break sits exactly at
+                "don't | work…"; block spans prevent the tail ("all day.")
+                from orphaning onto a third line at md+. */}
+            <h2 data-reveal="up" className="font-brutalist text-3xl sm:text-5xl md:text-6xl uppercase leading-[0.95] mb-10 sm:mb-14 max-w-6xl mx-auto text-center tracking-tight text-balance">
+              <span className="block">For people who don’t</span>
+              <span className="block">work in <span className="text-safety-orange">conversion</span> all day.</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
               <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 sm:p-8 border border-monitor-border">
