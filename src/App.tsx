@@ -212,6 +212,64 @@ function FindingBody({ activeId }: { activeId: CalloutId | null }) {
   );
 }
 
+/**
+ * Ethics Gate active-finding panel. Lives in the Ethics Gate right column
+ * and reacts to `activeCallout`. Default state shows a neutral instruction;
+ * active state surfaces the hovered finding's headline, body, cluster, and
+ * citation. Color-matched to the callout's token set so the reader gets a
+ * visual tie between the callout on the phone and the detail on the right.
+ */
+function ActiveFindingPanel({ activeId }: { activeId: CalloutId | null }) {
+  const isActive = activeId !== null;
+  const content = isActive ? AUDIT_CALLOUTS[activeId] : null;
+  const tokens = isActive ? CALLOUT_COLOR_CLASSES[content!.color] : CALLOUT_COLOR_CLASSES.orange;
+
+  return (
+    <div
+      data-reveal="up"
+      style={{ transitionDelay: '40ms' }}
+      className={`relative monitor-panel border border-monitor-border border-l-2 ${isActive ? tokens.borderL : 'border-l-cream/20'} p-5 sm:p-6 bg-matte-black/40 transition-colors duration-200 min-h-[170px]`}
+    >
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <div className="flex items-center gap-2">
+          <span className={`inline-block w-2 h-2 ${isActive ? tokens.bg : 'bg-cream/30'} transition-colors duration-200`} />
+          <div className={`text-[9px] font-black tracking-chip uppercase ${isActive ? tokens.text : 'text-cream/40'}`}>
+            {isActive ? `Active Finding · ${activeId}` : 'Active Finding · Standby'}
+          </div>
+        </div>
+        <div className="text-[9px] font-mono text-cream/30 tracking-widest uppercase whitespace-nowrap">
+          {isActive ? content!.cluster : 'Hover a callout →'}
+        </div>
+      </div>
+      <div key={activeId ?? 'default'} className="finding-swap">
+        {isActive ? (
+          <>
+            <h3 className="font-brutalist text-lg sm:text-xl md:text-2xl uppercase leading-[1.1] mb-3 tracking-tight">
+              {content!.headline}
+            </h3>
+            <p className="text-[0.92rem] sm:text-sm text-cream/75 leading-relaxed mb-4">
+              {content!.body}
+            </p>
+            <div className={`inline-flex items-center gap-2 text-[9px] font-mono tracking-widest uppercase ${tokens.text} border ${tokens.border} px-2 py-1`}>
+              <span>Cited:</span>
+              <span className="text-cream/90 font-semibold">{content!.cite}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <h3 className="font-brutalist text-base sm:text-lg uppercase leading-snug mb-2 text-cream/70 tracking-tight">
+              Hover any callout to see the finding.
+            </h3>
+            <p className="text-sm text-cream/45 leading-relaxed">
+              Three findings are pinned to this specimen — one pricing, one conversion, one accessibility. Each carries its own body, cluster, and citation. Hover (or tap on mobile) and the detail surfaces here.
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // --- ETHICS GATE DATA ---------------------------------------------------------
 const GATE_FRAMEWORKS: ReadonlyArray<{ name: string; domain: string; patterns: number }> = [
   { name: 'FTC §5',  domain: 'Deceptive Acts',       patterns: 47 },
@@ -303,14 +361,14 @@ function EthicsGateSection({
         <div className="grid grid-cols-1 lg:grid-cols-[auto_minmax(0,1fr)] gap-12 lg:gap-10 xl:gap-14 items-start">
 
           {/* ============ LEFT COLUMN — specimen ============
-              Reveal is attached per-slot (callouts + phone) rather than on the
-              whole column, so the three callouts stagger in from the left and
-              the phone pushes in from the right as the section enters view. */}
+              Callouts now FLANK the phone: 01 + 03 on the left, 02 on the right.
+              Each callout wrapped in its own [data-reveal] so the stagger is
+              scroll-triggered; transitionDelay steps them in sequence. Left
+              callouts slide in from the left, right callout slides in from the
+              right, mirroring the hero pattern. */}
           <div className="flex gap-3 md:gap-4 items-stretch mx-auto lg:mx-0">
 
-            {/* Callouts column — stretches to phone height, distributes top/mid/bottom.
-                Each callout wrapped in its own [data-reveal="left"] so the stagger
-                is scroll-triggered; transitionDelay steps them in sequence. */}
+            {/* LEFT callouts column — holds 01 (top) + 03 (bottom). */}
             <div className="hidden md:flex flex-col justify-between gap-3 w-[160px] lg:w-[170px] xl:w-[185px] py-2">
               <div data-reveal="left" style={{ transitionDelay: '0ms' }} className="flex">
                 <CalloutCard
@@ -318,15 +376,6 @@ function EthicsGateSection({
                   arrowSide="right"
                   active={activeCallout === '01'}
                   onEnter={() => setActiveCallout('01')}
-                  onLeave={() => setActiveCallout(null)}
-                />
-              </div>
-              <div data-reveal="left" style={{ transitionDelay: '140ms' }} className="flex">
-                <CalloutCard
-                  id="02"
-                  arrowSide="right"
-                  active={activeCallout === '02'}
-                  onEnter={() => setActiveCallout('02')}
                   onLeave={() => setActiveCallout(null)}
                 />
               </div>
@@ -345,7 +394,7 @@ function EthicsGateSection({
                 Wrapper handles the tilt transform; inner bezel keeps its own
                 hover treatment. Outer [data-reveal] wrapper handles scroll reveal
                 separately so it doesn't fight the skew-specimen transform. */}
-            <div data-reveal="right" style={{ transitionDelay: '80ms' }} className="flex">
+            <div data-reveal="up" style={{ transitionDelay: '80ms' }} className="flex">
             <div className="skew-specimen subject-frame group relative w-[240px] sm:w-[270px] md:w-[280px] lg:w-[310px] xl:w-[340px] flex-shrink-0">
               <div className="relative border-2 border-monitor-border rounded-[22px] p-[6px] bg-matte-black shadow-[12px_14px_0px_rgba(10,10,10,0.85)] group-hover:shadow-[16px_18px_0px_rgba(212,175,55,0.25)] group-hover:border-brass/40 transition-all duration-500">
                 <div className="relative rounded-[16px] overflow-hidden">
@@ -362,10 +411,10 @@ function EthicsGateSection({
                   </div>
                   <div aria-hidden="true" className="scanline absolute inset-0 opacity-40 pointer-events-none" />
 
-                  {/* Evidence markers — all on the left edge of the phone so
-                      the callout arrows coming from the left land cleanly. */}
+                  {/* Evidence markers — 01 + 03 on LEFT edge (callouts flow in
+                      from left), 02 on RIGHT edge (callout flows in from right). */}
                   <div aria-hidden="true" className={`evidence-marker absolute top-[14%] left-[6%] z-10 w-5 h-5 rounded-full bg-safety-orange text-white text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '01' ? 'is-active' : ''}`}>01</div>
-                  <div aria-hidden="true" className={`evidence-marker evidence-marker-phosphor absolute top-[48%] left-[6%] z-10 w-5 h-5 rounded-full bg-intel-green text-matte-black text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '02' ? 'is-active' : ''}`}>02</div>
+                  <div aria-hidden="true" className={`evidence-marker evidence-marker-phosphor absolute top-[48%] right-[6%] z-10 w-5 h-5 rounded-full bg-intel-green text-matte-black text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '02' ? 'is-active' : ''}`}>02</div>
                   <div aria-hidden="true" className={`evidence-marker evidence-marker-brass absolute top-[84%] left-[6%] z-10 w-5 h-5 rounded-full bg-brass text-matte-black text-[9px] font-black flex items-center justify-center border border-white/30 ${activeCallout === '03' ? 'is-active' : ''}`}>03</div>
                 </div>
               </div>
@@ -375,13 +424,27 @@ function EthicsGateSection({
               </div>
 
               {/* MOBILE-ONLY stacked callouts, directly below the phone.
-                  Renders only below md where the side callout column is hidden. */}
+                  Renders only below md where the side callout columns hidden. */}
               <div className="flex md:hidden flex-col gap-2.5 mt-6">
                 <CalloutCard id="01" arrowSide="none" active={activeCallout === '01'} onEnter={() => setActiveCallout('01')} onLeave={() => setActiveCallout(null)} />
                 <CalloutCard id="02" arrowSide="none" active={activeCallout === '02'} onEnter={() => setActiveCallout('02')} onLeave={() => setActiveCallout(null)} />
                 <CalloutCard id="03" arrowSide="none" active={activeCallout === '03'} onEnter={() => setActiveCallout('03')} onLeave={() => setActiveCallout(null)} />
               </div>
             </div>
+            </div>
+
+            {/* RIGHT callouts column — holds 02 only, vertically centered so it
+                lines up with the mid-phone evidence marker. */}
+            <div className="hidden md:flex flex-col justify-center gap-3 w-[160px] lg:w-[170px] xl:w-[185px] py-2">
+              <div data-reveal="right" style={{ transitionDelay: '140ms' }} className="flex">
+                <CalloutCard
+                  id="02"
+                  arrowSide="left"
+                  active={activeCallout === '02'}
+                  onEnter={() => setActiveCallout('02')}
+                  onLeave={() => setActiveCallout(null)}
+                />
+              </div>
             </div>
           </div>
 
@@ -404,6 +467,13 @@ function EthicsGateSection({
                 We flag what you already run. We refuse to recommend anything we wouldn’t defend in court. Every pattern is checked against active enforcement — not theory. Below is a real intake window.
               </p>
             </div>
+
+            {/* ========================================================
+                ACTIVE FINDING PANEL — reacts to callout hover/focus.
+                When no callout is active, shows a neutral instruction.
+                When active, surfaces the finding's headline + full body +
+                cluster + citation, color-matched to the callout. */}
+            <ActiveFindingPanel activeId={activeCallout} />
 
             {/* Frameworks strip — reframed as a PATTERN INDEX with a single total
                 as the loudest thing in the section. The chrome recedes, the

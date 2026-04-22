@@ -89,7 +89,7 @@
      toward the right (rotateY positive) — the phone is "looking at" the
      ethics ledger next to it. */
   .skew-specimen {
-    transform: perspective(1800px) rotateY(7deg) rotateX(2deg) scale(1.02);
+    transform: perspective(1800px) rotateY(-7deg) rotateX(2deg) scale(1.02);
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
     transform-origin: center center;
   }
@@ -97,7 +97,7 @@
      cursor rather than flattening. Magnitudes kept small so it reads as a
      considered shift, not a flip. */
   .skew-specimen:hover {
-    transform: perspective(1800px) rotateY(-2deg) rotateX(1deg) scale(1.03);
+    transform: perspective(1800px) rotateY(2deg) rotateX(1deg) scale(1.03);
   }
   .callout-3d {
     @apply absolute bg-safety-orange text-white px-3 py-1 text-[10px] font-black uppercase tracking-tighter;
