@@ -605,7 +605,6 @@ export default function App() {
   return (
     <div className="text-cream font-sans bg-matte-black min-h-screen">
       <div className="grain"></div>
-      <div className="scanline boot-scanline fixed inset-0 z-[100]"></div>
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-monitor-border bg-matte-black/95">
         <div className="flex items-center px-5 sm:px-8 h-14 gap-8 sm:gap-12">
           <div className="font-brutalist text-lg sm:text-xl tracking-tighter flex items-center gap-2">
@@ -633,40 +632,22 @@ export default function App() {
         <section className="relative min-h-[92vh] pt-20 sm:pt-28 pb-16 sm:pb-20 px-6 sm:px-8 flex items-center justify-center">
           <div className="w-full max-w-[110rem] mx-auto flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-16 items-center justify-between xl:px-8">
             <div className="md:w-[48%] flex flex-col justify-center z-20 relative w-full">
-              <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="boot-badge px-2 py-0.5 bg-white text-black text-[9px] font-black tracking-widest">PREVENTION MODE</span>
-                <span className="boot-id text-[10px] font-bold text-cream/30 tracking-widest uppercase">ID: 4492-DEFENSE-STATION</span>
-              </div>
-              <h1 className="font-brutalist text-massive mb-5 sm:mb-6 uppercase">
-                <span className="hero-line hero-line-1">FACTS</span><br/>
-                <span className="hero-line hero-line-2">OVER</span><br/>
-                <span className="hero-line hero-line-3 text-safety-orange" style={{WebkitTextStrokeColor: '#FF4500'}}>BIAS.</span>
+              <h1 className="font-brutalist text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl mb-5 sm:mb-6 uppercase leading-[0.9] tracking-tight">
+                <span className="hero-line hero-line-1">CONVERSION</span><br/>
+                <span className="hero-line hero-line-2">AUDITS</span><br/>
+                <span className="hero-line hero-line-3 text-safety-orange">WITH CITATIONS.</span>
               </h1>
               <p className="boot-subhead text-lg sm:text-xl font-semibold text-cream/90 leading-tight mb-7 max-w-xl border-l-2 border-safety-orange pl-4">
                 Verify <span className="text-safety-orange">us</span>, not the other way around.
               </p>
               <div className="max-w-xl relative z-20">
-                <p className="boot-subhead text-2xl font-normal text-cream/90 leading-tight mb-8">
-                  One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
-                </p>
                 <p className="boot-body text-base sm:text-sm font-medium text-cream/80 leading-relaxed mb-8">
                   800+ classified findings across 80+ reference files from Baymard Institute, Nielsen Norman Group, peer-reviewed journals, and FTC enforcement actions. Every recommendation cites its source — confidence rated by evidence tier.
                 </p>
-                <div className="boot-panel flex gap-4">
-                  <div className="flex-[1.5] monitor-panel p-4 border-l-4 border-l-brass">
-                    <div className="text-[9px] text-brass font-black mb-1">STANDING_ORDER</div>
-                    <div className="text-sm font-semibold">Not vibes. Not best practices. Actual studies, actual evidence tiers, actual legal compliance.</div>
-                  </div>
-                </div>
               </div>
             </div>
           
             <div className="md:w-[52%] relative flex flex-col mt-8 md:mt-0 z-10 w-full px-4 sm:px-8 md:px-0 overflow-visible">
-            {/* Tagline above the specimen image — pairs the promise with the
-                visual evidence on the right side of the hero. */}
-            <p className="boot-subhead hidden md:block text-right text-base lg:text-lg xl:text-xl font-light text-cream/70 leading-tight mb-4 pr-1">
-              One audit. Every insight. <span className="font-bold text-cream">Research-backed.</span>
-            </p>
             <div className="relative flex items-center justify-center w-full">
             <div className="relative skew-hero group cursor-pointer w-full max-w-[52rem] overflow-visible">
 
@@ -755,15 +736,31 @@ export default function App() {
           </div>
           </div>
           
-          <div className="absolute bottom-0 left-0 w-full border-t border-monitor-border bg-command-gray/90 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 flex flex-col md:flex-row md:flex-wrap md:justify-between md:items-center gap-3 md:gap-4">
-            <div className="text-[9px] font-black text-brass uppercase tracking-meta whitespace-nowrap">Frameworks of Authority:</div>
-            <div className="flex flex-wrap gap-3 sm:gap-6 lg:gap-8 opacity-50 hover:opacity-100 transition-opacity">
-              <span className="font-brutalist text-[10px] sm:text-xs">BAYMARD</span>
-              <span className="font-brutalist text-[10px] sm:text-xs">NIELSEN NORMAN</span>
-              <span className="font-brutalist text-[10px] sm:text-xs">CXL</span>
-              <span className="font-brutalist text-[10px] sm:text-xs">FTC_FEDERAL</span>
-              <span className="font-brutalist text-[10px] sm:text-xs">GDPR_REG</span>
-              <span className="font-brutalist text-[10px] sm:text-xs">WCAG_2.1</span>
+          <div className="absolute bottom-0 left-0 w-full border-t border-monitor-border bg-command-gray/90 backdrop-blur-sm py-3 sm:py-4 overflow-hidden">
+            <div className="flex items-center gap-6">
+              <div className="text-[9px] font-black text-brass uppercase tracking-meta whitespace-nowrap pl-6 sm:pl-8 shrink-0">Frameworks of Authority</div>
+              <div className="flex-1 overflow-hidden authority-marquee-mask">
+                <div className="authority-marquee-track flex gap-8 sm:gap-12 whitespace-nowrap items-center text-cream/55">
+                  {[0, 1].map((copy) => (
+                    <div key={copy} className="flex gap-8 sm:gap-12 items-center shrink-0" aria-hidden={copy === 1}>
+                      <span className="font-brutalist text-[10px] sm:text-xs tracking-wider">BAYMARD INSTITUTE</span>
+                      <span className="text-cream/20 font-mono text-xs">·</span>
+                      <span className="font-brutalist text-[10px] sm:text-xs tracking-wider">NIELSEN NORMAN GROUP</span>
+                      <span className="text-cream/20 font-mono text-xs">·</span>
+                      <span className="font-brutalist text-[10px] sm:text-xs tracking-wider">PEER-REVIEWED JOURNALS</span>
+                      <span className="text-cream/20 font-mono text-xs">·</span>
+                      <span className="font-brutalist text-[10px] sm:text-xs tracking-wider">FTC FEDERAL</span>
+                      <span className="text-cream/20 font-mono text-xs">·</span>
+                      <span className="font-brutalist text-[10px] sm:text-xs tracking-wider">CXL</span>
+                      <span className="text-cream/20 font-mono text-xs">·</span>
+                      <span className="font-brutalist text-[10px] sm:text-xs tracking-wider">GDPR · CPRA · DSA</span>
+                      <span className="text-cream/20 font-mono text-xs">·</span>
+                      <span className="font-brutalist text-[10px] sm:text-xs tracking-wider">WCAG 2.1 · EAA · ADA</span>
+                      <span className="text-cream/20 font-mono text-xs">·</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -931,54 +928,54 @@ export default function App() {
             <p data-reveal="up" className="text-sm sm:text-base text-cream/80 leading-relaxed max-w-3xl mb-8 sm:mb-10">
               Every finding is anchored to the same sources regulators, law firms, and top operators already cite. <span className="text-cream/80 font-semibold">Verify us, not the other way around.</span>
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-              <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+              <div data-reveal="up" style={{ transitionDelay: '0ms' }} className="monitor-panel p-4 sm:p-5 border-t-2 border-t-brass">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="font-brutalist text-2xl uppercase">Baymard Institute</div>
+                  <div className="font-brutalist text-base sm:text-lg uppercase tracking-tight leading-tight">Baymard Institute</div>
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
-                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · 107,000+ Hours</div>
-                <p className="text-xs text-cream/80 leading-relaxed font-mono">The canonical e-commerce UX benchmark set. Every serious audit cites them.</p>
+                <div className="text-[9px] text-cream/35 font-mono uppercase tracking-widest mb-2">UX Research · 107,000+ Hours</div>
+                <p className="text-[11px] text-cream/70 leading-snug font-mono">The canonical e-commerce UX benchmark set. Every serious audit cites them.</p>
               </div>
-              <div data-reveal="up" style={{ transitionDelay: '80ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
+              <div data-reveal="up" style={{ transitionDelay: '80ms' }} className="monitor-panel p-4 sm:p-5 border-t-2 border-t-brass">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="font-brutalist text-2xl uppercase">Nielsen Norman Group</div>
+                  <div className="font-brutalist text-base sm:text-lg uppercase tracking-tight leading-tight">Nielsen Norman Group</div>
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
-                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">UX Research · Since 1998</div>
-                <p className="text-xs text-cream/80 leading-relaxed font-mono">The lab that named the discipline. Foundational eye-tracking, cognitive-load, and IA work.</p>
+                <div className="text-[9px] text-cream/35 font-mono uppercase tracking-widest mb-2">UX Research · Since 1998</div>
+                <p className="text-[11px] text-cream/70 leading-snug font-mono">The lab that named the discipline. Foundational eye-tracking, cognitive-load, and IA work.</p>
               </div>
-              <div data-reveal="up" style={{ transitionDelay: '160ms' }} className="monitor-panel p-6 border-t-2 border-t-brass">
+              <div data-reveal="up" style={{ transitionDelay: '160ms' }} className="monitor-panel p-4 sm:p-5 border-t-2 border-t-brass">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="font-brutalist text-2xl uppercase">Peer-Reviewed Journals</div>
+                  <div className="font-brutalist text-base sm:text-lg uppercase tracking-tight leading-tight">Peer-Reviewed Journals</div>
                   <span className="text-[9px] font-mono text-brass">PRIMARY</span>
                 </div>
-                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">JMR · J. Retailing · JCP · JCR</div>
-                <p className="text-xs text-cream/80 leading-relaxed font-mono">Pricing, persuasion, and marketing meta-analyses from the journals that matter. DOI-traced.</p>
+                <div className="text-[9px] text-cream/35 font-mono uppercase tracking-widest mb-2">JMR · J. Retailing · JCP · JCR</div>
+                <p className="text-[11px] text-cream/70 leading-snug font-mono">Pricing, persuasion, and marketing meta-analyses from the journals that matter. DOI-traced.</p>
               </div>
-              <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
+              <div data-reveal="up" style={{ transitionDelay: '240ms' }} className="monitor-panel p-4 sm:p-5 border-t-2 border-t-safety-orange">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="font-brutalist text-2xl uppercase">FTC Enforcement</div>
+                  <div className="font-brutalist text-base sm:text-lg uppercase tracking-tight leading-tight">FTC Enforcement</div>
                   <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
                 </div>
-                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">16 CFR · §5 · Dark Pattern Actions</div>
-                <p className="text-xs text-cream/80 leading-relaxed font-mono">Every dark pattern the FTC has fined — flagged before you ship it.</p>
+                <div className="text-[9px] text-cream/35 font-mono uppercase tracking-widest mb-2">16 CFR · §5 · Dark Pattern Actions</div>
+                <p className="text-[11px] text-cream/70 leading-snug font-mono">Every dark pattern the FTC has fined — flagged before you ship it.</p>
               </div>
-              <div data-reveal="up" style={{ transitionDelay: '320ms' }} className="monitor-panel p-6 border-t-2 border-t-safety-orange">
+              <div data-reveal="up" style={{ transitionDelay: '320ms' }} className="monitor-panel p-4 sm:p-5 border-t-2 border-t-safety-orange">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="font-brutalist text-2xl uppercase">EU / CA Privacy Law</div>
+                  <div className="font-brutalist text-base sm:text-lg uppercase tracking-tight leading-tight">EU / CA Privacy Law</div>
                   <span className="text-[9px] font-mono text-safety-orange">REGULATORY</span>
                 </div>
-                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">GDPR · CPRA · DSA · CA SB-478</div>
-                <p className="text-xs text-cream/80 leading-relaxed font-mono">Live regulatory text + current case law. Not last year's blog posts.</p>
+                <div className="text-[9px] text-cream/35 font-mono uppercase tracking-widest mb-2">GDPR · CPRA · DSA · CA SB-478</div>
+                <p className="text-[11px] text-cream/70 leading-snug font-mono">Live regulatory text + current case law. Not last year's blog posts.</p>
               </div>
-              <div data-reveal="up" style={{ transitionDelay: '400ms' }} className="monitor-panel p-6 border-t-2 border-t-intel-green">
+              <div data-reveal="up" style={{ transitionDelay: '400ms' }} className="monitor-panel p-4 sm:p-5 border-t-2 border-t-intel-green">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="font-brutalist text-2xl uppercase">WCAG 2.1 · EAA · ADA</div>
+                  <div className="font-brutalist text-base sm:text-lg uppercase tracking-tight leading-tight">WCAG 2.1 · EAA · ADA</div>
                   <span className="text-[9px] font-mono text-intel-green">ACCESSIBILITY</span>
                 </div>
-                <div className="text-[10px] text-cream/40 font-mono uppercase tracking-widest mb-3">W3C · DOJ · EU Directive 2019/882</div>
-                <p className="text-xs text-cream/80 leading-relaxed font-mono">WCAG 2.1 AA baseline + EAA enforcement. Contrast, touch targets, alt text — flagged on sight.</p>
+                <div className="text-[9px] text-cream/35 font-mono uppercase tracking-widest mb-2">W3C · DOJ · EU Directive 2019/882</div>
+                <p className="text-[11px] text-cream/70 leading-snug font-mono">WCAG 2.1 AA baseline + EAA enforcement. Contrast, touch targets, alt text — flagged on sight.</p>
               </div>
             </div>
           </div>

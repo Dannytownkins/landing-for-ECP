@@ -226,6 +226,28 @@
   .boot-body    { animation: boot-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 1.00s; }
   .boot-panel   { animation: boot-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 1.15s; }
 
+  /* -------------------------------------------------------------
+     Authority marquee — slow horizontal scroll of source names.
+     Two identical copies of the list sit end-to-end; the track
+     translates -50% over the full duration so the second copy
+     lands exactly where the first started, looping seamlessly.
+     ------------------------------------------------------------- */
+  @keyframes authority-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .authority-marquee-track {
+    animation: authority-marquee 38s linear infinite;
+    will-change: transform;
+  }
+  .authority-marquee-track:hover {
+    animation-play-state: paused;
+  }
+  .authority-marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 6%, black 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, black 6%, black 94%, transparent 100%);
+  }
+
   /* Redaction stripes on hero screenshot — swipe in */
   @keyframes redaction-swipe {
     0%   { transform: scaleX(0); opacity: 0; }
