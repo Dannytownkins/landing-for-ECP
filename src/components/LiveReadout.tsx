@@ -53,7 +53,7 @@ export function LiveReadout() {
   return (
     <div
       className={[
-        'absolute -top-4 -right-4 sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8',
+        'hidden sm:block absolute sm:-top-6 sm:-right-6 lg:-top-8 lg:-right-8',
         'w-32 sm:w-40 lg:w-48 monitor-panel p-2 sm:p-3 lg:p-4',
         'text-[7px] sm:text-[8px] lg:text-[9px] font-mono leading-tight',
         'bg-matte-black border-safety-orange/40 shadow-lg',

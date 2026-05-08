@@ -12,6 +12,47 @@ type CalloutId = '01' | '02' | '03';
 
 type CalloutColor = 'orange' | 'phosphor' | 'brass';
 
+type StyleId = 'signal' | 'ledger' | 'atelier';
+
+const STYLE_ITERATIONS: ReadonlyArray<{
+  id: StyleId;
+  name: string;
+  code: string;
+  tone: string;
+  swatches: readonly string[];
+}> = [
+  {
+    id: 'signal',
+    name: 'Signal',
+    code: '5.5-A',
+    tone: 'Codex command surface',
+    swatches: ['#121716', '#ff5a24', '#7fd96b'],
+  },
+  {
+    id: 'ledger',
+    name: 'Ledger',
+    code: '5.5-B',
+    tone: 'Evidence brief',
+    swatches: ['#f2eadc', '#9a3412', '#265c4b'],
+  },
+  {
+    id: 'atelier',
+    name: 'Atelier',
+    code: '5.5-C',
+    tone: 'Operator editorial',
+    swatches: ['#201d1a', '#d99b47', '#8fbda1'],
+  },
+];
+
+function isStyleId(value: string | null): value is StyleId {
+  return STYLE_ITERATIONS.some((style) => style.id === value);
+}
+
+function getInitialStyle(): StyleId {
+  const requested = new URLSearchParams(window.location.search).get('style');
+  return isStyleId(requested) ? requested : 'signal';
+}
+
 const AUDIT_CALLOUTS: Record<CalloutId, {
   eyebrow: string;
   label: string;
@@ -88,6 +129,66 @@ const CALLOUT_COLOR_CLASSES: Record<CalloutColor, {
     shadowRgb: '115,214,96',
   },
 };
+
+function StyleIterationPicker({
+  activeStyle,
+  onChange,
+}: {
+  activeStyle: StyleId;
+  onChange: (style: StyleId) => void;
+}) {
+  const active = STYLE_ITERATIONS.find((style) => style.id === activeStyle) ?? STYLE_ITERATIONS[0];
+
+  return (
+    <div className="style-picker boot-panel mb-7 max-w-xl" aria-label="Landing page style iterations">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+        <div>
+          <div className="text-[9px] font-black uppercase tracking-file text-safety-orange">
+            Codex 5.5 Style Lab
+          </div>
+          <div className="style-picker-active text-[10px] font-mono uppercase tracking-meta text-cream/45">
+            Active: {active.code} / {active.tone}
+          </div>
+        </div>
+        <div className="hidden sm:flex items-center gap-1.5" aria-hidden="true">
+          {active.swatches.map((swatch) => (
+            <span
+              key={swatch}
+              className="h-3 w-3 border border-monitor-border"
+              style={{ backgroundColor: swatch }}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="style-picker-grid" role="radiogroup" aria-label="Choose visual direction">
+        {STYLE_ITERATIONS.map((style) => {
+          const selected = style.id === activeStyle;
+          return (
+            <button
+              key={style.id}
+              type="button"
+              aria-checked={selected}
+              role="radio"
+              onClick={() => onChange(style.id)}
+              className={`style-choice ${selected ? 'is-selected' : ''}`}
+            >
+              <span className="style-choice-top">
+                <span className="style-choice-code">{style.code}</span>
+                <span className="style-choice-swatches" aria-hidden="true">
+                  {style.swatches.map((swatch) => (
+                    <span key={swatch} style={{ backgroundColor: swatch }} />
+                  ))}
+                </span>
+              </span>
+              <span className="style-choice-name">{style.name}</span>
+              <span className="style-choice-tone">{style.tone}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 function CalloutCard({
   id,
@@ -563,7 +664,9 @@ function EthicsGateSection({
 
               {/* Rejected entries */}
               {GATE_LOG.slice(0, firstApproveIdx).map((row, i) => (
-                <GateRow key={row.pattern} {...row} delay={i * 80} />
+                <div key={row.pattern}>
+                  <GateRow {...row} delay={i * 80} />
+                </div>
               ))}
 
               {/* Divider */}
@@ -575,7 +678,9 @@ function EthicsGateSection({
 
               {/* Approved entries */}
               {GATE_LOG.slice(firstApproveIdx).map((row, i) => (
-                <GateRow key={row.pattern} {...row} delay={(firstApproveIdx + i) * 80} />
+                <div key={row.pattern}>
+                  <GateRow {...row} delay={(firstApproveIdx + i) * 80} />
+                </div>
               ))}
 
               {/* Signature block — counts have moved to the filing header,
@@ -602,8 +707,16 @@ function EthicsGateSection({
 export default function App() {
   useReveal();
   const [activeCallout, setActiveCallout] = useState<CalloutId | null>(null);
+  const [activeStyle, setActiveStyle] = useState<StyleId>(getInitialStyle);
+  const handleStyleChange = (style: StyleId) => {
+    setActiveStyle(style);
+    const url = new URL(window.location.href);
+    url.searchParams.set('style', style);
+    window.history.replaceState(null, '', url);
+  };
+
   return (
-    <div className="text-cream font-sans bg-matte-black min-h-screen">
+    <div className={`style-iteration-root style-${activeStyle} text-cream font-sans bg-matte-black min-h-screen`}>
       <div className="grain"></div>
       <nav className="fixed top-0 left-0 w-full z-50 border-b border-monitor-border bg-matte-black/95">
         <div className="flex items-center px-5 sm:px-8 h-14 gap-8 sm:gap-12">
@@ -618,7 +731,7 @@ export default function App() {
           </div>
           {/* Mobile gets a taller hit area (min-h-11 = 44px) with the same
               visual weight; desktop keeps the tight bureau-chip styling. */}
-          <a href="#pricing" className="cta-armed ml-auto inline-flex items-center border border-safety-orange/40 md:border-safety-orange/30 px-3.5 sm:px-3 min-h-[44px] md:min-h-0 md:py-1.5 text-[10px] sm:text-[9px] font-black text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-meta">
+          <a href="#pricing" className="cta-armed ml-auto hidden sm:inline-flex items-center border border-safety-orange/40 md:border-safety-orange/30 px-3.5 sm:px-3 min-h-[44px] md:min-h-0 md:py-1.5 text-[10px] sm:text-[9px] font-black text-safety-orange hover:bg-safety-orange hover:text-white transition-all cursor-pointer tracking-meta">
             COMMISSION_AUDIT
           </a>
         </div>
@@ -632,6 +745,7 @@ export default function App() {
         <section className="relative min-h-[92vh] pt-20 sm:pt-28 pb-16 sm:pb-20 px-6 sm:px-8 flex items-center justify-center">
           <div className="w-full max-w-[110rem] mx-auto flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-16 items-center justify-between xl:px-8">
             <div className="md:w-[48%] flex flex-col justify-center z-20 relative w-full">
+              <StyleIterationPicker activeStyle={activeStyle} onChange={handleStyleChange} />
               <h1 className="font-brutalist text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl mb-5 sm:mb-6 uppercase leading-[0.9] tracking-tight">
                 <span className="hero-line hero-line-1">CONVERSION</span><br/>
                 <span className="hero-line hero-line-2">AUDITS</span><br/>
@@ -668,13 +782,11 @@ export default function App() {
               </div>
 
               {/* Callouts — OUTSIDE the panel, examiner's notes in the margin.
-                  Only shown from lg (1024px) up, because the negative offsets
-                  (-left-[22%], etc.) rely on the hero being in the side-by-side
-                  column layout. Below lg, the hero stacks full-width and those
-                  offsets would push the callouts off-screen. Mobile/tablet get
-                  the stacked callouts rendered below the hero image instead. */}
+                  Only shown from lg (1024px) up. Offsets stay close to the
+                  specimen so the notes do not cover the headline or clip out
+                  of the viewport. Mobile/tablet get the stacked fallback. */}
               {/* Top-left — HEADLINES & BUTTONS */}
-              <div className="hidden lg:flex absolute top-[6%] -left-[22%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500 callout-animate-left" style={{ animationDelay: '0.35s' }}>
+              <div className="hidden lg:flex absolute top-[6%] left-[2%] z-20 items-start gap-2 opacity-95 group-hover:-translate-y-1 transition-transform duration-500 callout-animate-left" style={{ animationDelay: '0.35s' }}>
                 <div className="border-l-4 border-safety-orange bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,69,0,0.25)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-safety-orange font-bold uppercase tracking-widest leading-none mb-0.5">HEADLINES &amp; BUTTONS</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Hero lacks visible promise</span>
@@ -686,7 +798,7 @@ export default function App() {
               </div>
 
               {/* Mid-right — PRICE & OFFERS */}
-              <div className="hidden lg:flex absolute top-[38%] -right-[22%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 callout-animate-right" style={{ animationDelay: '0.65s' }}>
+              <div className="hidden lg:flex absolute top-[38%] right-[-8%] z-20 flex-row-reverse items-start gap-2 opacity-95 group-hover:translate-x-1 transition-transform duration-500 callout-animate-right" style={{ animationDelay: '0.65s' }}>
                 <div className="border-l-4 border-brass bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(212,175,55,0.25)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-brass font-bold uppercase tracking-widest leading-none mb-0.5">PRICE &amp; OFFERS</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Delivery context missing</span>
@@ -698,7 +810,7 @@ export default function App() {
               </div>
 
               {/* Bottom-left — CHECKOUT EXPERIENCE */}
-              <div className="hidden lg:flex absolute bottom-[8%] -left-[20%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 callout-animate-bottom" style={{ animationDelay: '0.95s' }}>
+              <div className="hidden lg:flex absolute bottom-[10%] left-[1%] z-20 items-start gap-2 opacity-95 group-hover:translate-y-1 transition-transform duration-500 callout-animate-bottom" style={{ animationDelay: '0.95s' }}>
                 <div className="border-l-4 border-cream/60 bg-matte-black/95 border border-monitor-border p-2 shadow-[3px_3px_0px_rgba(255,255,255,0.15)] whitespace-nowrap">
                   <span className="block text-[8px] opacity-80 text-cream/60 font-bold uppercase tracking-widest leading-none mb-0.5">CHECKOUT EXPERIENCE</span>
                   <span className="text-[10px] font-black uppercase text-cream tracking-tighter leading-tight block">Fitment flow consumes decisions</span>
